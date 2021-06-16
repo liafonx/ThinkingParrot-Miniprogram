@@ -1,0 +1,72 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": -1,
+          "name": "db guide",
+          "pathName": "pages/databaseGuide/databaseGuide",
+          "query": ""
+        },
+        {
+          "name": "pages/test/test",
+          "pathName": "pages/test/test",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/test/index",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/wrong/wrong",
+          "pathName": "pages/wrong/wrong",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "learning",
+          "pathName": "pages/learning/learning",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "choice",
+          "pathName": "pages/choice/choice",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "speak",
+          "pathName": "pages/speak/speak",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "demo",
+          "pathName": "pages/iddemo/iddemo",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/ranking/ranking",
+          "pathName": "pages/ranking/ranking",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}
