@@ -1,25 +1,18 @@
-// pages/learning.js
+// pages/wronglearning.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-      wrongnumber: 0
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var wrongnumber = 0;
-    if(wx.getStorageSync('wronglist')){
-      wrongnumber = JSON.parse(wx.getStorageSync('wronglist')).length;
-    }
-    
-    this.setData({
-      wrongnumber: wrongnumber,
-    })
+
   },
 
   /**
@@ -33,14 +26,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var wrongnumber = 0;
-    if(wx.getStorageSync('wronglist')){
-      wrongnumber = JSON.parse(wx.getStorageSync('wronglist')).length;
-    }
-    
-    this.setData({
-      wrongnumber: wrongnumber,
-    })
+
   },
 
   /**
@@ -76,16 +62,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  toTestPage: function (e) {
-    let testId = e.currentTarget.dataset['testid'];
-    wx.navigateTo({
-      url: '../wronglearning/wronglearning?testId=' + testId
-    })
-  },
-  jumpPage: function (e) {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
   }
 })

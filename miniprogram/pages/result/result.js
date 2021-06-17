@@ -1,5 +1,6 @@
 // pages/results/results.js
 var app = getApp();
+var redirect = null;
 Page({
   data: {
     totalScore: null, // 分数
@@ -16,8 +17,17 @@ Page({
     let wrongList = JSON.parse(options.wrongList);
     let wrongListSort = JSON.parse(options.wrongListSort);
     let chooseValue = JSON.parse(options.chooseValue);
+    let totalScore = options.totalScore;
+    if(options.redirect){
+      redirect = options.redirect;
+    }
+    if(totalScore != null||totalScore != "" ) {
+      totalScore = Number(options.totalScore) ;
+    }else {
+      totalScore = "无";
+    }
     this.setData({
-      totalScore: options.totalScore != ""?options.totalScore:"无",
+      totalScore: totalScore,
       wrongList: wrongList,
       wrongListSort: wrongListSort,
       chooseValue: chooseValue,
@@ -35,8 +45,12 @@ Page({
   },
   // 返回首页
   toIndex: function(){
+    var url = '../learning/learning'
+    if(redirect){
+      var url = '../wrong/wrong'
+    }
     wx.switchTab({
-      url: '../learning/learning'
+      url: url
     })
   }
 })

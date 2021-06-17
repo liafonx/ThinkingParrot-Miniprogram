@@ -1,12 +1,12 @@
 var json = {
   "unit1": [
     {
-      "question": "One plus one?",
+      "question": "What is the meaning of 'Lunch is on me'?",
       "option": {
-        "A": "two",
-        "B": "three",
-        "C": "four",
-        "D": "nania"
+        "A": "I'll pay for lunch.",
+        "B": "I'll cook lunch",
+        "C": "I'll eat lunch",
+        "D": "I'll bring our lunch"
       },
       "true": "A",
       "type": 1,
@@ -14,144 +14,144 @@ var json = {
       "checked": false
     },
     {
-      "question": "What do U mean?",
+      "question": "What is the meaning of 'I bow to the inevitable'?",
       "option": {
-        "A": "YOU",
-        "B": "letter",
-        "C": "nani",
-        "D": "wtf",
+        "A": "I will not surround to things I can avoid.",
+        "B": "I surround to things I can't avoid.",
+        "C": "I surround to things I can avoid.",
+        "D": "I will not surround to things I can't avoid.",
+      },
+      "true": "B",
+      "type": 1,
+      "scores": 10,
+      "checked": false
+    },
+    {
+      "question": "What is the meaning of 'I bow to the inevitable'?",
+      "option": {
+        "A": "I will not surround to things I can avoid.",
+        "B": "I surround to things I can't avoid.",
+        "C": "I surround to things I can avoid.",
+        "D": "I will not surround to things I can't avoid.",
+      },
+      "true": "B",
+      "type": 1,
+      "scores": 10,
+      "checked": false
+    },
+    {
+      "question": "What is the meaning of 'I bow to the inevitable'?",
+      "option": {
+        "A": "I will not surround to things I can avoid.",
+        "B": "I surround to things I can't avoid.",
+        "C": "I surround to things I can avoid.",
+        "D": "I will not surround to things I can't avoid.",
+      },
+      "true": "B",
+      "type": 1,
+      "scores": 10,
+      "checked": false
+    },
+    {
+      "question": "What is the meaning of 'Lunch is on me'?",
+      "option": {
+        "A": "I'll pay for lunch.",
+        "B": "I'll cook lunch",
+        "C": "I'll eat lunch",
+        "D": "I'll bring our lunch"
       },
       "true": "A",
       "type": 1,
-      "scores": 10,
+      "scores": 10, 
       "checked": false
     },
     {
-      "question": "What's wrong about you？",
+      "question": "What is the meaning of 'Lunch is on me'?",
       "option": {
-        "A": "Fall in love with me",
-        "B": "????",
-        "C": "DDL UNFINISHED",
-        "D": "SAY HI!",
+        "A": "I'll pay for lunch.",
+        "B": "I'll cook lunch",
+        "C": "I'll eat lunch",
+        "D": "I'll bring our lunch"
       },
       "true": "A",
       "type": 1,
-      "scores": 10,
+      "scores": 10, 
       "checked": false
     },
     {
-      "question": "If you blame somebody you will",
+      "question": "What is the meaning of 'Lunch is on me'?",
       "option": {
-        "A": "SAY SOMETHING MAKE SENSE",
-        "B": "make money",
-        "C": "SAY HI",
-        "D": "give me money"
-      },
-      "true": "A",
-      "type":1,
-      "scores": 10,
-      "checked": false
-    },
-    {
-      "question": "If you are sick",
-      "option": {
-        "A": "TAKE MEDICINE",
-        "B": "then u know how i feel",
-        "C": "will die",
-        "D": "will go to heaven",
+        "A": "I'll pay for lunch.",
+        "B": "I'll cook lunch",
+        "C": "I'll eat lunch",
+        "D": "I'll bring our lunch"
       },
       "true": "A",
       "type": 1,
-      "scores": 10,
+      "scores": 10, 
       "checked": false
     },
     {
-      "question": "HI？",
+      "question": "What is the meaning of 'Lunch is on me'?",
       "option": {
-        "A": "HI",
-        "B": "NANI",
-        "C": "NAIVE",
-        "D": "NULL",
+        "A": "I'll pay for lunch.",
+        "B": "I'll cook lunch",
+        "C": "I'll eat lunch",
+        "D": "I'll bring our lunch"
       },
       "true": "A",
       "type": 1,
-      "scores": 10,
+      "scores": 10, 
       "checked": false
     },
     {
-      "question": "HI？",
+      "question": "What is the meaning of 'Lunch is on me'?",
       "option": {
-        "A": "HI",
-        "B": "NANI",
-        "C": "NAIVE",
-        "D": "NULL",
+        "A": "I'll pay for lunch.",
+        "B": "I'll cook lunch",
+        "C": "I'll eat lunch",
+        "D": "I'll bring our lunch"
       },
       "true": "A",
       "type": 1,
-      "scores": 10,
+      "scores": 10, 
       "checked": false
     },
     {
-      "question": "HI？",
+      "question": "What is the meaning of 'Lunch is on me'?",
       "option": {
-        "A": "HI",
-        "B": "NANI",
-        "C": "NAIVE",
-        "D": "NULL",
+        "A": "I'll pay for lunch.",
+        "B": "I'll cook lunch",
+        "C": "I'll eat lunch",
+        "D": "I'll bring our lunch"
       },
       "true": "A",
       "type": 1,
-      "scores": 10,
+      "scores": 10, 
       "checked": false
     },
     {
-      "question": "How many question u answer？",
+      "question": "What is the meaning of 'I bow to the inevitable'?",
       "option": {
-        "A": "ONE",
-        "B": "TWO",
-        "C": "?",
-        "D": "NULL",
+        "A": "I will not surround to things I can avoid.",
+        "B": "I surround to things I can't avoid.",
+        "C": "I surround to things I can avoid.",
+        "D": "I will not surround to things I can't avoid.",
       },
-      "true": "A",
+      "true": "B",
       "type": 1,
       "scores": 10,
       "checked": false
     },
     {
-      "question": "If ur father u will",
+      "question": "What is the meaning of 'I bow to the inevitable'?",
       "option": {
-        "A": "SAY 'HI SON!'",
-        "B": "SAY NOTHING",
-        "C": "SAY JOJO",
-        "D": "SAY HAHA",
+        "A": "I will not surround to things I can avoid.",
+        "B": "I surround to things I can't avoid.",
+        "C": "I surround to things I can avoid.",
+        "D": "I will not surround to things I can't avoid.",
       },
-      "true": "A", 
-      "type": 1,
-      "scores": 10,
-      "checked": false
-    },
-    {
-      "question": "CHOICE A",
-      "option": {
-        "A": "B",
-        "B": "A",
-        "C": "A",
-        "D": "A"
-      },
-      "true": "A", 
-      "type": 1,
-      "scores": 10,
-      "checked": false
-    },
-    {
-      "question": "CHOOSE C？",
-      "option": {
-        "A": "C",
-        "B": "C++",
-        "C": "A",
-        "D": "NULL",
-      },
-      "true": "A", 
+      "true": "B",
       "type": 1,
       "scores": 10,
       "checked": false

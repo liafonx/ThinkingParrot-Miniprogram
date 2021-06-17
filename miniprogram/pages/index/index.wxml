@@ -83,7 +83,7 @@
       </view>
       <view class="task-box-right">
         <view class="finish-state" wx:if="{{wrongfinished == false}}">
-          <text class="task-number">5</text>
+          <text class="task-number">{{numWrongDone}}</text>
           <text class="task-number">/</text>
           <text class="task-number">{{wrongNum}}</text>
         </view>

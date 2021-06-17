@@ -3,7 +3,7 @@ Page({
   data: {
     index: 0,  // 题目序列
     chooseValue: [], // 选择的答案序列
-    totalScore: 100, // 总分
+    totalScore: 0, // 总分
     wrong: 0, // 错误的题目数量
     wrongList: [], // 错误的题目集合-乱序
     wrongListSort: [], // 错误的题目集合-正序
@@ -18,17 +18,37 @@ Page({
     // })
     wx.setNavigationBarTitle({ title: options.testId }) // 动态设置导航条标题
     
+    let questionList = app.globalData.questionList[options.testId];
+    console.log(questionList);
+    let array = [];
+    let wronglist = JSON.parse(wx.getStorageSync('wronglist'));
+    wronglist.sort;
+    console.log(wronglist);
+    for (let index = 0; index < wronglist.length; index++) {
+     console.log(wronglist[index]); 
+      
+    }
+    for (let index = 0; index < questionList.length; index++) {
+     for (let f = 0; f < wronglist.length; f++) {
+       if (wronglist[f] == index){
+        console.log(wronglist[f]);
+         console.log(index);
+         array.push(questionList[index]);
+         break;
+       }
+     }
+    }
+    console.log(array);
     this.setData({
-      questionList: app.globalData.questionList[options.testId],  // 拿到答题数据
+      questionList: array,  // 拿到答题数据
       testId: options.testId // 课程ID
     })
-    console.log(this.data.questionList);
+    let count = this.generateArray(0, array.length-1); // 生成题序
     
-    let count = this.generateArray(0, this.data.questionList.length-1); // 生成题序
-    let num = options.testId == '102' || options.testId == '301-302'?20:10;  // 102/301-302 试题有20道题
     this.setData({
-      shuffleIndex: this.shuffle(count).slice(0, num) // 生成随机题序 [2,0,3] 并截取num道题
+      shuffleIndex: this.shuffle(count)// 生成随机题序 [2,0,3] 并截取num道题
     })
+    console.log(this.data.shuffleIndex);
   },
   /*
   * 数组乱序/洗牌
@@ -100,9 +120,6 @@ Page({
       return;
     }
 
-    app.globalData.questionDone++;
-    console.log(app.globalData.questionDone);
-
     // 判断答案是否正确
     this.ifRight();
 
@@ -123,7 +140,7 @@ Page({
       let wrongListSort = JSON.stringify(this.data.wrongListSort);
       let chooseValue = JSON.stringify(this.data.chooseValue);
       wx.navigateTo({
-        url: '../result/result?totalScore=' + this.data.totalScore + '&wrongList=' + wrongList + '&chooseValue=' + chooseValue + '&wrongListSort=' + wrongListSort + '&testId=' + this.data.testId
+        url: '../result/result?totalScore=' + this.data.totalScore + '&wrongList=' + wrongList + '&chooseValue=' + chooseValue + '&wrongListSort=' + wrongListSort + '&testId=' + this.data.testId+ '&redirect=' + 'wrong'
       })
 
       // 设置缓存
@@ -146,10 +163,12 @@ Page({
       this.data.wrong++;
       this.data.wrongListSort.push(this.data.index);
       this.data.wrongList.push(this.data.shuffleIndex[this.data.index]);
-    } else {
+    }else {
       this.setData({
-        totalScore: this.data.totalScore + this.data.questionList[this.data.shuffleIndex[this.data.index]]['scores']  // 扣分操作
+        totalScore: this.data.totalScore + this.data.questionList[this.data.shuffleIndex[this.data.index]]['scores'] - 2  // 扣分操作
       })
+      app.globalData.wrongDone++;
+      console.log(app.globalData.questionDone);
     }
     console.log(this.data.wrongListSort);
     console.log(this.data.totalScore);

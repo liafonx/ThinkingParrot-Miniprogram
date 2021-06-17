@@ -5,5 +5,6 @@ App({
   globalData: {
     questionList: jsonList.questionList,
     questionDone: 0,
+    wrongDone: 0,
   }
 })

@@ -98,13 +98,22 @@ Page({
   onShow: function () {
     console.log(app.globalData.questionDone);
     var numLearnDone = app.globalData.questionDone;
+    var numWrongDone = app.globalData.wrongDone;
     if (this.data.learnNum <= numLearnDone) {
       this.setData({
         taskfinished: true,
       })
     }
+    console.log(app.globalData.questionDone);
+    
+    if (this.data.wrongNum <= numWrongDone) {
+      this.setData({
+        wrongfinished: true,
+      })
+    }
     this.setData({
       numLearnDone: numLearnDone,
+      numWrongDone: numWrongDone,
     })
   },
 
@@ -158,15 +167,25 @@ Page({
       this.setData({
         taskfinished: false,
       })
+    }else{
+      this.setData({
+        taskfinished: true,
+      })
+    }
+    if (wrongNum > app.globalData.wrongDone) {
+      this.setData({
+        wrongfinished: false,
+      })
+    } else {
+      this.setData({
+        wrongfinished: true,
+      })
     }
     this.setData({
       learnNum: learnNum,
       wrongNum: wrongNum,
       hiddensetting: true,
     })
-    console.log(this.data.numLearnDone);
-    console.log(this.data.learnNum);
-    console.log(this.data.taskfinished);
   },
 
   Cancel: function () {
