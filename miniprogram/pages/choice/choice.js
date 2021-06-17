@@ -3,7 +3,7 @@ Page({
   data: {
     index: 0,  // 题目序列
     chooseValue: [], // 选择的答案序列
-    totalScore: 100, // 总分
+    totalScore: 0, // 总分
     wrong: 0, // 错误的题目数量
     wrongList: [], // 错误的题目集合-乱序
     wrongListSort: [], // 错误的题目集合-正序

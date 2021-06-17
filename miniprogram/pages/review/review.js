@@ -58,14 +58,14 @@ Component({
     // 再来一次
     again: function () {
       wx.reLaunch({
-        url: '../test/test?testId=' + this.data.testId
+        url: '../choice/choice?testId=' + this.data.testId
       })
     },
-    // 返回首页
-    toIndex: function () {
-      wx.reLaunch({
-        url: '../wrong/wrong'
-      })
-    }
+    // // 返回首页
+    // toIndex: function () {
+    //   wx.reLaunch({
+    //     url: '../wrong/wrong'
+    //   })
+    // }
   }
 })
