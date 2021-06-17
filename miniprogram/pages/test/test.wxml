@@ -1,0 +1,34 @@
+<!--pages/test/test.wxml-->
+<view class="page">
+  <!--标题-->
+  <!-- <view class='page__hd'>
+    <view class="page__title">
+      {{index+1}}、{{questionList[index].question}}
+      {{questionList[index].type==1?"【单选】":"【多选】"}}
+      （{{questionList[index].scores}}分）
+    </view>
+  </view> -->
+  <!--内容-->
+  <view class="page__bd">
+    <view style="margin-left:10px">
+  You said:
+  <view>
+    {{msg}}
+  </view>
+  <view>
+    {{check}}| {{questionList[index].type==1?"【单选】":"【多选】"}}
+  </view>
+</view>
+    <label>{{questionList[index].cases[2].sampleAnswer}}</label>
+    <button type='default' hover-class='' bindtouchstart='startrecorderHandel' bindtouchend="sendrecorderHandel"
+  style="width:100%;bottom:0;margin:100px auto">Start Speaking</button>
+  </view>
+  <!--按钮-->
+  <!-- <view class='page_ft'>
+    <view class='mybutton'>
+      <button bindtap='nextSubmit' wx:if="{{index == questionList.length-1}}">提交</button>
+      <button bindtap='nextSubmit' wx:else>下一题</button>
+      <text bindtap='outTest' class="toindex-btn">退出答题</text>
+    </view>
+  </view> -->
+</view>
