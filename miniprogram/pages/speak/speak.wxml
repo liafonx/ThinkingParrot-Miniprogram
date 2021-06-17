@@ -29,9 +29,9 @@
   </view>
 
 
-  <cover-view class="prompt" wx:if="{{recordState == true}}">
-    <!-- <cover-image src="cloud://google-api-8g8fj97u3c6fd264.676f-google-api-8g8fj97u3c6fd264-1305082075/kO3mJ7J8qr.png">
-  </cover-image> -->
+  <!-- <cover-view class="prompt" wx:if="{{recordState == true}}">
+    <cover-image src="cloud://google-api-8g8fj97u3c6fd264.676f-google-api-8g8fj97u3c6fd264-1305082075/kO3mJ7J8qr.png">
+  </cover-image>
     <cover-view>Recording...</cover-view>
-  </cover-view>
+  </cover-view> -->
 </view>

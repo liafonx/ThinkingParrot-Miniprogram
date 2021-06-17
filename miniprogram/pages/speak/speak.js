@@ -6,16 +6,17 @@ Page({
       qnum: 1,
       qcontent: "How to say \"人人为己\" ？",
       recordState: false,
-      result:true,
+      result:false,
       answer:"",
       done: false,
       collected: false,
+      result:'',
+      userID:''
   },
 
   onLoad: function (options) {
     this.initRecord()
   },
-
   Collect: function() {
     console.log(this.data.collected);
     if(this.data.collected) {
@@ -56,33 +57,42 @@ Page({
     })
     recorderManager.onStop((res) => {
       console.log('recorder stop', res)
-      //that.upload(res.tempFilePath)
-      that.setData({
-        answer: "Everybody's out for himself.",
-        done: true,
-        result: true,
-      })
+      that.upload(res.tempFilePath)
+      // that.setData({
+      //   result: "The answer is: Everybody's out for himself."
+      // })
     })
   },
 
   upload(filePath) {
     let that = this
     wx.uploadFile({
-      url: 'http://34.92.251.246:8091',
+      url: 'http://34.92.251.246:8091/recognize',
       filePath: filePath,
       name:"file",
       header: {
         "Content-Type": "multipart/form-data"
       },
       formData:{
-        qnum: that.qnum
+        qnum: 1,
+        userID: 111
       },
       success:function(res){
         console.log(res)
-        var ans = JSON.parse(res.data)
-        that.setData({
-          result: ans
-        })
+        var value = JSON.parse(res.data)
+        if(value["state"]=="success"){
+          that.setData({
+            result: value["result"],
+            done: true,
+            answer: "Everybody's out for himself."
+          })
+          console.log(value["result"]);
+        }
+        else{
+          that.setData({
+            done: false
+          })
+        }
       },
       fail: function(res){
         console.log(res);
@@ -92,9 +102,12 @@ Page({
 
   // start recording
   start() {
-      wx.showLoading({
-        title: 'Recording',
-      })
+    wx.showLoading({
+      title: 'Recording',
+    })
+    this.setData({
+      recordState: true
+    })
     const options = {
       duration: 10000,
       sampleRate: 44100,
@@ -110,6 +123,9 @@ Page({
   end() {
     wx.hideLoading({
       success: (res) => {},
+    }),
+    this.setData({
+      recordState: false
     })
     recorderManager.stop()
   },
