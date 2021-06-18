@@ -1,28 +1,45 @@
 <!--pages/ranking/ranking.wxml-->
 <view class="rank-list">
   <view class="users" wx:for="{{rankingList}}" wx:key="index">
-    <image src="{{item.userImg}}"></image>
+    <view class="pic-box">
+      <image class='profile' src="{{item.userImg}}" mode="aspectFill"></image>
+    </view>
+
     <view class="users-right">
       <view class="users-name">
         <view>{{item.userName}}</view>
-        <view>{{item.rank}}</view>
-        <view>{{index+1}}</view>
       </view>
       <view class="users-score">{{item.score}}</view>
+    </view>
+    <view class="rank-name-box">
+      <view>{{item.rank}}</view>
+    </view>
+    <view class="rank-num-box">
+      <view class="num-background">
+        <view class="rank-num">{{index+1}}</view>
+      </view>
     </view>
   </view>
 </view>
 
 <view class='myRanking'>
-  <view class='myInfo'>
-    <image src="{{selfRanking.userImg}}"></image>
-    <view class="my-right">
-      <view class="my-name">
+  <view class='users my-rank'>
+    <view class="pic-box">
+      <image class='profile' src="{{selfRanking.userImg}}"></image>
+    </view>
+    <view class="users-right">
+      <view class="users-name">
         <view>{{selfRanking.userName}}</view>
-        <view>{{selfRanking.rank}}</view>
-        <view>{{selfRanking.index}}</view>
       </view>
       <view class="users-score">{{selfRanking.score}}</view>
+    </view>
+    <view class="rank-name-box">
+      <view>{{selfRanking.rank}}</view>
+    </view>
+    <view class="rank-num-box">
+      <view class="num-background">
+        <view class="rank-num">{{selfRanking.index}}</view>
+      </view>
     </view>
   </view>
 </view>

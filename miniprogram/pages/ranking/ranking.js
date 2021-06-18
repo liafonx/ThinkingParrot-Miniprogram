@@ -47,7 +47,7 @@ Page({
         id: 7,
         userName: "Gggg",
         userImg: "image/g.jpg",
-        rank: "至尊星曜I",
+        rank: "至尊星曜IV",
         score: 28
       },
     ],
