@@ -11,7 +11,8 @@
     "pages/wronglist/wronglist",
     "pages/log/log",
     "pages/iddemo/iddemo",
-    "pages/wronglearning"
+    "pages/wronglearning",
+    "pages/timerdemo/timerdemo"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

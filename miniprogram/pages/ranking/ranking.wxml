@@ -4,7 +4,7 @@
     <view class="pic-box">
       <image class='profile' src="{{item.userImg}}" mode="aspectFill"></image>
     </view>
-
+    
     <view class="users-right">
       <view class="users-name">
         <view>{{item.userName}}</view>

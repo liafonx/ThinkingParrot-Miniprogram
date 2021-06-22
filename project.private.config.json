@@ -71,6 +71,18 @@
           "pathName": "pages/result/result",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/choice/choice",
+          "pathName": "pages/choice/choice",
+          "query": "testId=unit1",
+          "scene": null
+        },
+        {
+          "name": "pages/timerdemo/timerdemo",
+          "pathName": "pages/timerdemo/timerdemo",
+          "query": "testId=unit1",
+          "scene": null
         }
       ]
     }

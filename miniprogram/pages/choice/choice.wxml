@@ -1,7 +1,17 @@
 <!--pages/test/test.wxml-->
 <view class="page">
   <!--标题-->
-  <view class="question-num-box">{{index+1}}</view>
+  <view class="index-timer-box">
+    <view class='headpiece-process'>
+        <view class='headpiece-process-inner' style="width:{{widthLeft}}%"></view>
+    </view>
+    <!-- <text class='headpiece-num'>{{t}}</text> -->
+    <view class="question-num-box">{{index+1}}</view>
+    <view class='headpiece-process'>
+        <view class='headpiece-process-inner-front' style="width:{{widthRight}}%"></view>
+        <view class='headpiece-process-inner' style="width:{{widthRightBack}}%"></view>
+    </view>
+  </view>
   <view class="question">{{questionList[shuffleIndex[index]].question}}</view>
   <!-- <view class="answer-box">
   <view class="ans">{{answer}}</view>
