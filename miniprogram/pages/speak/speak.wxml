@@ -1,11 +1,19 @@
 <!--pages/speak/speak.wxml-->
 <view class="page">
-  <view class="num-box">
-    <view class="question-num-box">{{qnum}}</view>
+  <view class="index-timer-box">
+    <view class='headpiece-process-left'>
+      <view class='headpiece-process-inner' style="width:{{width}}%; background-color:{{color}}"></view>
+    </view>
+    <!-- <text class='headpiece-num'>{{t}}</text> -->
+    <view class="question-num-box" style="background-color:{{color}}">{{qnum}}</view>
+    <view class='headpiece-process-right'>
+      <view class='headpiece-process-inner' style="width:{{width}}%; background-color:{{color}}"></view>
+    </view>
   </view>
+  
   <view class="question">{{qcontent}}</view>
   <view class="answer-box">
-    <view class="ans">{{answer}}</view>
+    <view class="ans" wx:if="{{done == true}}">{{answer}}</view>
   </view>
   <view class="correctness-box default">
     <!-- <image class="icon" src="{{done == true?'images/correct.png':'images/undo.png'}}"></image> -->
@@ -15,7 +23,8 @@
   </view>
   <view class="btom-box">
     <view class="collect-box">
-      <image class="icon-coll" bindtap="Collect" src="{{collected == true?'images/collected.png':'images/uncollected.png'}}"></image>
+      <image class="icon-coll" bindtap="Collect"
+        src="{{collected == true?'images/collected.png':'images/uncollected.png'}}"></image>
     </view>
     <view class="btn-box">
       <view class="btn" wx:if="{{done == false}}" bindtouchstart="start" bindtouchend="end">

@@ -9,7 +9,11 @@ Page({
     wrongListSort: [], // 错误的题目集合-正序
     choosed: '',
     answer:'',
-    isChoosed: false,
+    collected: false, //是否收藏
+    isChoosed: false, //是否已答题
+    width: 100, //时间条长度
+    maxtime: 10, //答题时间
+    color: '#4DCF32', //时间条颜色
   },
   onLoad: function (options) {
     console.log(options);
@@ -46,9 +50,10 @@ Page({
     let count = this.generateArray(0, array.length-1); // 生成题序
     
     this.setData({
-      shuffleIndex: this.shuffle(count)// 生成随机题序 [2,0,3] 并截取num道题
+      shuffleIndex: this.shuffle(count)// 生成随机题序 并截取count道题
     })
     console.log(this.data.shuffleIndex);
+    this.countdown()
   },
   /*
   * 数组乱序/洗牌
@@ -134,7 +139,10 @@ Page({
         isChoosed: false,
         collected: false,
         totalScore: this.data.totalScore,
+        width: 100,
+        color: '#4DCF32',
       })
+      this.countdown();
     } else {
       let wrongList = JSON.stringify(this.data.wrongList);
       let wrongListSort = JSON.stringify(this.data.wrongListSort);
@@ -202,6 +210,86 @@ Page({
       })
     }
     
+  },
+
+  /**
+   * 时间条动画
+   */
+  getSystemInfo: function () {
+    return new Promise((a, b) => {
+      wx.getSystemInfo({
+        success: function (res) {
+          a(res)
+        },
+        fail: function (res) {
+          b(res)
+        }
+      })
+    })
+  },
+
+  countdown: function () {
+    const requestAnimationFrame = callback => {
+        return setTimeout(callback, 1000 / 60);
+      },
+      cancelAnimationFrame = id => {
+        clearTimeout(id);
+      };
+
+    this.getSystemInfo().then(v => {
+      let maxtime = this.data.maxtime,
+        width = this.data.width,
+        sTime = +new Date,
+        _ts = this,
+        temp,
+        animate;
+      (animate = () => {
+        temp = requestAnimationFrame(() => {
+          let time = maxtime * 1000,
+            currentTime = +new Date,
+            schedule = 1 - (currentTime - sTime) / time,
+            schedule_1 = schedule <= 0 ? 0 : schedule,
+            width = parseInt(schedule_1 * 100);
+          var color = this.data.color;
+          //根据时间改变进度条颜色
+          switch (width) {
+            case 60:
+              color = '#E8CE67';
+              break;
+            case 20:
+              color = '#ff881f';
+            default:
+              break;
+          }
+          // t = parseInt((this.data.maxtime) * schedule_1) + 1;
+          _ts.setData({
+            width: width,
+            color: color,
+            // t: t
+          });
+          if (this.data.isChoosed) { //如果已经选择：停止动画
+            cancelAnimationFrame(temp);
+            return;
+          }
+          if (schedule <= 0) { //时间到
+            cancelAnimationFrame(temp);
+            //直接显示正确答案并不允许作答
+            _ts.setData({
+              width: 0,
+              color: '#f73636',
+              isChoosed: true,
+              answer: this.data.questionList[this.data.shuffleIndex[this.data.index]]['true'],
+              // t: 0
+            });
+            //默认选择F
+            this.data.chooseValue[this.data.index] = 'F';
+            return;
+          } else {
+            animate();
+          };
+        })
+      })();
+    });
   },
 
   /**

@@ -23,7 +23,7 @@
     <!-- 答案解析 -->
     <view class="modal-answer">
       <text class="answer-text wrong-answer">
-        您的答案为 {{chooseValue[wrongList[index]]}}
+        您的答案为 {{chooseValue[wrongList[index]] == 'F'?'未作答':chooseValue[wrongList[index]]}}
       </text>
       <text class="answer-text true-answer">
         正确答案为 {{questionList[wrongList[index]]['true']}}

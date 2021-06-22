@@ -7,13 +7,13 @@ Page({
     wrong: 0, // 错误的题目数量
     wrongList: [], // 错误的题目集合-乱序
     wrongListSort: [], // 错误的题目集合-正序
-    choosed: '',
-    answer: '',
-    isChoosed: false,
-    widtLeft: 100,
-    widthRight:10,
-    widthRightBack: 90,
-    maxtime: 10,
+    choosed: '', //选择的答案
+    answer: '', //答案
+    collected: false, //是否收藏
+    isChoosed: false, //是否已答题
+    width: 100, //时间条长度
+    maxtime: 10, //答题时间
+    color: '#4DCF32', //时间条颜色
   },
   onLoad: function (options) {
     console.log(options);
@@ -35,12 +35,10 @@ Page({
     this.setData({
       shuffleIndex: this.shuffle(count).slice(0, num) // 生成随机题序 [2,0,3] 并截取num道题
     })
-    this.countdownLeft()
-    this.countdownRight()
+    this.countdown()
   },
-
   onShow: function () {
-    this.countdown;
+
   },
 
   /*
@@ -64,7 +62,6 @@ Page({
     this.setData({
       isChoosed: true,
       answer: this.data.questionList[this.data.shuffleIndex[this.data.index]]['true'],
-      isChoosed: true,
       choosed: e.currentTarget.dataset['optionkey']
     })
   },
@@ -101,7 +98,7 @@ Page({
   nextSubmit: function () {
     // 如果没有选择
     if (this.data.chooseValue[this.data.index] == undefined || this.data.chooseValue[this.data.index].length == 0) {
-      wx.showToast({
+      wx.showToast({ //弹窗提示
         title: '你还没有答题哦！',
         icon: 'none',
         duration: 2000,
@@ -112,7 +109,7 @@ Page({
 
       return;
     }
-
+    //已做题目+1
     app.globalData.questionDone++;
     console.log(app.globalData.questionDone);
 
@@ -130,7 +127,10 @@ Page({
         isChoosed: false,
         collected: false,
         totalScore: this.data.totalScore,
+        width: 100,
+        color: '#4DCF32',
       })
+      this.countdown();
     } else {
       let wrongList = JSON.stringify(this.data.wrongList);
       let wrongListSort = JSON.stringify(this.data.wrongListSort);
@@ -148,11 +148,11 @@ Page({
       }
       logs.unshift(logsList);
       wx.setStorageSync('logs', logs);
-      wx.setStorageSync('wronglist', wrongList);
+      wx.setStorageSync('wronglist', wrongList); //错题缓存
     }
   },
   /*
-   * 错题处理
+   * 判断对错
    */
   ifRight: function () {
     var trueValue = this.data.questionList[this.data.shuffleIndex[this.data.index]]['true'];
@@ -172,6 +172,7 @@ Page({
     console.log(this.data.totalScore);
   },
 
+  //收藏
   Collect: function () {
     console.log(this.data.collected);
     if (this.data.collected) {
@@ -201,7 +202,9 @@ Page({
     }
 
   },
-
+  /**
+   * 时间条动画
+   */
   getSystemInfo: function () {
     return new Promise((a, b) => {
       wx.getSystemInfo({
@@ -214,10 +217,8 @@ Page({
       })
     })
   },
-  /**
-   * 进度条动画
-   */
-  countdownLeft: function () {
+
+  countdown: function () {
     const requestAnimationFrame = callback => {
         return setTimeout(callback, 1000 / 60);
       },
@@ -227,7 +228,7 @@ Page({
 
     this.getSystemInfo().then(v => {
       let maxtime = this.data.maxtime,
-        width = this.data.widthRight,
+        width = this.data.width,
         sTime = +new Date,
         _ts = this,
         temp,
@@ -239,67 +240,45 @@ Page({
             schedule = 1 - (currentTime - sTime) / time,
             schedule_1 = schedule <= 0 ? 0 : schedule,
             width = parseInt(schedule_1 * 100);
-            // t = parseInt((this.data.maxtime) * schedule_1) + 1;
+          var color = this.data.color;
+          //根据时间改变进度条颜色
+          switch (width) {
+            case 60:
+              color = '#E8CE67';
+              break;
+            case 20:
+              color = '#ff881f';
+            default:
+              break;
+          }
+          // t = parseInt((this.data.maxtime) * schedule_1) + 1;
           _ts.setData({
-            widthRight: width,
+            width: width,
+            color: color,
             // t: t
           });
-          if (schedule <= 0) {
+          if (this.data.isChoosed) { //如果已经选择：停止动画
             cancelAnimationFrame(temp);
+            return;
+          }
+          if (schedule <= 0) { //时间到
+            cancelAnimationFrame(temp);
+            //直接显示正确答案并不允许作答
             _ts.setData({
-              widthRight: width,
+              width: 0,
+              color: '#f73636',
+              isChoosed: true,
+              answer: this.data.questionList[this.data.shuffleIndex[this.data.index]]['true'],
               // t: 0
             });
+            //默认选择F
+            this.data.chooseValue[this.data.index] = 'F';
             return;
           } else {
             animate();
           };
         })
       })();
-
-    });
-  },
-
-  countdownRight: function () {
-    const requestAnimationFrame = callback => {
-        return setTimeout(callback, 1000 / 60);
-      },
-      cancelAnimationFrame = id => {
-        clearTimeout(id);
-      };
-
-    this.getSystemInfo().then(v => {
-      let maxtime = this.data.maxtime,
-        width = this.data.widthRight,
-        sTime = +new Date,
-        _ts = this,
-        temp,
-        animate;
-      (animate = () => {
-        temp = requestAnimationFrame(() => {
-          let time = maxtime * 1000,
-            currentTime = +new Date,
-            schedule = 1 - (currentTime - sTime) / time,
-            schedule_1 = schedule <= 0 ? 0 : schedule,
-            width = parseInt(schedule_1 * 100);
-            // t = parseInt((this.data.maxtime) * schedule_1) + 1;
-          _ts.setData({
-            widthRight: width,
-            // t: t
-          });
-          if (schedule <= 0) {
-            cancelAnimationFrame(temp);
-            _ts.setData({
-              widthRight: width,
-              // t: 0
-            });
-            return;
-          } else {
-            animate();
-          };
-        })
-      })();
-
     });
   },
 
