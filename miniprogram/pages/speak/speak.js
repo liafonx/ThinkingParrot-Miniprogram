@@ -84,7 +84,7 @@ Page({
       success: function (res) {
         console.log(res)
         var value = JSON.parse(res.data)
-        if (value["state"] == "fail") {
+        if (value["state"] == "success") {
           that.setData({
             result: value["result"],
             done: true,

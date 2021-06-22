@@ -1,8 +1,0 @@
-<!--miniprogram/pages/timerdemo/timerdemo.wxml-->
-<view class='headpiece-time flex-row'>
-    <text class='headpiece-txt'>倒计时：</text>
-    <view class='headpiece-process'>
-        <view class='headpiece-process-inner' style="width:{{width}}%"></view>
-    </view>
-    <text class='headpiece-num'>{{t}}</text>
-</view>
