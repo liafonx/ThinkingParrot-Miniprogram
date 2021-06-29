@@ -5,15 +5,15 @@
       <view class='headpiece-process-inner' style="width:{{width}}%; background-color:{{color}}"></view>
     </view>
     <!-- <text class='headpiece-num'>{{t}}</text> -->
-    <view class="question-num-box" style="background-color:{{color}}">{{qnum}}</view>
+    <view class="question-num-box" style="background-color:{{color}}">{{index+1}}</view>
     <view class='headpiece-process-right'>
       <view class='headpiece-process-inner' style="width:{{width}}%; background-color:{{color}}"></view>
     </view>
   </view>
   
-  <view class="question">{{qcontent}}</view>
+  <view class="question">How to say "{{questionList[shuffleIndex[index]].question}}"?</view>
   <view class="answer-box">
-    <view class="ans" wx:if="{{done == true}}">{{answer}}</view>
+    <view class="ans" wx:if="{{done == true}}">{{questionList[shuffleIndex[index]].key}}</view>
   </view>
   <view class="correctness-box default">
     <!-- <image class="icon" src="{{done == true?'images/correct.png':'images/undo.png'}}"></image> -->

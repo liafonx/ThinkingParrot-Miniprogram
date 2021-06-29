@@ -12,7 +12,8 @@
     "pages/log/log",
     "pages/ranking/ranking",
     "pages/choice/choice",
-    "pages/collection/collection"
+    "pages/collection/collection",
+    "pages/oraltest/oraltest"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -48,5 +49,11 @@
         "text": "错题本"
       }
     ]
+  },
+  "plugins": {
+    "WechatSI": {
+      "version": "0.3.4",
+      "provider": "wx069ba97219f66d99"
+    }
   }
 }

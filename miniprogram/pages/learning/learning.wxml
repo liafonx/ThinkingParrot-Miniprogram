@@ -5,7 +5,7 @@
     <view class="flex-item"><view class="item bc_green" bindtap="toTestPage" data-testId="001">Lecture 1</view></view>
     <view class="flex-item"><view class="item bc_red" bindtap="toTestPage" data-testId="002">Lecture 2</view></view>
   </view> -->
-  <view id="btn-box" bindtap="toTestPage" data-testId="unit1">
+  <view id="btn-box" bindtap="toTestPage" data-testId="unit{{currLevel}}">
     <view class="btn">
     <text class="btn-text">开始学习</text>
   </view>

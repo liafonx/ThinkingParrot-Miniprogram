@@ -1,4 +1,8 @@
 var app = getApp();
+
+//引入插件：微信同声传译
+const plugin = requirePlugin('WechatSI');
+
 var collectList = {
   "unit1": [ {
     unit: 'unit1',
@@ -13,18 +17,7 @@ var collectList = {
     answer: "In the black",
   }
   ],
-  "unit2": [ {
-    unit: 'unit2',
-    index: 5,
-    question: "人人为己",
-    answer: "Everyone is out for himself.",
-  },
-  {
-    unit: 'unit2',
-    index: 6,
-    question: "赚钱",
-    answer: "In the black",
-  },],
+  "unit2": [],
   "unit3":[ {
     unit: 'unit1',
     index: 5,
@@ -69,6 +62,7 @@ Page({
     maxtime: 10, //答题时间
     color: '#4DCF32', //时间条颜色
     collection:'',
+    src: '', //语音路径
   },
   onLoad: function (options) {
     console.log(options);
@@ -105,8 +99,51 @@ Page({
     console.log(collection);
   },
 
-  onShow: function () {
+  onReady: function () {
+    //创建内部 audio 上下文 InnerAudioContext 对象。
+    this.innerAudioContext = wx.createInnerAudioContext();
+    this.innerAudioContext.onError(function (res) {
+      console.log(res);
+      wx.showToast({
+        title: '语音播放失败',
+        icon: 'none',
+      })
+    })
+  },
 
+  onShow: function () {
+    this.startPlay();
+  },
+
+  startPlay: function (e) {
+    var that = this;
+    plugin.textToSpeech({
+      lang: "en_US",
+      tts: true,
+      content: this.data.questionList[this.data.shuffleIndex[this.data.index]].question ,
+      success: function (res) {
+        console.log(res);
+        console.log("succ tts", res.filename);
+        that.setData({
+          src: res.filename
+        })
+        // 播报语音
+        that.yuyinPlay();
+      },
+      fail: function (res) {
+        console.log("fail tts", res)
+      }
+    });
+  },
+
+  //播放语音
+  yuyinPlay: function (e) {
+    if (this.data.src == '') {
+      console.log("暂无语音");
+      return;
+    }
+    this.innerAudioContext.src = this.data.src //设置音频地址
+    this.innerAudioContext.play(); //播放音频
   },
 
   /*
@@ -197,8 +234,10 @@ Page({
         totalScore: this.data.totalScore,
         width: 100,
         color: '#4DCF32',
+        src: '', //语音路径
       })
       this.countdown();
+      this.startPlay();
     } else {
       let wrongList = JSON.stringify(this.data.wrongList);
       let wrongListSort = JSON.stringify(this.data.wrongListSort);

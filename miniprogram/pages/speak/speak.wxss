@@ -45,6 +45,7 @@ cover-image {
 }
 
 .question-num-box {
+  z-index: 1;
   color: white;
   font-size: 21px;
   display: flex;

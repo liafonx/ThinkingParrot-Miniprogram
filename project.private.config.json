@@ -51,7 +51,7 @@
         {
           "name": "speak",
           "pathName": "pages/speak/speak",
-          "query": "",
+          "query": "testId=unit2",
           "scene": null
         },
         {
@@ -87,6 +87,12 @@
         {
           "name": "collection",
           "pathName": "pages/collection/collection",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "oraltest",
+          "pathName": "pages/oraltest/oraltest",
           "query": "",
           "scene": null
         }

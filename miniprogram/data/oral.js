@@ -19,7 +19,7 @@ var json = {
       "checked": false
     },
     {
-      "question": "How to say \"人人为己\" ？",
+      "question": "人人为己",
       "key": "Everyone is out for himself.",
       "scores": 10, 
       "checked": false
@@ -31,8 +31,6 @@ var json = {
       "checked": false
     },
   ],
-
-  
 }
 
 module.exports = {

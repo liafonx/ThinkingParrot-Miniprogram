@@ -46,6 +46,7 @@
 .question {
   margin-bottom: -1rem;
   margin-left: 2rem;
+  margin-right: 2rem;
   font-size: 20px;
 }
 
