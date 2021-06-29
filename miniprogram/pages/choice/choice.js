@@ -1,4 +1,58 @@
 var app = getApp();
+var collectList = {
+  "unit1": [ {
+    unit: 'unit1',
+    index: 5,
+    question: "人人为己",
+    answer: "Everyone is out for himself.",
+  },
+  {
+    unit: 'unit1',
+    index: 6,
+    question: "赚钱",
+    answer: "In the black",
+  }
+  ],
+  "unit2": [ {
+    unit: 'unit2',
+    index: 5,
+    question: "人人为己",
+    answer: "Everyone is out for himself.",
+  },
+  {
+    unit: 'unit2',
+    index: 6,
+    question: "赚钱",
+    answer: "In the black",
+  },],
+  "unit3":[ {
+    unit: 'unit1',
+    index: 5,
+    question: "人人为己",
+    answer: "Everyone is out for himself.",
+  },
+  {
+    unit: 'unit1',
+    index: 6,
+    question: "赚钱",
+    answer: "In the black",
+  }],
+  "unit4":[],
+  "unit5":[],
+  "unit6":[ {
+    unit: 'unit1',
+    index: 5,
+    question: "人人为己",
+    answer: "Everyone is out for himself.",
+  },
+  {
+    unit: 'unit1',
+    index: 6,
+    question: "赚钱",
+    answer: "In the black",
+  }],
+  "unit7":[],
+}
 Page({
   data: {
     index: 0, // 题目序列
@@ -14,29 +68,43 @@ Page({
     width: 100, //时间条长度
     maxtime: 10, //答题时间
     color: '#4DCF32', //时间条颜色
+    collection:'',
   },
   onLoad: function (options) {
     console.log(options);
     // wx.reLaunch({
     //   url: '../learning/learning'
     // })
+    let testId = options.testId;
+    
     wx.setNavigationBarTitle({
-      title: options.testId
+      title: testId
     }) // 动态设置导航条标题
 
     this.setData({
-      questionList: app.globalData.questionList[options.testId], // 拿到答题数据
-      testId: options.testId // 课程ID
+      questionList: app.globalData.questionList[testId], // 拿到答题数据
+      testId: testId // 课程ID
     })
+
     console.log(this.data.questionList);
 
     let count = this.generateArray(0, this.data.questionList.length - 1); // 生成题序
-    let num = options.testId == '102' || options.testId == '301-302' ? 20 : 10; // 102/301-302 试题有20道题
+    let num = testId == '102' || testId == '301-302' ? 20 : 10; // 102/301-302 试题有20道题
     this.setData({
       shuffleIndex: this.shuffle(count).slice(0, num) // 生成随机题序 [2,0,3] 并截取num道题
     })
     this.countdown()
+    if(wx.getStorageSync('collection')){
+      var collection = JSON.parse(wx.getStorageSync('collection'));
+    }else{
+      var collection = collectList;
+    }
+    this.setData({
+      collection: collection,
+    })
+    console.log(collection);
   },
+
   onShow: function () {
 
   },
@@ -148,6 +216,8 @@ Page({
       }
       logs.unshift(logsList);
       wx.setStorageSync('logs', logs);
+      let collectionList = JSON.stringify(this.data.collection);
+      wx.setStorageSync('collection', collectionList);
       wx.setStorageSync('wronglist', wrongList); //错题缓存
     }
   },
@@ -184,6 +254,8 @@ Page({
           return;
         }
       })
+      this.data.collection[this.data.testId].pop();
+      console.log(this.data.collection[this.data.testId]);
       this.setData({
         collected: false,
       })
@@ -196,9 +268,18 @@ Page({
           return;
         }
       })
+      console.log(this.data.questionList[this.data.shuffleIndex[this.data.index]].option);
+      var trueOption = this.data.questionList[this.data.shuffleIndex[this.data.index]]['true'];
+      this.data.collection[this.data.testId].push({
+        unit: this.data.testId,
+        index: this.data.shuffleIndex[this.data.index],
+        question: this.data.questionList[this.data.shuffleIndex[this.data.index]].question,
+        answer: this.data.questionList[this.data.shuffleIndex[this.data.index]]['option'][trueOption],
+      }),
       this.setData({
         collected: true,
       })
+      console.log(this.data.collection[this.data.testId]);
     }
 
   },

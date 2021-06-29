@@ -130,7 +130,7 @@
   font-weight: 800;
   font-style: oblique;
   color: #838383;
-  border-radius: 0rem 0.5rem 0rem 5rem;
+  border-radius: 0rem 0.5rem 0rem 3rem;
   background-color: rgb(233, 233, 233);
 }
 
@@ -138,4 +138,11 @@
 .rank-num {
   padding-top: 8%;
   padding-right: 32%;
+}
+
+.question {
+  width: 85%;
+  height: 5rem;
+  background-color: white;
+  border-radius:0.5rem;
 }

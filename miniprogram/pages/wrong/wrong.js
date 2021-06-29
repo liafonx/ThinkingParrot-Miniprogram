@@ -81,11 +81,13 @@ Page({
     let testId = e.currentTarget.dataset['testid'];
     wx.navigateTo({
       url: '../wronglearning/wronglearning?testId=' + testId
+      
     })
   },
   jumpPage: function (e) {
     wx.navigateTo({
-      url: '../logs/logs'
+      // url: '../logs/logs'
+      url: '../collection/collection'
     })
   }
 })

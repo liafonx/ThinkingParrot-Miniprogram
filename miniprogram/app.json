@@ -10,9 +10,9 @@
     "pages/review/review",
     "pages/wronglist/wronglist",
     "pages/log/log",
-    "pages/iddemo/iddemo",
-    "pages/wronglearning",
-    "pages/choice/choice"
+    "pages/ranking/ranking",
+    "pages/choice/choice",
+    "pages/collection/collection"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

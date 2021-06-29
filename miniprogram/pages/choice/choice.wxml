@@ -11,7 +11,7 @@
       <view class='headpiece-process-inner' style="width:{{width}}%; background-color:{{color}}"></view>
     </view>
   </view>
-  <view class="question">{{questionList[shuffleIndex[index]].question}}</view>
+  <view class="question">What is the meaning of '{{questionList[shuffleIndex[index]].question}}'?</view>
   <!-- <view class="answer-box">
   <view class="ans">{{answer}}</view>
 </view> -->

@@ -1,7 +1,7 @@
 var json = {
   "unit1": [
     {
-      "question": "What is the meaning of 'Lunch is on me'?",
+      "question": "Lunch is on me",
       "option": {
         "A": "I'll pay for lunch.",
         "B": "I'll cook lunch",
@@ -14,7 +14,7 @@ var json = {
       "checked": false
     },
     {
-      "question": "What is the meaning of 'I bow to the inevitable'?",
+      "question": "I bow to the inevitable",
       "option": {
         "A": "I will not surround to things I can avoid.",
         "B": "I surround to things I can't avoid.",
@@ -27,7 +27,7 @@ var json = {
       "checked": false
     },
     {
-      "question": "What is the meaning of 'I bow to the inevitable'?",
+      "question": "I bow to the inevitable",
       "option": {
         "A": "I will not surround to things I can avoid.",
         "B": "I surround to things I can't avoid.",
@@ -40,7 +40,7 @@ var json = {
       "checked": false
     },
     {
-      "question": "What is the meaning of 'I bow to the inevitable'?",
+      "question": "I bow to the inevitable",
       "option": {
         "A": "I will not surround to things I can avoid.",
         "B": "I surround to things I can't avoid.",
@@ -53,7 +53,7 @@ var json = {
       "checked": false
     },
     {
-      "question": "What is the meaning of 'Lunch is on me'?",
+      "question": "Lunch is on me",
       "option": {
         "A": "I'll pay for lunch.",
         "B": "I'll cook lunch",
@@ -66,7 +66,7 @@ var json = {
       "checked": false
     },
     {
-      "question": "What is the meaning of 'Lunch is on me'?",
+      "question": "Lunch is on me",
       "option": {
         "A": "I'll pay for lunch.",
         "B": "I'll cook lunch",
@@ -79,7 +79,7 @@ var json = {
       "checked": false
     },
     {
-      "question": "What is the meaning of 'Lunch is on me'?",
+      "question": "Lunch is on me",
       "option": {
         "A": "I'll pay for lunch.",
         "B": "I'll cook lunch",
@@ -92,7 +92,7 @@ var json = {
       "checked": false
     },
     {
-      "question": "What is the meaning of 'Lunch is on me'?",
+      "question": "Lunch is on me",
       "option": {
         "A": "I'll pay for lunch.",
         "B": "I'll cook lunch",
@@ -105,7 +105,7 @@ var json = {
       "checked": false
     },
     {
-      "question": "What is the meaning of 'Lunch is on me'?",
+      "question": "Lunch is on me",
       "option": {
         "A": "I'll pay for lunch.",
         "B": "I'll cook lunch",
@@ -118,7 +118,7 @@ var json = {
       "checked": false
     },
     {
-      "question": "What is the meaning of 'Lunch is on me'?",
+      "question": "Lunch is on me",
       "option": {
         "A": "I'll pay for lunch.",
         "B": "I'll cook lunch",
@@ -131,7 +131,7 @@ var json = {
       "checked": false
     },
     {
-      "question": "What is the meaning of 'I bow to the inevitable'?",
+      "question": "I bow to the inevitable",
       "option": {
         "A": "I will not surround to things I can avoid.",
         "B": "I surround to things I can't avoid.",
@@ -144,7 +144,7 @@ var json = {
       "checked": false
     },
     {
-      "question": "What is the meaning of 'I bow to the inevitable'?",
+      "question": "I bow to the inevitable",
       "option": {
         "A": "I will not surround to things I can avoid.",
         "B": "I surround to things I can't avoid.",

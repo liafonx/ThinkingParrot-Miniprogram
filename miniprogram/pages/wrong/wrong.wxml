@@ -7,8 +7,8 @@
     <view class="flex-item"><view class="item bc_red" bindtap="toTestPage" data-testId="002">Lecture 2</view></view>
   </view> -->
 <view id="starred-box">
-  <view id="startrred-btn">
-    <image id="star" src="images/star.png" bindtap="jumpPage"></image>
+  <view id="startrred-btn" bindtap="jumpPage">
+    <image id="star" src="images/star.png"></image>
     <text id="starred-text">收藏夹</text>
   </view>
 </view>

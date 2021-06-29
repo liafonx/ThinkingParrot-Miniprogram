@@ -83,6 +83,12 @@
           "pathName": "pages/timerdemo/timerdemo",
           "query": "testId=unit1",
           "scene": null
+        },
+        {
+          "name": "collection",
+          "pathName": "pages/collection/collection",
+          "query": "",
+          "scene": null
         }
       ]
     }
