@@ -2,9 +2,21 @@ var app = getApp();
 
 //引入插件：微信同声传译
 const plugin = requirePlugin('WechatSI');
+// var worngquestion = {
+//   'level1':{
+//     'lecture'
+//   }
+
+// };
 
 var collectList = {
-  "unit1": [ {
+  "lecture1" : {
+    "unit1" :{
+
+    }
+  },
+  "unit1": [
+    {
     unit: 'unit1',
     index: 5,
     question: "人人为己",

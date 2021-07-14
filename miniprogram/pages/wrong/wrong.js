@@ -12,13 +12,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var wrongnumber = 0;
+    var wronglistnumber = 0;
+    var worongoralnumber = 0;
     if(wx.getStorageSync('wronglist')){
-      wrongnumber = JSON.parse(wx.getStorageSync('wronglist')).length;
+      wronglistnumber = JSON.parse(wx.getStorageSync('wronglist')).length;
+    }
+    if(wx.getStorageSync('wrongorallist')){
+      wronglistnumber = JSON.parse(wx.getStorageSync('wronglist')).length;
     }
     
     this.setData({
-      wrongnumber: wrongnumber,
+      wronglistnumber: wronglistnumber,
+      worongoralnumber: worongoralnumber,
     })
   },
 

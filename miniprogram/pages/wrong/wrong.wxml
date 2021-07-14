@@ -12,7 +12,7 @@
     <text id="starred-text">收藏夹</text>
   </view>
 </view>
-  <view id="btn-box" bindtap="{{wrongnumber == 0?'':'toTestPage'}}" data-testId="unit1">
+  <view id="btn-box" bindtap="{{wronglistnumber == 0?'':'toTestPage'}}">
     <view class="btn">
      <text class="worng-quantity">{{wrongnumber}}</text>
     <text class="btn-text">错题数</text>
@@ -20,7 +20,7 @@
   </view>
   <view id="bottom-panel">
     <view class="levels-box">
-    <view class="level-btn {{wrongnumber == 0?'no-wrong':'unlocked'}}" bindtap="{{wrongnumber == 0?'':'toTestPage'}}" data-testId="unit1">
+    <view class="level-btn {{wronglistnumber == 0?'no-wrong':'unlocked'}}" bindtap="{{wrongnumber == 0?'':'toTestPage'}}" data-testId="unit1">
       <image class="icon" src="images/no-wrong.png" wx:if="{{wrongnumber == 0}}"></image>
       <text class="level-quantity" wx:else>{{wrongnumber}}</text>
       <text class="level-text">Level 1</text>

@@ -95,6 +95,18 @@
           "pathName": "pages/oraltest/oraltest",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "openidtest",
+          "pathName": "pages/openidtest/openidtest",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "test",
+          "pathName": "pages/test/test",
+          "query": "",
+          "scene": null
         }
       ]
     }

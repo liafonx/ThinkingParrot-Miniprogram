@@ -16,7 +16,10 @@ Page({
     
     let wrongList = JSON.parse(options.wrongList);
     let wrongListSort = JSON.parse(options.wrongListSort);
-    let chooseValue = JSON.parse(options.chooseValue);
+    let chooseValue = ''
+    if(options.testId == 'unit1') {
+      let chooseValue = JSON.parse(options.chooseValue);
+    }
     let totalScore = options.totalScore;
     if(options.redirect){
       redirect = options.redirect;

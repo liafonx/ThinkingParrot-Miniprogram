@@ -5,47 +5,63 @@
     <view class="flex-item"><view class="item bc_green" bindtap="toTestPage" data-testId="001">Lecture 1</view></view>
     <view class="flex-item"><view class="item bc_red" bindtap="toTestPage" data-testId="002">Lecture 2</view></view>
   </view> -->
+  <!--选择框-->
+  <view class="product-list">
+    <!--条件选择-->
+    <view class="choice-bar">
+      <view bindtap="opens" data-item="1" class="chioce-item" hover-class="click-once-opaque">
+     {{start}}
+        <image class="icon-chioce" src="images/list.png"></image>
+      </view>
+      <view class="sorting-list{{!isstart?' chioce-list-hide':' chioce-list-show'}}">
+        <view wx:for="{{slist}}" catchtap="onclicks1" data-index="{{index}}" class="sorting-item"
+          hover-class="click-once" wx:key="userInfoListId">{{item.name}} </view>
+      </view>
+    </view>
+  </view>
   <view id="btn-box" bindtap="toTestPage" data-testId="unit{{currLevel}}">
     <view class="btn">
-    <text class="btn-text">开始学习</text>
-  </view>
-  <view id="detail-box">
-    <text id="level-in" class="detail">Level {{currLevel}} </text>
-    <view id="text-box">
-      <text id="num-done" class="detail">177</text>
-    <text>/</text>
-    <text id="num-total" class="detail">323</text>
+      <text class="btn-text">开始学习</text>
+    </view>
+    <view id="detail-box">
+      <text id="level-in" class="detail">Level {{currLevel}} </text>
+      <view id="text-box">
+        <text id="num-done" class="detail">177/323</text>
+        <!-- <text>/</text>
+        <text id="num-total" class="detail">323</text> -->
+      </view>
     </view>
   </view>
-  </view>
-  <view id="bottom-panel" >
+  <view id="bottom-panel">
     <view class="levels-box">
-    <view id="level1" class="level-btn  {{currLevel==1?'current':'unlocked'}}" data-level="1" data-unlock="true"  catchtap='changeState' >
-      <image class="icon" src="{{currLevel==1?'images/current.png':'images/unlocked.png'}}" ></image>
-      <text class="level-text">Level 1</text>
+      <view id="level1" class="level-btn  {{currLevel==1?'current':'unlocked'}}" data-level="1" data-unlock="true"
+        catchtap='changeState'>
+        <image class="icon" src="{{currLevel==1?'images/current.png':'images/unlocked.png'}}"></image>
+        <text class="level-text">Level 1</text>
+      </view>
+      <view id="level2" class="level-btn {{currLevel==2?'current':'unlocked'}}" data-level="2" data-unlock="true"
+        catchtap='changeState'>
+        <image class="icon" src="{{currLevel==2?'images/current.png':'images/unlocked.png'}}"></image>
+        <text class="level-text">Level 2</text>
+      </view>
+      <view class="level-btn locked">
+        <image class="icon" src="images/locked.png"></image>
+        <text class="level-text">Level 3</text>
+      </view>
     </view>
-    <view id="level2" class="level-btn {{currLevel==2?'current':'unlocked'}}" data-level="2" data-unlock="true" catchtap='changeState'>
-      <image class="icon" src="{{currLevel==2?'images/current.png':'images/unlocked.png'}}" ></image>
-      <text class="level-text">Level 2</text>
-    </view> 
-    <view class="level-btn locked">
-      <image class="icon" src="images/locked.png" ></image>
-      <text class="level-text">Level 3</text>
+    <view class="levels-box">
+      <view class="level-btn locked">
+        <image class="icon" src="images/locked.png"></image>
+        <text class="level-text">Level 4</text>
+      </view>
+      <view class="level-btn locked">
+        <image class="icon" src="images/locked.png"></image>
+        <text class="level-text">Level 5</text>
+      </view>
+      <view class="level-btn locked">
+        <image class="icon" src="images/locked.png"></image>
+        <text class="level-text">Level 6</text>
+      </view>
     </view>
-  </view>
-  <view class="levels-box">
-    <view class="level-btn locked">
-      <image class="icon" src="images/locked.png" ></image>
-      <text class="level-text">Level 4</text>
-    </view>
-    <view class="level-btn locked">
-      <image class="icon" src="images/locked.png" ></image>
-      <text class="level-text">Level 5</text>
-    </view>
-    <view class="level-btn locked">
-      <image class="icon" src="images/locked.png" ></image>
-      <text class="level-text">Level 6</text>
-    </view>
-  </view>
   </view>
 </view>

@@ -18,7 +18,7 @@ Page({
     collected: false,//是否收藏
     userID: '',
     width: 100, //时间条长度
-    maxtime: 3, //答题时间
+    maxtime: 10, //答题时间
     color: '#4DCF32', //时间条颜色
     collection:'',//收藏夹数组
     src:'',
@@ -47,7 +47,7 @@ Page({
     if(wx.getStorageSync('collection')){
       var collection = JSON.parse(wx.getStorageSync('collection'));
     }else{
-      var collection = collectList;
+      // var collection = collectList;
     }
     this.setData({
       collection: collection,
@@ -184,8 +184,8 @@ Page({
         "Content-Type": "multipart/form-data"
       },
       formData: {
-        indexindex: 1,
-        userID: 111
+        answer: this.data.questionList[this.data.shuffleIndex[this.data.index]].key,
+        // userID: 111
       },
       success: function (res) {
         console.log(res)
@@ -212,6 +212,17 @@ Page({
       },
       fail: function (res) {
         console.log(res);
+        that.setData({
+          done: false
+        });
+        wx.showToast({ //弹窗提示
+          title: '答题失败，请重试！',
+          icon: 'none',
+          duration: 2000,
+          success: function () {
+            return;
+          }
+        })
       }
     })
   },
@@ -350,9 +361,9 @@ Page({
     } else {
       let wrongList = JSON.stringify(this.data.wrongList);
       let wrongListSort = JSON.stringify(this.data.wrongListSort);
-      let chooseValue = JSON.stringify(this.data.chooseValue);
+      // let chooseValue = JSON.stringify(this.data.chooseValue);
       wx.navigateTo({
-        url: '../result/result?totalScore=' + this.data.totalScore + '&wrongList=' + wrongList + '&chooseValue=' + chooseValue + '&wrongListSort=' + wrongListSort + '&testId=' + this.data.testId+ '&redirect=' + 'wrong'
+        url: '../result/result?totalScore=' + this.data.totalScore + '&wrongList=' + wrongList + '&wrongListSort=' + wrongListSort + '&testId=' + this.data.testId+ '&redirect=' + 'learning'
       })
 
       // 设置缓存
@@ -362,7 +373,7 @@ Page({
       wx.setStorageSync('logs', logs);
       let collectionList = JSON.stringify(this.data.collection);
       wx.setStorageSync('collection', collectionList);
-      wx.setStorageSync('wronglist', wrongList);
+      wx.setStorageSync('wrongorallist', wrongList);
     }
   },
 
