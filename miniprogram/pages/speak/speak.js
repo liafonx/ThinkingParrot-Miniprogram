@@ -1,158 +1,304 @@
 // pages/speak/speak.js
 const recorderManager = wx.getRecorderManager()
 var app = getApp();
-//引入插件：微信同声传译
-const plugin = requirePlugin('WechatSI');
+const base64 = require('../../utils/base64.js')
+
+
 Page({
   data: {
     index: 0,
-    // qcontent: "How to say \"人人为己\" ？",
-    recordState: false,//录音状态
-    result: false,//识别结果
-    // answer: 'Everybody\'s out for himself.',
-    done: false,//是否成功上传并返回结果
+    shuffleIndex: [],
+    questionList:[],
+    recordState: false, //录音状态
+    result: false, //识别结果
+    answer: '',
+    done: false, //是否成功上传并返回结果
     totalScore: 0, // 总分
     wrong: 0, // 错误的题目数量
     wrongList: [], // 错误的题目集合-乱序
     wrongListSort: [], // 错误的题目集合-正序
-    collected: false,//是否收藏
+    collected: false, //是否收藏
     userID: '',
     width: 100, //时间条长度
     maxtime: 10, //答题时间
     color: '#4DCF32', //时间条颜色
-    collection:'',//收藏夹数组
-    src:'',
+    collection: '', //收藏夹数组
+    src: '',
+    testId: '',
+    currLec: '',
   },
 
   onLoad: function (options) {
     let testId = options.testId;
-    
+    let currLec = options.currLec;
     wx.setNavigationBarTitle({
       title: testId
     }) // 动态设置导航条标题
-
+    console.log(testId, currLec);
     this.setData({
       questionList: app.globalData.oralList[testId], // 拿到答题数据
-      testId: testId // 课程ID
+      testId: testId, // 课程ID
+      currLec: currLec
     })
-
-    console.log(this.data.questionList);
-
-    let count = this.generateArray(0, this.data.questionList.length - 1); // 生成题序
-    let num = (testId == '102' || testId == '301-302') ? 20 : 5; // 102/301-302 试题有20道题
-    this.setData({
-      shuffleIndex: this.shuffle(count).slice(0, num) // 生成随机题序 [2,0,3] 并截取num道题
-    })
-    this.countdown()
-    if(wx.getStorageSync('collection')){
-      var collection = JSON.parse(wx.getStorageSync('collection'));
-    }else{
-      // var collection = collectList;
-    }
-    this.setData({
-      collection: collection,
-    })
-    console.log(collection);
-    console.log(this.data.shuffleIndex);
-    this.initRecord();
-    this.countdown();
-  },
-
-  onReady: function () {
     //创建内部 audio 上下文 InnerAudioContext 对象。
-    this.innerAudioContext = wx.createInnerAudioContext();
+    this.innerAudioContext = wx.createInnerAudioContext(true);
     this.innerAudioContext.onError(function (res) {
       console.log(res);
       wx.showToast({
         title: '语音播放失败',
         icon: 'none',
+        duration: 2000,
+        success: function () {
+          return;
+        }
       })
+    })
+    this.getQuestion(testId, currLec);
+
+  },
+
+  
+
+  getQuestion(level, lecture) {
+    var that = this;
+    wx.request({
+      method: 'POST',
+      header: {
+        "accept": "*/*",
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      url: 'http://34.92.251.246:8091/questionRecord/getNewQuestion/',
+      data: {
+        commonUserID: app.globalData.openId,
+        level: level,
+        lecture: lecture
+      },
+      success: function (response) {
+
+        var questionList = response.data.question;
+        console.log(questionList);
+        if (!questionList || response.data.question.length == 0) {
+          wx.showToast({
+            title: '获取题目失败',
+            icon: 'none',
+            duration: 2000,
+            success: function () {
+              return;
+            }
+          })
+          setTimeout(function () {
+            that.onUnload();
+          }, 2000)
+        }
+        that.setData({
+          questionList: questionList, // 拿到答题数据
+          testId: level // 课程ID
+        })
+        let count = that.generateArray(0, that.data.questionList.length - 1); // 生成题序
+        // let num = 10; // 102/301-302 试题有20道题
+        that.setData({
+          shuffleIndex: that.shuffle(count), // 生成随机题序 [2,0,3] 并截取num道题
+        })
+        that.data.collected = that.data.questionList[that.data.shuffleIndex[that.data.index]].question.whetherCollect
+        that.countdown();
+        that.initRecord();
+        console.log(that.data.questionList);
+        console.log(that.data.shuffleIndex);
+
+        that.startPlay();
+        return
+      },
+      fail: function (res) {
+        console.log(res);
+        wx.showToast({
+          title: '获取题目失败',
+          icon: 'none',
+          duration: 2000,
+          success: function () {
+            return;
+          }
+        })
+        setTimeout(function () {
+          that.onUnload();
+        }, 2000)
+        return
+      }
     })
   },
 
+  onUnload: function () {
+    wx.reLaunch({
+      url: '../learning/learning'
+    })
+  },
+
+  onReady: function () {
+    
+  },
+
   onShow: function () {
-    this.startPlay();
+    // this.startPlay();
   },
 
   startPlay: function (e) {
     var that = this;
-    plugin.textToSpeech({
-      lang: "zh_CN",
-      tts: true,
-      content: this.data.questionList[this.data.shuffleIndex[this.data.index]].question ,
-      success: function (res) {
-        console.log(res);
-        console.log("succ tts", res.filename);
-        that.setData({
-          src: res.filename
-        })
-        // 播报语音
-        that.yuyinPlay();
+    var question = this.data.questionList[this.data.shuffleIndex[this.data.index]].question.question
+    wx.downloadFile({
+      method: 'POST',
+      header: { "accept": "multipart/form-data","content-type": "application/x-www-form-urlencoded" },
+      url: 'http://34.92.251.246:8091/questionRecord/textToSpeechEN_CN/?text=' + that.audioText(question),
+      // data: {
+      //   text: 'Setting data field "questionList" to undefined is invalid.'
+      // },
+      success(res){
+          console.log('download res:', res);
+          if (res.statusCode === 200) {
+                  var voice = res.tempFilePath;
+                  console.log('voice:', voice);
+                  that.data.src = voice;   //替换掉playVoice那段 
+                  that.yuyinPlay();       
+          } else {
+              wx.showToast({
+                  title: 'something wrong!',
+              })
+          }
       },
       fail: function (res) {
-        console.log("fail tts", res)
+        console.log(res);
       }
-    });
-  },
-
+  })
+},
+   
   //播放语音
   yuyinPlay: function (e) {
     if (this.data.src == '') {
-      console.log("暂无语音");
+      wx.showToast({
+        title: '语音播放失败',
+        icon: 'none',
+        duration: 2000,
+        success: function () {
+          return;
+        }
+      })
       return;
     }
     this.innerAudioContext.src = this.data.src //设置音频地址
     this.innerAudioContext.play(); //播放音频
   },
 
+  audioText: function(question) {
+    var text = question.split('"')
+    console.log(text);
+    text[0] = "<speak>" + text[0]
+    text[1] = "<break time=\"250ms\"/><voice name=\"cmn-CN-Wavenet-A\">" + text[1] + "</voice>"
+    text[2] = "</speak>"
+    console.log(text[0]);
+    text = text.join("")
+    console.log(text);
+    return text;
+  },
+
   /*
-  * 数组乱序/洗牌
-  */
- shuffle: function (arr) {
-  let i = arr.length;
-  while (i) {
-    let j = Math.floor(Math.random() * i--);
-    [arr[j], arr[i]] = [arr[i], arr[j]];
-  }
-  return arr;
-},
+   * 数组乱序/洗牌
+   */
+  shuffle: function (arr) {
+    let i = arr.length;
+    while (i) {
+      let j = Math.floor(Math.random() * i--);
+      [arr[j], arr[i]] = [arr[i], arr[j]];
+    }
+    return arr;
+  },
 
   Collect: function () {
-    console.log(this.data.collected);
+    var that = this;
+    var question = this.data.questionList[this.data.shuffleIndex[this.data.index]]
+    console.log(question.question.questionID);
     if (this.data.collected) {
-      wx.showToast({
-        title: '取消收藏',
-        icon: 'none',
-        duration: 2000,
-        success: function () {
-          return;
+      wx.request({
+        method: 'POST',
+        header: {
+          "accept": "*/*",
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        url: 'http://34.92.251.246:8091/questionRecord/toCancelCollect/',
+        data: {
+          commonUserID: app.globalData.openId,
+          questionID: question.question.questionID,
+          level: 'Level4',
+        },
+        success: function (response) {
+          console.log(response);
+          wx.showToast({
+            title: '取消收藏',
+            icon: 'none',
+            duration: 2000,
+            success: function () {
+              return;
+            }
+          })
+          that.setData({
+            collected: false,
+          })
+          // that.setData({
+          //   rankingList: response.data.result
+          // })
+        },
+        fail: function (res) {
+          wx.showToast({
+            title: '取消收藏失败',
+            icon: 'none',
+            duration: 2000,
+            success: function () {
+              return;
+            }
+          })
+          console.log(res);
         }
-      })
-      this.data.collection[this.data.testId].pop();
-      console.log(this.data.collection[this.data.testId]);
-      this.setData({
-        collected: false,
       })
       
     } else {
-      wx.showToast({
-        title: '收藏成功',
-        icon: 'none',
-        duration: 2000,
-        success: function () {
-          return;
+      wx.request({
+        method: 'POST',
+        header: {
+          "accept": "*/*",
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        url: 'http://34.92.251.246:8091/questionRecord/toCollect/',
+        data: {
+          commonUserID: app.globalData.openId,
+          questionID: question.question.questionID,
+          level: 'Level4',
+        },
+        success: function (response) {
+          console.log(response);
+          wx.showToast({
+            title: '收藏成功',
+            icon: 'none',
+            duration: 2000,
+            success: function () {
+              return;
+            }
+          })
+          that.setData({
+            collected: true,
+          })
+          // that.setData({
+          //   rankingList: response.data.result
+          // })
+        },
+        fail: function (res) {
+          wx.showToast({
+            title: '收藏失败',
+            icon: 'none',
+            duration: 2000,
+            success: function () {
+              return;
+            }
+          })
+          console.log(res);
         }
       })
-      this.data.collection[this.data.testId].push({
-        unit: this.data.testId,
-        index: this.data.shuffleIndex[this.data.index],
-        question: this.data.questionList[this.data.shuffleIndex[this.data.index]].question,
-        answer: this.data.questionList[this.data.shuffleIndex[this.data.index]].key,
-      }),
-      this.setData({
-        collected: true,
-      })
-      console.log(this.data.collection[this.data.testId]);
     }
 
   },
@@ -176,16 +322,21 @@ Page({
 
   upload(filePath) {
     let that = this
+    var question = this.data.questionList[this.data.shuffleIndex[this.data.index]]
+    console.log(question.question.questionID);
+    console.log(app.globalData.openId);
     wx.uploadFile({
-      url: 'http://34.92.251.246:8091/recognize',
+      // url: 'http://34.92.251.246:8091/questionRecord/judgeAnswer',
+      url: 'http://34.92.251.246:8091/questionRecord/judgeAnswer/',
       filePath: filePath,
       name: "file",
       header: {
         "Content-Type": "multipart/form-data"
       },
       formData: {
-        answer: this.data.questionList[this.data.shuffleIndex[this.data.index]].key,
-        // userID: 111
+        commonUserID: app.globalData.openId,
+        questionID: question.question.questionID,
+        level: 'Level4',
       },
       success: function (res) {
         console.log(res)
@@ -342,19 +493,19 @@ Page({
     this.ifRight();
 
     if (this.data.index < this.data.shuffleIndex.length - 1) {
-      
+
       // 渲染下一题
       this.setData({
         index: this.data.index + 1,
         isChoosed: false,
-        collected: false,
+        collected: this.data.questionList[this.data.shuffleIndex[this.data.index]].question.whetherCollect,
         totalScore: this.data.totalScore,
         width: 100,
         color: '#4DCF32',
-        recordState: false,//录音状态
-        result: false,//识别结果
-        done: false,//是否成功上传并返回结果
-        src:'',
+        recordState: false, //录音状态
+        result: false, //识别结果
+        done: false, //是否成功上传并返回结果
+        src: '',
       })
       this.countdown();
       this.startPlay();
@@ -363,12 +514,16 @@ Page({
       let wrongListSort = JSON.stringify(this.data.wrongListSort);
       // let chooseValue = JSON.stringify(this.data.chooseValue);
       wx.navigateTo({
-        url: '../result/result?totalScore=' + this.data.totalScore + '&wrongList=' + wrongList + '&wrongListSort=' + wrongListSort + '&testId=' + this.data.testId+ '&redirect=' + 'learning'
+        url: '../result/result?totalScore=' + this.data.totalScore + '&wrongList=' + wrongList + '&wrongListSort=' + wrongListSort + '&testId=' + this.data.testId + '&redirect=' + 'learning'
       })
 
       // 设置缓存
       var logs = wx.getStorageSync('logs') || []
-      let logsList = { "date": Date.now(), "testId": this.data.testId, "score": this.data.totalScore }
+      let logsList = {
+        "date": Date.now(),
+        "testId": this.data.testId,
+        "score": this.data.totalScore
+      }
       logs.unshift(logsList);
       wx.setStorageSync('logs', logs);
       let collectionList = JSON.stringify(this.data.collection);

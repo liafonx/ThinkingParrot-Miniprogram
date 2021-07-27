@@ -11,7 +11,7 @@
       <view class='headpiece-process-inner' style="width:{{width}}%; background-color:{{color}}"></view>
     </view>
   </view>
-  <view class="question">What is the meaning of "{{questionList[shuffleIndex[index]].question}}"?</view>
+  <view class="question">{{questionList[shuffleIndex[index]].question.question}}</view>
   <!-- <view class="answer-box">
   <view class="ans">{{answer}}</view>
 </view> -->
@@ -24,14 +24,13 @@
   </view> -->
   <!--内容-->
   <!-- <view class="page__bd">  -->
-  <view class="option-box" style="pointer-events:{{isChoosed?'none':'auto'}}"
-    wx:if="{{questionList[shuffleIndex[index]].type == 1}}">
+  <view class="option-box" style="pointer-events:{{isChoosed?'none':'auto'}}">
     <!-- <view class="option" bindtap="radioChange" wx:for="{{questionList[shuffleIndex[index]].option}}" wx:for-index="key"  wx:for-item="value">
       <view class="option-text" value="{{key}}" checked="{{questionList[shuffleIndex[index]].checked}}">{{value}}</view>
     </view> -->
     <view class="{{choosed == key?answer == key?'right':'wrong':answer == key?'right':'option'}}"
       data-optionkey="{{key}}" data-iskey="false" data-istapped="false" bindtap="tapOption"
-      wx:for="{{questionList[shuffleIndex[index]].option}}" wx:for-index="key" wx:for-item="value"
+      wx:for="{{questionList[shuffleIndex[index]].question.options}}" wx:for-index="key" wx:for-item="value"
       pointer-events='none'>
       {{value}}
     </view>

@@ -45,9 +45,11 @@
 
 .question {
   margin-bottom: -1rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
-  font-size: 20px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-size: 18px;
+  word-wrap: break-word;
+  text-align: center;
 }
 
 .option-box {

@@ -11,9 +11,9 @@
     </view>
   </view>
   
-  <view class="question">How to say "{{questionList[shuffleIndex[index]].question}}"?</view>
+  <view class="question" data-question="{{questionList[shuffleIndex[index]].question.question}}">{{questionList[shuffleIndex[index]].question.question}}</view>
   <view class="answer-box">
-    <view class="ans" wx:if="{{done == true}}">{{questionList[shuffleIndex[index]].key}}</view>
+    <view class="ans" wx:if="{{done == true}}">{{questionList[shuffleIndex[index]].example}}</view>
   </view>
   <view class="correctness-box default">
     <!-- <image class="icon" src="{{done == true?'images/correct.png':'images/undo.png'}}"></image> -->

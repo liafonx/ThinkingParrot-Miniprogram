@@ -15,7 +15,9 @@
     "pages/collection/collection",
     "pages/oraltest/oraltest",
     "wrongorallearning/wrongorallearning",
-    "pages/openidtest/openidtest"
+    "pages/openidtest/openidtest",
+    "pages/result/result",
+    "pages/login/login"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -57,5 +59,9 @@
       "version": "0.3.4",
       "provider": "wx069ba97219f66d99"
     }
+  },
+  "useExtendedLib": {
+    "kbone": true,
+    "weui": true
   }
 }

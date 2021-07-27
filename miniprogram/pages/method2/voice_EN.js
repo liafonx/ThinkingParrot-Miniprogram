@@ -1,69 +1,49 @@
-// recording object
-const recorderManager = wx.getRecorderManager();
-
-function sendRecord(src) {
-  var obj = {
-    url: "https://3i776945c0.oicp.vip/api/recognize/",
-    filePath: src,
-    name: "audio",
-    method: "POST",
-    header: {
-      'Content-Type': 'application/json'
-    },
-    success: function (result) {
-      var data = JSON.parse(result.data);
-      // msg: String for result of speech recognition
-      var msg = data.result;
-      // Get the current page object
-      var page = getCurrentPages();
-      page.setData({
-        msg: msg
-      });
-    },
-    fail: function (err) {
-      console.log(err);
-    },
-  };
-  wx.uploadFile(obj)
-}
-
-// Triggered when the recording ends 
-recorderManager.onStop((res) => {
-  // Get the file path
-  sendRecord(res.tempFilePath);
-})
-
-recorderManager.onError((res) => {
-  console.log("error", res);
-});
-
+const DEFAULT_PAGE = 0;
+var app = getApp();
 Page({
-
-  /**
-   * The initial data of the page
-   */
+  startPageX: 0,
+  currentView: DEFAULT_PAGE,
   data: {
-    msg: ""
-  },
-  // Triggered when the button is pressed
-  startrecorderHandel() {
-    // start recording
-    recorderManager.start({
-      format: "mp3"
-    });
-  },
-  // Triggered when the button is released: Send the recording
-  sendrecorderHandel() {
-    // Stop recording
-    recorderManager.stop();
+    toView: `card_${DEFAULT_PAGE}`,
+    list: ['Javascript', 'Typescript', 'Java', 'PHP', 'Go']
   },
 
-  /**
-   * Monitor page loading
-   */
-  onLoad: function (options) {
-    wx.authorize({
-      scope: 'record'
-    })
+  onLoad() {
+      // this.loadingOn()
+      var that = this;
+      var url = 'http://34.92.251.246:8091/questionRecord/getHistory/';
+      wx.request({
+        method: 'POST',
+        header: {
+          "accept": "*/*",
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        url: url,
+        data: {
+          commonUserID: app.globalData.openId,
+          level: "Level2",
+          lecture: "Lecture  2"
+        },
+        success: function (response) {
+          // that.loadingOff();
+          console.log(response);
+        },
+        fail: function (res) {
+          console.log(res);
+          // that.loadingOff();
+          wx.showToast({
+            title: '获取题目失败',
+            icon: 'none',
+            duration: 2000,
+            success: function () {
+              return;
+            }
+          })
+          setTimeout(function () {
+            that.onUnload();
+          }, 2000)
+          return
+        }
+      })
   }
 })

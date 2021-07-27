@@ -1,4 +1,5 @@
 <view class="page">
+<view class="mask" hidden="{{!isstart}}" bindtap="opens"></view>
   <!-- <image id="background" src="Image.jfif"></image> -->
   <!-- <view class="page-title">Lectures：</view>
   <view class="flex-box">
@@ -10,7 +11,7 @@
     <!--条件选择-->
     <view class="choice-bar">
       <view bindtap="opens" data-item="1" class="chioce-item" hover-class="click-once-opaque">
-     {{start}}
+     {{currLec}}
         <image class="icon-chioce" src="images/list.png"></image>
       </view>
       <view class="sorting-list{{!isstart?' chioce-list-hide':' chioce-list-show'}}">
@@ -19,7 +20,7 @@
       </view>
     </view>
   </view>
-  <view id="btn-box" bindtap="toTestPage" data-testId="unit{{currLevel}}">
+  <view id="btn-box" bindtap="toTestPage" data-testId="Level{{currLevel}}">
     <view class="btn">
       <text class="btn-text">开始学习</text>
     </view>
@@ -44,14 +45,16 @@
         <image class="icon" src="{{currLevel==2?'images/current.png':'images/unlocked.png'}}"></image>
         <text class="level-text">Level 2</text>
       </view>
-      <view class="level-btn locked">
-        <image class="icon" src="images/locked.png"></image>
+      <view  id="level3" class="level-btn {{currLevel==3?'current':'unlocked'}}" data-level="3" data-unlock="true"
+        catchtap='changeState'>
+        <image class="icon" src="{{currLevel==3?'images/current.png':'images/unlocked.png'}}"></image>
         <text class="level-text">Level 3</text>
       </view>
     </view>
     <view class="levels-box">
-      <view class="level-btn locked">
-        <image class="icon" src="images/locked.png"></image>
+      <view id="level4" class="level-btn {{currLevel==4?'current':'unlocked'}}" data-level="4" data-unlock="true"
+        catchtap='changeState'>
+        <image class="icon" src="{{currLevel==4?'images/current.png':'images/unlocked.png'}}"></image>
         <text class="level-text">Level 4</text>
       </view>
       <view class="level-btn locked">

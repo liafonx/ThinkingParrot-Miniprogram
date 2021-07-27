@@ -1,6 +1,6 @@
 //app.js
 var jsonList = require('data/json.js');
-var oralList = require('data/oral.js')
+var oralList = require('data/oral.js');
 
 App({
   globalData: {
@@ -8,50 +8,20 @@ App({
     oralList: oralList.oralList,
     questionDone: 0,
     wrongDone: 0,
+    openId: '',
   },
-  onLaunch: function() {
+  onLaunch: function () {
     let that = this; //获取openid不需要授权
-    wx.login({
-      success: function (res) { //请求自己后台获取用户openid
-        var code = res.code;
-        var userinfo = 'hhh';
-        var iv = ''
-        wx.getUserInfo({
-         success: function(res) {
-            userinfo = res.encryptedData;
-            iv = res.iv;
-            wx.request({
-              method: 'POST',
-              header: {
-                'content-type': 'application/x-www-form-urlencoded'
-              },
-              url: 'http://377694k5e0.qicp.vip/api/recognize/',
-              data: {
-                appid: 'wxd27ea3eb3d649f0d',
-                secret: 'da1e11486e57ebb44c7753180e3285a5',
-                code: code,
-                userinfo: userinfo,
-                iv: iv,
-              },
-              success: function (response) {
-                var openid = response.data.openid;
-                console.log('请求获取openid:' + openid); //可以把openid存到本地，方便以后调用
-                wx.setStorageSync('openid', openid);
-                // that.setData({
-                //   openid: "获取到的openid：" + openid
-                // })
-              },
-              fail: function (res) {
-                console.log(res);
-              }
-            })
-         },
-         fail(e){
-           console.log(e);
-         }
+    if (!wx.getStorageSync('openid')) {
+      //延迟执行，可能小程序页面未注册完，导致无法跳转
+      setTimeout(function () {
+        wx.redirectTo({
+          url: '/pages/login/login',
         })
-        console.log(iv);
-      }
-    })
+      }, 500)
+    } else {
+      this.globalData.openId = wx.getStorageSync('openid'),
+      console.log(wx.getStorageSync('openid'));
+    }
   },
 })

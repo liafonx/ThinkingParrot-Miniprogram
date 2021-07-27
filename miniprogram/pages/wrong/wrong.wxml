@@ -12,31 +12,34 @@
     <text id="starred-text">收藏夹</text>
   </view>
 </view>
-  <view id="btn-box" bindtap="{{wronglistnumber == 0?'':'toTestPage'}}">
+  <view id="btn-box">
     <view class="btn">
-     <text class="worng-quantity">{{wrongnumber}}</text>
+     <text class="worng-quantity">{{worongtotalnumber}}</text>
     <text class="btn-text">错题数</text>
   </view>
   </view>
   <view id="bottom-panel">
     <view class="levels-box">
-    <view class="level-btn {{wronglistnumber == 0?'no-wrong':'unlocked'}}" bindtap="{{wrongnumber == 0?'':'toTestPage'}}" data-testId="unit1">
+    <view class="level-btn no-wrong" bindtap="{{wrongnumber == 0?'':'toTestPage'}}" data-testId="1">
       <image class="icon" src="images/no-wrong.png" wx:if="{{wrongnumber == 0}}"></image>
       <text class="level-quantity" wx:else>{{wrongnumber}}</text>
       <text class="level-text">Level 1</text>
     </view>
-    <view class="level-btn  no-wrong" >
-      <image class="icon" src="images/no-wrong.png" ></image>
+    <view class="level-btn {{wronglistnumber['Level2'] == 0?'no-wrong':'unlocked'}}" bindtap="{{wronglistnumber['Level2'] == 0?'':'toTestPage'}}" data-testId="2">
+      <image class="icon" src="images/no-wrong.png" wx:if="{{wronglistnumber['Level2'] == 0}}"></image>
+      <text class="level-quantity" wx:else>{{wronglistnumber['Level2']}}</text>
       <text class="level-text">Level 2</text>
     </view>
-    <view class="level-btn locked">
-      <image class="icon" src="images/locked.png" ></image>
+    <view class="level-btn {{wronglistnumber['Level3'] == 0?'no-wrong':'unlocked'}}" bindtap="{{wronglistnumber['Level3'] == 0?'':'toTestPage'}}" data-testId="3">
+      <image class="icon" src="images/no-wrong.png" wx:if="{{wronglistnumber['Level3'] == 0}}"></image>
+      <text class="level-quantity" wx:else>{{wronglistnumber['Level3']}}</text>
       <text class="level-text">Level 3</text>
     </view>
   </view>
   <view class="levels-box">
-    <view class="level-btn locked">
-      <image class="icon" src="images/locked.png" ></image>
+    <view class="level-btn {{wronglistnumber['Level4'] == 0?'no-wrong':'unlocked'}}" bindtap="{{wronglistnumber['Level4'] == 0?'':'toTestPage'}}" data-testId="4">
+      <image class="icon" src="images/no-wrong.png" wx:if="{{wronglistnumber['Level4'] == 0}}"></image>
+      <text class="level-quantity" wx:else>{{wronglistnumber['Level4']}}</text>
       <text class="level-text">Level 4</text>
     </view>
     <view class="level-btn locked">

@@ -103,6 +103,8 @@ page {
 }
 
 #bottom-panel {
+  position: fixed;
+  bottom: 1.5vh;
   width: 100%;
   height: 35vh;
   display: flex;

@@ -2,6 +2,7 @@ var json = {
   "unit1": [
     {
       "question": "Lunch is on me",
+      "questionID": "",
       "option": {
         "A": "I'll pay for lunch.",
         "B": "I'll cook lunch",
@@ -9,8 +10,6 @@ var json = {
         "D": "I'll bring our lunch"
       },
       "true": "A",
-      "type": 1,
-      "scores": 10, 
       "checked": false
     },
     {
@@ -22,7 +21,6 @@ var json = {
         "D": "I will not surround to things I can't avoid.",
       },
       "true": "B",
-      "type": 1,
       "scores": 10,
       "checked": false
     },

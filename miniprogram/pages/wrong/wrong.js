@@ -1,29 +1,59 @@
 // pages/learning.js
+
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-      wrongnumber: 0
+      wrongnumber: 0,
+      wronglistnumber: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var wronglistnumber = 0;
-    var worongoralnumber = 0;
-    if(wx.getStorageSync('wronglist')){
-      wronglistnumber = JSON.parse(wx.getStorageSync('wronglist')).length;
-    }
-    if(wx.getStorageSync('wrongorallist')){
-      wronglistnumber = JSON.parse(wx.getStorageSync('wronglist')).length;
-    }
-    
-    this.setData({
-      wronglistnumber: wronglistnumber,
-      worongoralnumber: worongoralnumber,
+    var that = this
+    var wronglistnumber = [];
+    var worongtotalnumber = 0;
+    var that = this;
+    var url = 'http://34.92.251.246:8091/questionRecord/getWrongNum/';
+    wx.request({
+      method: 'POST',
+      header: {
+        "accept": "*/*",
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      url: url,
+      data: {
+        commonUserID: app.globalData.openId,
+      },
+      success: function (response) {
+        // that.loadingOff();
+        console.log(response);
+        that.setData({
+          wronglistnumber: response.data.wrongQuestionNum,
+          worongtotalnumber: response.data.wrongQuestionNum['total']
+        })
+      },
+      fail: function (res) {
+        console.log(res);
+        // that.loadingOff();
+        wx.showToast({
+          title: '获取错题数失败',
+          icon: 'none',
+          duration: 2000,
+          success: function () {
+            return;
+          }
+        })
+        setTimeout(function () {
+          that.onUnload();
+        }, 2000)
+        return
+      }
     })
   },
 
@@ -84,10 +114,30 @@ Page({
   },
   toTestPage: function (e) {
     let testId = e.currentTarget.dataset['testid'];
-    wx.navigateTo({
-      url: '../wronglearning/wronglearning?testId=' + testId
-      
-    })
+    switch (testId) {
+      case '1':
+        wx.navigateTo({
+          url: '' + testId //跳转到答题页， 传入试题
+        })
+        break;
+      case '2':
+        wx.navigateTo({
+          url: '../choice/choice?testId=Level' + testId + "&state=wrong" + "&currLec=改错" //跳转到答题页， 传入试题
+        })
+        break;
+      case '3':
+        wx.navigateTo({
+          url: '../choice/choice?testId=Level' + testId + "&state=wrong" + "&currLec=改错" //跳转到答题页， 传入试题
+        })
+        break;
+      case '4':
+        wx.navigateTo({
+          url: '../speak/speak?testId=Level' + testId + "&state=wrong" + "&currLec=改错" //
+        })
+        break;
+      default:
+        console.log(this.data.currLevel);
+    }
   },
   jumpPage: function (e) {
     wx.navigateTo({

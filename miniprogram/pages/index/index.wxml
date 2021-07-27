@@ -1,6 +1,6 @@
 <!--miniprogram/pages/index/index.wxml-->
 <view class="page">
-  <view hidden="{{hiddensetting}}">
+  <view class="mask" hidden="{{hiddensetting}}">
     <modal class="setting" title="每日任务" bindconfirm="Confirm" bindcancel="Cancel">
       <view class="set-box">
         <view class="set-learn-text">答题</view>

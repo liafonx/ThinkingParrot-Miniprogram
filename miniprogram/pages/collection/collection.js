@@ -1,4 +1,51 @@
 // miniprogram/pages/collection/collection.js
+var collectList = {
+  "LECT1": [
+    {
+    unit: 'lecture1',
+    id: 5,
+    example: "Everyone is out for himself.",
+    translation: "人人为己",
+    meaning: '',
+  },
+  {
+    unit: 'lecture1',
+    index: 6,
+    question: "赚钱",
+    answer: "In the black",
+  }
+  ],
+  "lecture2": [],
+  "LECT3":[ {
+    unit: 'lecture3',
+    index: 5,
+    question: "人人为己",
+    answer: "Everyone is out for himself.",
+  },
+  {
+    unit: 'lecture3',
+    index: 6,
+    question: "赚钱",
+    answer: "In the black",
+  }],
+  "lecture4":[],
+  "lecture5":[],
+  "LECT6":[ {
+    unit: 'lecture6',
+    index: 5,
+    question: "人人为己",
+    answer: "Everyone is out for himself.",
+  },
+  {
+    unit: 'lecture6',
+    index: 6,
+    question: "赚钱",
+    answer: "In the black",
+  }],
+  "lecture7":[],
+}
+
+
 Page({
   /**
    * 页面的初始数据
@@ -14,20 +61,33 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if(wx.getStorageSync('collection')){
-      var collection = JSON.parse(wx.getStorageSync('collection'));
-      console.log(collection);
-     
-      this.setData({
-        collection: collection,
-        choosed: this.checkEmpty(collection),
-      });
-    }else{
-      this.setData({
-        choosed: 0,
-      })
-    }
-    
+    var that = this;
+    var openId = wx.getStorageSync('openid');
+    console.log(openId);
+    wx.request({
+      method: 'POST',
+      header: {
+        "accept": "*/*",
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      url: 'http://34.92.251.246:8091/questionRecord/getNotesCollection/',
+      data: {
+        commonUserID: openId,
+      },
+      success: function (response) {
+        console.log(response);
+        that.setData({
+          collection: collectList,
+          choosed: 3,
+        })
+        // that.setData({
+        //   rankingList: response.data.result
+        // })
+      },
+      fail: function (res) {
+        console.log(res);
+      }
+    })
   },
 
   checkEmpty: function (collection) {

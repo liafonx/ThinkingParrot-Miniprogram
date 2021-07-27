@@ -1,68 +1,148 @@
+
+
 Page({
   data: {
-    rankingList: [
-      {
-        id: 1,
-        userName: "Aaaa",
-        userImg: "image/a.jpg",
-        rank: "荣耀王者",
-        score: 283874
-      }, 
-      {
-        id: 2,
-        userName: "Bbbb",
-        userImg: "image/b.jpg",
-        rank: "荣耀王者",
-        score: 28387
-      },
-      {
-        id: 3,
-        userName: "Cccc",
-        userImg: "image/c.jpg",
-        rank: "最强王者",
-        score: 2838
-      },
-      {
-        id: 4,
-        userName: "Dddd",
-        userImg: "image/d.jpg",
-        rank: "最强王者",
-        score: 283
-      },
-      {
-        id: 5,
-        userName: "Eeee",
-        userImg: "image/e.jpg",
-        rank: "至尊星曜I",
-        score: 277
-      },
-      {
-        id: 6,
-        userName: "Ffff",
-        userImg: "image/f.jpg",
-        rank: "至尊星曜I",
-        score: 235
-      },
-      {
-        id: 7,
-        userName: "Gggg",
-        userImg: "image/g.jpg",
-        rank: "至尊星曜IV",
-        score: 28
-      },
-    ],
+    rankingList: [],
     selfRanking: {
-      userName: "my",
-      userImg: "image/self.jpg",
-      rank: "倔强青铜",
+      userName: "您未登录",
+      userImg: "",
+      rank: "",
       index: "-",
-      score: 15
-    }, 
+      score: 0
+    },
   },
 
-  onLoad(){
-    wx.setNavigationBarTitle({
-      title: '排行榜'  //修改title
+  onUnload() {
+    wx.reLaunch({
+      url: '../index/index'
     })
-  }
+  },
+
+  onLoad() {
+    var that = this;
+    this.loadingOn()
+    wx.setNavigationBarTitle({
+      title: '排行榜' //修改title
+    });
+      wx.request({
+        method: 'POST',
+        header: {
+          "accept": "*/*",
+          "content-type": "application/json"
+        },
+        url: 'http://34.92.251.246:8091/questionRecord/getRankWithoutLevel/',
+        // data: {
+        //   commonUserID: openId,
+        // },
+        success: function (response) {
+          if(response.data.state == 'fail'){
+            wx.showToast({ //弹窗提示
+              title: '获取排行榜失败',
+              icon: 'none',
+              duration: 2000,
+              success: function () {
+                
+              }
+            })
+            setTimeout(function () {
+              that.onUnload()
+            }, 2000)
+            return;
+          }
+          that.loadingOff()
+          console.log(response);
+          that.setData({
+            rankingList: response.data.result
+          })
+          that.getSelfRank();
+        },
+        fail: function (res) {
+          that.loadingOff()
+          wx.showToast({ //弹窗提示
+            title: '获取排行榜失败',
+            icon: 'none',
+            duration: 2000,
+            success: function () {
+              return;
+            }
+          })
+          console.log(res);
+        }
+      })
+  },
+  getSelfRank: function(){
+    var that = this;
+    var openId = wx.getStorageSync('openid');
+    console.log(openId);
+    wx.request({
+      method: 'POST',
+      header: {
+        "accept": "*/*",
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      url: 'http://34.92.251.246:8091/questionRecord/getUserRank/',
+      data: {
+        commonUserID: openId,
+      },
+      success: function (response) {
+        if(response.data.state == 'fail'){
+          wx.showToast({ //弹窗提示
+            title: '获取用户排名失败',
+            icon: 'none',
+            duration: 2000,
+            success: function () {
+              
+            }
+          })
+          setTimeout(function () {
+            that.onUnload()
+          }, 2000)
+          return;
+        }
+        that.loadingOff()
+        console.log(response);
+        if (response.data.rank < 100) {
+          var index = response.data.rank
+        }else{
+          var index = '未上榜'
+        }
+        that.setData({
+          selfRanking: {
+            userName: response.data.commonUserName,
+            userImg: response.data.imageURL,
+            rank: response.data.level,
+            index: index,
+            score: response.data.score
+          },
+        })
+        // that.setData({
+        //   rankingList: response.data.result
+        // })
+      },
+      fail: function (res) {
+        that.loadingOff()
+        wx.showToast({ //弹窗提示
+          title: '获取用户排名失败',
+          icon: 'none',
+          duration: 2000,
+          success: function () {
+            return;
+          }
+        })
+        console.log(res);
+      }
+    })
+  },
+
+  loadingOn: function() {
+    wx.showLoading({
+      title: 'Loading',
+    })
+  },
+
+  loadingOff: function(){
+    wx.hideLoading({
+      success: (res) => {},
+    })
+  },
 })
