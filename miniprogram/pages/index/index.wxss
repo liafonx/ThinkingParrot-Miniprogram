@@ -20,6 +20,14 @@ page {
   align-items: center;
 }
 
+btn-checked {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* margin-top: 3rem; */
+  align-items: center;
+}
+
 .btn {
   z-index: 1;
   margin-top: 3rem;
@@ -28,6 +36,7 @@ page {
   border-radius: 30rem;
   background-color: #CBB780;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -44,7 +53,32 @@ page {
 .btn-text {
   color: #fff;
   font-size: 35px;
+  text-align: center;
 }
+
+.btn-con {
+  margin-top: -0.2rem;
+  font-size: 15px;
+}
+
+.btn-rank {
+  font-size: 30px;
+}
+
+.score {
+  min-width: 4rem;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  z-index: 2;
+  margin-top: -1.6rem;
+  font-size: 20px;
+  border: 2px solid #CBB780;
+  background-color: white;
+  color: #CBB780;
+  text-align: center;
+  border-radius:0 0.5rem 0 0.5rem ;
+}
+
 
 .background {
   z-index: -1;
@@ -58,11 +92,15 @@ page {
 }
 
 #detail-box {
+  margin-top: 0.7rem;
   display: flex;
   flex-direction: column;
   justify-content:center;
-  margin-top: 20px;
   align-items: center;
+}
+
+#point-box {
+  margin-top: 1.2rem;
 }
 
 #rank-box {
@@ -245,9 +283,6 @@ page {
   color: black;
 }
 
-.btn-rank {
-  font-size: 18px;
-}
 
 /*主容器*/  
 .stepper {  

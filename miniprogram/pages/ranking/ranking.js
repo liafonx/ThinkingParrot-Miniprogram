@@ -35,6 +35,7 @@ Page({
         //   commonUserID: openId,
         // },
         success: function (response) {
+          console.log(response);
           if(response.data.state == 'fail'){
             wx.showToast({ //弹窗提示
               title: '获取排行榜失败',
@@ -85,6 +86,7 @@ Page({
         commonUserID: openId,
       },
       success: function (response) {
+        console.log(response);
         if(response.data.state == 'fail'){
           wx.showToast({ //弹窗提示
             title: '获取用户排名失败',

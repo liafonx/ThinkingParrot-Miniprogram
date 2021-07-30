@@ -33,15 +33,18 @@
     </view>
   </view>
   <view id="btn-box">
-    <view class="btn" bindtap="jumPages">
-      <text class="btn-text" bindtap="Check" wx:if="{{checked == false}}">打卡</text>
-      <text class="btn-text btn-rank" wx:else>{{rank}}</text>
+    <view class="btn" bindtap="{{checked == false?'onBindTap':''}}">
+      <text class="btn-text" bindtap="Check" wx:if="{{!checked}}">打卡</text>
+      <view class="btn-checked" wx:else>
+        <view class="btn-text btn-rank" >{{rank}}</view>
+      </view>
     </view>
+    <view class="score" >{{score}}</view>
     <view id="detail-box">
+      <view class="detail" wx:if="{{checked}}">已连续签到{{days}}天</view>
       <view id="point-box">
-        <text class="detail">距离下一个段位还有</text>
-        <text id="points" class="detail">{{points}}</text>
-        <text class="detail">积分</text>
+        <text class="detail" wx:if="{{toNext == 0}}">已达最高段位</text>
+        <text class="detail" wx:else>距离下一个段位还有{{toNext}}积分</text>
       </view>
       <view id="rank-box">
         <text class="detail">超越了</text>

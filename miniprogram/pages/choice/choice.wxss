@@ -117,14 +117,14 @@
   width: 6rem;
   height: 6rem;
   border-radius: 30rem;
-  background-color: #E8CE67;
+  background-color: #dac262;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .btn:active {
-  background-color: #ceb85e;
+  background-color: #c7b15b;
 }
 
 .icon-next {

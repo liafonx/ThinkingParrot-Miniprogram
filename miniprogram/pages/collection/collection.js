@@ -1,4 +1,8 @@
+const Prompt = require("../../utils/prompt");
+
 // miniprogram/pages/collection/collection.js
+var prompt = Prompt
+var app = getApp()
 var collectList = {
   "LECT1": [
     {
@@ -53,16 +57,29 @@ Page({
   data: {
    collection: '',
    choosed: '',
+   currLevel: '',
    hiddensetting: true,
    delete:'',
+   ifCollected: false,
   },
   
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    prompt.loadingOn()
     var that = this;
     var openId = wx.getStorageSync('openid');
+    if (wx.getStorageSync("collectLect")) {
+      var currLect = wx.getStorageSync("collectLect")
+    }
+    if (wx.getStorageSync("collectlevel")) {
+      var currLevel = wx.getStorageSync("collectlevel")
+    }
+    this.setData({
+      choosed: currLect,
+      currLevel: currLevel,
+    })
     console.log(openId);
     wx.request({
       method: 'POST',
@@ -75,33 +92,26 @@ Page({
         commonUserID: openId,
       },
       success: function (response) {
+        prompt.loadingOff();
         console.log(response);
-        that.setData({
-          collection: collectList,
-          choosed: 3,
-        })
-        // that.setData({
-        //   rankingList: response.data.result
-        // })
+        console.log(response.data.collectedQuestion);
+        if (response.data.collectedQuestion) {
+          that.setData({
+            collection: response.data.collectedQuestion,
+            ifCollected: true,
+          })
+        }else{
+            prompt.toast("获取收藏夹失败")
+        }
+
       },
       fail: function (res) {
         console.log(res);
+        prompt.toast("获取收藏夹失败")
       }
     })
   },
 
-  checkEmpty: function (collection) {
-    var units = 7;
-    var choosed = 0;
-      for (let index = 1; index <= units; index++) {
-        console.log('unit'+index);
-        if(collection['unit'+index].length > 0){
-          choosed = 'unit'+index;
-          break;
-        }
-      }
-      return choosed;
-  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -153,24 +163,66 @@ Page({
   },
 
   ChangeUnit: function (e) {
+    console.log(e.currentTarget.dataset.unit);
     this.setData({
       choosed: e.currentTarget.dataset.unit,
+      currLevel: '',
+    })
+  },
+
+  ChangeLevel: function(e) {
+    this.setData({
+      currLevel: e.currentTarget.dataset.level,
     })
   },
 
   Confirm: function () {
+    prompt.loadingOn()
     var index = this.data.delete;
     console.log(index);
-    var collection = this.data.collection;
-    collection[this.data.choosed].splice(index, 1);
-    this.setData({
-      hiddensetting: true,
-      choosed: this.checkEmpty(collection),
-      collection: collection,
-      delete: '',
-    })
-    wx.setStorageSync('collection', JSON.stringify(collection));
-    this.onLoad();
+    wx.setStorageSync('collectlevel', this.data.currLevel)
+    wx.setStorageSync('collectLect', this.data.choosed)
+    var that = this;
+      var url = 'http://34.92.251.246:8091/questionRecord/toCancelCollect/';
+      wx.request({
+        method: 'POST',
+        header: {
+          "accept": "*/*",
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        url: url,
+        data: {
+          commonUserID: app.globalData.openId,
+          questionID: that.data.delete,
+          level: that.data.currLevel
+        },
+        success: function (response) {
+          prompt.loadingOff();
+          that.setData({
+            hiddensetting: true,
+            delete: '',
+          })
+          prompt.toast("删除成功")
+          setTimeout(function () {
+            that.onUnload();
+          }, 2000)
+          that.onLoad()
+          console.log(response);
+        },
+        fail: function (res) {
+          prompt.loadingOff();
+          prompt.toast("删除失败")
+          setTimeout(function () {
+            that.onUnload();
+          }, 2000)
+          that.setData({
+            hiddensetting: true,
+            delete: '',
+          })
+          that.onLoad();
+          return;
+        }
+      })
   },
 
   Cancel: function () {

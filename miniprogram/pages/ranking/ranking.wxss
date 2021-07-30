@@ -110,6 +110,7 @@
 .rank-name-box {
   width: 26%;
   margin-right: 10%;
+  color: #686868;
   /* background-color: gold; */
 }
 

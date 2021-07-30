@@ -1,7 +1,9 @@
+var app = getApp()
+
 Page({
   data: {
     currLevel: '1',
-    currLec: "Lecture  2",
+    currLec: "Lecture  1",
     slist: [{
         id: 1,
         name: "Lecture  1"
@@ -66,6 +68,49 @@ Page({
     console.log(this.data.currLec);
   },
 
+  onShow: function () {
+    console.log(this.data.currLec);
+    this.updateHistory(this.data.currLevel, this.data.currLec)
+    
+  },
+
+  updateHistory: function(level, lecture) {
+    var that = this;
+      var url = 'http://34.92.251.246:8091/questionRecord/getHistoryNum/';
+      wx.request({
+        method: 'POST',
+        header: {
+          "accept": "*/*",
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        url: url,
+        data: {
+          commonUserID: app.globalData.openId,
+          lecture: lecture,
+        },
+        success: function (response) {
+          // that.loadingOff();
+          console.log(response);
+        },
+        fail: function (res) {
+          console.log(res);
+          // that.loadingOff();
+          wx.showToast({
+            title: '获取历史失败',
+            icon: 'none',
+            duration: 2000,
+            success: function () {
+              return;
+            }
+          })
+          setTimeout(function () {
+            that.onUnload();
+          }, 2000)
+          return
+        }
+      })
+  },
+
 
   toTestPage: function (e) {
     let testId = e.currentTarget.dataset['testid'];
@@ -102,6 +147,7 @@ Page({
       that.setData({
         currLevel: e.currentTarget.dataset.level
       });
+      wx.setStorageSync('currLevel', e.currentTarget.dataset.level)
     };
   },
 
@@ -123,5 +169,9 @@ Page({
       isstart: false,
       currLec: name,
     })
+    wx.setStorageSync('currLec', name)
+    console.log(this.data.currLec);
+    this.updateHistory(this.data.currLevel, this.data.currLec)
+   
   }
 })

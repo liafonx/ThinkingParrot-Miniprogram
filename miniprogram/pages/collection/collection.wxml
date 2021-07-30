@@ -1,19 +1,22 @@
 <!--miniprogram/pages/collection/collection.wxml-->
 <view class="page">
     <view class="unit-bar">
-        <view class='align-box' wx:for="{{collection}}" wx:if="{{collection[index].length > 0}}" wx:key="index">
-            <view class="unit {{choosed == index?'choosed':' '}}"  data-unit="{{index}}" bindtap="ChangeUnit">{{index}}</view>
+        <view class='align-box' wx:for="{{collection}}" wx:if="{{ifCollected}}" wx:key="index">
+            <view class="unit {{choosed == index?'choosed':' '}}"  data-unit="{{index}}" bindtap="ChangeUnit">{{collection[index][0]}}</view>
         </view>
-        <view class="warning" wx:if="{{choosed == 0}}">还没有收藏任何题目哦</view>
+        <view class="warning" wx:if="{{!ifCollected}}">还没有收藏任何题目哦</view>
     </view>
-    <view class="question" wx:for="{{collection[choosed]}}" wx:key="index" bindlongpress="OpenSetting" data-index="{{index}}">
+    <view class="level-box" wx:if="{{choosed || choosed == 0}}">
+        <view wx:for="{{collection[choosed][1]}}" wx:key="index" class="level {{currLevel == index?'currLevel':' '}}" bindtap="ChangeLevel" data-level="{{index}}">{{index}}</view>
+    </view>
+    <view class="question" wx:for="{{collection[choosed][1][currLevel]}}" wx:key="index" wx:if="{{currLevel}}" bindlongpress="OpenSetting" data-index="{{item.ID}}">
         <view class="question-box">
-            <view class="question-text">问题</view>
-            <view class="content">{{item.question}}</view>
+            <!-- <view class="question-text">问题</view> -->
+            <view class="content">{{item.Question}}</view>
         </view>
         <view class="answer-box">
-            <view class="answer-text">答案</view>
-            <view class="content answer-content">{{item.answer}}</view>
+            <view class="content answer-content">{{item.Answer}}</view>
+            <!-- <view class="answer-text">答案</view> -->
         </view>
 
     </view>

@@ -1,14 +1,22 @@
+const Prompt = require("../../utils/prompt");
+
 // miniprogram/pages/index/index.js
 var app = getApp();
+var prompt = Prompt
+
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    rank: '倔强青铜III',
+    rank: '打卡',
+    ifLoaded: false,
     checked: false,
-    points: 300,
-    percent: 83.4,
+    firstTime: 0,
+    toNext: 0,
+    percent: 0,
+    score: 0,
+    checked: false,
     taskfinished: false,
     wrongfinished: false,
     hiddensetting: true,
@@ -82,7 +90,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
   },
 
   /**
@@ -96,6 +103,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    var DT = wx.getStorageSync('D');
+    var D = (new Date()).getDate().toString();
     console.log(app.globalData.questionDone);
     var numLearnDone = app.globalData.questionDone;
     var numWrongDone = app.globalData.wrongDone;
@@ -115,6 +124,8 @@ Page({
       numLearnDone: numLearnDone,
       numWrongDone: numWrongDone,
     })
+      this.getSelfRank()
+    //签到
   },
 
   /**
@@ -150,6 +161,62 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+
+  onBindTap: function () {
+    prompt.loadingOn()
+    var that = this;
+    var url = 'http://34.92.251.246:8091/questionRecord/signAddScore/';
+    wx.request({
+      method: 'POST',
+      header: {
+        "accept": "*/*",
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      url: url,
+      data: {
+        commonUserID: app.globalData.openId,
+      },
+      success: function (response) {
+        console.log(response);
+        prompt.loadingOff();
+        if (response.data.checked) {
+          console.log("ttt");
+          prompt.toast('今天已经打过卡啦！')
+          that.setData({
+            checked: true,
+          })
+        } else {
+          that.setData({
+            score: response.data.score,
+            rank: response.data.level,
+            days: response.data.days,
+            bonus:  response.data.bonus,
+            checked: true,
+          })
+          if (that.data.bonus == 0) {
+            prompt.toast('打卡成功！积分+5')
+          } else {
+            
+            prompt.toast('获得连续签到'+that.data.days / 7 +'周奖励！\r\n积分+'+ parseInt(that.data.bonus), 5000)
+          }
+        }
+        that.onShow();
+      },
+      fail: function (res) {
+        prompt.loadingOff()
+        wx.showToast({
+          title: '打卡失败',
+          icon: 'none',
+          duration: 2000,
+          success: function () {
+            return;
+          }
+        })
+        console.log(res);
+      }
+    })
   },
 
   Check: function () {
@@ -209,5 +276,41 @@ Page({
     wx.navigateTo({
       url: '../ranking/ranking' 
     })
-  }
+  },
+
+  getSelfRank: function(){
+    var that = this;
+    var openId = wx.getStorageSync('openid');
+    console.log(openId);
+    wx.request({
+      method: 'POST',
+      header: {
+        "accept": "*/*",
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      url: 'http://34.92.251.246:8091/questionRecord/getUserRank/',
+      data: {
+        commonUserID: openId,
+      },
+      success: function (response) {
+        if(response.data.state == 'fail'){
+          return;
+        }
+        console.log(response);
+        that.setData({
+            toNext: response.data.toNext,
+            score: response.data.score,
+            percent: response.data.percent,
+            checked: response.data.checked,
+            rank: response.data.level,
+            days: response.data.days,
+        })
+        // that.setData({
+        //   rankingList: response.data.result
+        // })
+      },
+      fail: function (res) {
+      }
+    })
+  },
 })

@@ -1,10 +1,8 @@
-<scroll-view class="scroll-box" scroll-x scroll-with-animation
-  scroll-into-view="{{toView}}"
-  bindtouchstart="touchStart"
-  bindtouchend="touchEnd">
-    <view wx:for="{{list}}" wx:key="{{item}}" class="card-box" id="card_{{index}}">
-      <view class="card">
-        <text>{{item}}</text>
-      </view>
-    </view>
-</scroll-view>
+<view class="container">
+ <view class="mxc1">
+ <text>您已签到 {{firstTime}} 次</text>
+ </view>
+ <view class="{{flag?'mxc2-1':'mxc2-2'}}" bindtap="onBindTap">
+ <text>我要签到</text>
+ </view>
+</view>

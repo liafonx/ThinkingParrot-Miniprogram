@@ -1,6 +1,7 @@
+const Prompt = require("../../utils/prompt");
 
 var app = getApp();
-
+var prompt = Prompt
 Page({
   data: {
     questionList: [],
@@ -30,7 +31,7 @@ Page({
     let currLec = options.currLec;
     console.log(options.state);
     wx.setNavigationBarTitle({
-      title: testId,
+      title: options.currLec + " " +testId,
       
     }) // 动态设置导航条标题
     this.setData({
@@ -52,7 +53,7 @@ Page({
 
   getQuestion(level, lecture) {
     var that = this
-    this.loadingOn()
+    prompt.loadingOn();
     var that = this;
     var url = 'http://34.92.251.246:8091/questionRecord/getNewQuestion/';
     if (this.data.state) {
@@ -69,12 +70,11 @@ Page({
       data: {
         commonUserID: app.globalData.openId,
         level: level,
-        lecture: "Lecture  2"
+        lecture: lecture
       },
       success: function (response) {
         console.log(response);
-
-        that.loadingOff();
+        prompt.loadingOff();
         if (that.data.state) {
           var questionList = response.data.wrongQuestion
           var length = response.data.wrongQuestion.length
@@ -84,14 +84,7 @@ Page({
         }
         console.log(questionList);
         if (!questionList || length == 0) {
-          wx.showToast({
-            title: '获取题目失败',
-            icon: 'none',
-            duration: 2000,
-            success: function () {
-              return;
-            }
-          })
+          prompt.toast('获取题目失败');
           setTimeout(function () {
             that.onUnload();
           }, 2000)
@@ -113,15 +106,8 @@ Page({
       },
       fail: function (res) {
         console.log(res);
-        that.loadingOff();
-        wx.showToast({
-          title: '获取题目失败',
-          icon: 'none',
-          duration: 2000,
-          success: function () {
-            return;
-          }
-        })
+        prompt.loadingOff();
+        prompt.toast('获取题目失败');
         setTimeout(function () {
           that.onUnload();
         }, 2000)
@@ -160,14 +146,14 @@ Page({
                   that.yuyinPlay();       
           } else {
               wx.showToast({
-                  title: 'something wrong!',
+                  title: '语音播放失败',
                   icon: none,
               })
           }
       },
       fail: function (res) {
         wx.showToast({
-          title: 'something wrong!',
+          title: '语音播放失败',
           icon: none
       })
         console.log(res);
@@ -181,7 +167,6 @@ Page({
       wx.showToast({
         title: '语音播放失败',
         icon: 'none',
-        duration: 2000,
         success: function () {
           return;
         }
@@ -236,7 +221,7 @@ Page({
         if (res.confirm) {
           console.log('用户点击确定')
           wx.switchTab({
-            url: '../index/index'
+            url: '../learning/learning'
           })
         } else if (res.cancel) {
           console.log('用户点击取消')
@@ -250,7 +235,7 @@ Page({
   nextSubmit: function () {
     var that = this;
     // 如果没有选择
-    if (this.data.chooseValue[this.data.index] == undefined || this.data.chooseValue[this.data.index].length == 0) {
+    if (this.data.chooseValue[this.data.index] == undefined) {
       wx.showToast({ //弹窗提示
         title: '你还没有答题哦！',
         icon: 'none',
@@ -290,8 +275,10 @@ Page({
       console.log(that.data.wrongListID);
       console.log(that.data.rightListID);
       var url = 'http://34.92.251.246:8091/questionRecord/recordAnswer/'
+      var score = that.data.totalScore*0.2
       if(that.data.state) {
         var url = "http://34.92.251.246:8091/questionRecord/correctAnswer/"
+        var score = that.data.totalScore*0.1
       }
       wx.request({
         method: 'POST',
@@ -305,7 +292,7 @@ Page({
           level: that.data.testId,
           wrong: JSON.stringify(that.data.wrongListID),
           right: JSON.stringify(that.data.rightListID),
-          score: that.data.totalScore*0.8
+          score: score
         },
         success: function (response) {
           that.loadingOff();
@@ -358,7 +345,7 @@ Page({
       var wrongQuestion = {
         "questionText" : question.question,
         "userAnswer": question.options[chooseVal],
-        "answer": question.options["D"]
+        "answer": question.options[trueValue]
       }
       this.data.wrong++;
       this.data.wrongList.push(wrongQuestion);
@@ -551,7 +538,7 @@ Page({
               width: 0,
               color: '#f73636',
               isChoosed: true,
-              answer: this.data.questionList[this.data.shuffleIndex[this.data.index]]['true'],
+              answer: this.data.questionList[this.data.shuffleIndex[this.data.index]].question['true']
               // t: 0
             });
             //默认选择F

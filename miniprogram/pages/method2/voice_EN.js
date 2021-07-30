@@ -11,7 +11,7 @@ Page({
   onLoad() {
       // this.loadingOn()
       var that = this;
-      var url = 'http://34.92.251.246:8091/questionRecord/getHistory/';
+      var url = 'http://34.92.251.246:8091/questionRecord/signAddScore/';
       wx.request({
         method: 'POST',
         header: {
@@ -21,28 +21,27 @@ Page({
         url: url,
         data: {
           commonUserID: app.globalData.openId,
-          level: "Level2",
-          lecture: "Lecture  2"
+          // level: that.data.testId,
+          // wrong: JSON.stringify([]),
+          // right: JSON.stringify(that.data.rightListID),
+          // score: that.data.totalScore*0.8
         },
         success: function (response) {
-          // that.loadingOff();
           console.log(response);
+          // that.setData({
+          //   rankingList: response.data.result
+          // })
         },
         fail: function (res) {
-          console.log(res);
-          // that.loadingOff();
           wx.showToast({
-            title: '获取题目失败',
+            title: '上传答题记录失败',
             icon: 'none',
             duration: 2000,
             success: function () {
               return;
             }
           })
-          setTimeout(function () {
-            that.onUnload();
-          }, 2000)
-          return
+          console.log(res);
         }
       })
   }
