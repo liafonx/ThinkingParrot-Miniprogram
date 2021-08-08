@@ -16,16 +16,17 @@ Page({
     totalScore: 0, // 总分
     wrong: 0, // 错误的题目数量
     wrongList: [], // 错误的题目集合-乱序
-    wrongListSort: [], // 错误的题目集合-正序
+    wrongListID: [], // 错误的题目集合-乱序
+    rightListID: [], // 错误的题目集合-正序
     collected: false, //是否收藏
     userID: '',
     width: 100, //时间条长度
-    maxtime: 10, //答题时间
-    color: '#4DCF32', //时间条颜色
-    collection: '', //收藏夹数组
+    maxtime: 1, //答题时间
+    color: '#46c557', //时间条颜色
     src: '',
     testId: '',
     currLec: '',
+    redirect: ''
   },
 
   onLoad: function (options) {
@@ -38,7 +39,8 @@ Page({
     this.setData({
       questionList: app.globalData.oralList[testId], // 拿到答题数据
       testId: testId, // 课程ID
-      currLec: currLec
+      currLec: currLec,
+      redirect: options.redirect
     })
     //创建内部 audio 上下文 InnerAudioContext 对象。
     this.innerAudioContext = wx.createInnerAudioContext(true);
@@ -127,8 +129,9 @@ Page({
   },
 
   onUnload: function () {
+    var page = this.data.redirect
     wx.reLaunch({
-      url: '../learning/learning'
+      url: '../'+page+'/'+page
     })
   },
 
@@ -340,8 +343,7 @@ Page({
       },
       success: function (res) {
         console.log(res)
-        var value = JSON.parse(res.data)
-        if (value["state"] == "success") {
+        if (res.state == "success" || res.errMsg == '') {
           that.setData({
             result: value["result"],
             done: true,
@@ -450,10 +452,10 @@ Page({
           //根据时间改变进度条颜色
           switch (width) {
             case 60:
-              color = '#E8CE67';
+              color = '#E9C66C';
               break;
             case 20:
-              color = '#ff881f';
+              color = '#E76E51';
             default:
               break;
           }
@@ -476,6 +478,7 @@ Page({
               done: true,
               result: false,
             });
+            _ts.end()
             return;
           } else {
             animate();
@@ -491,14 +494,14 @@ Page({
     // })
     // 判断是不是最后一题
     this.ifRight();
-
+    var that = this;
     if (this.data.index < this.data.shuffleIndex.length - 1) {
 
       // 渲染下一题
       this.setData({
         index: this.data.index + 1,
         isChoosed: false,
-        collected: this.data.questionList[this.data.shuffleIndex[this.data.index]].question.whetherCollect,
+        collected: this.data.questionList[this.data.shuffleIndex[this.data.index+1]].question.whetherCollect,
         totalScore: this.data.totalScore,
         width: 100,
         color: '#4DCF32',
@@ -510,11 +513,50 @@ Page({
       this.countdown();
       this.startPlay();
     } else {
+      var url = 'http://34.92.251.246:8091/questionRecord/recordAnswer/'
+      var score = that.data.totalScore*0.2
+      if(that.data.state) {
+        var url = "http://34.92.251.246:8091/questionRecord/correctAnswer/"
+        var score = that.data.totalScore*0.1
+      }
+      wx.request({
+        method: 'POST',
+        header: {
+          "accept": "*/*",
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        url: url,
+        data: {
+          commonUserID: app.globalData.openId,
+          level: that.data.testId,
+          wrong: JSON.stringify(that.data.wrongListID),
+          right: JSON.stringify(that.data.rightListID),
+          score: score
+        },
+        success: function (response) {
+          that.loadingOff();
+          console.log(response);
+          // that.setData({
+          //   rankingList: response.data.result
+          // })
+        },
+        fail: function (res) {
+          that.loadingOff();
+          wx.showToast({
+            title: '上传答题记录失败',
+            icon: 'none',
+            duration: 2000,
+            success: function () {
+              return;
+            }
+          })
+          console.log(res);
+        }
+      })
       let wrongList = JSON.stringify(this.data.wrongList);
-      let wrongListSort = JSON.stringify(this.data.wrongListSort);
       // let chooseValue = JSON.stringify(this.data.chooseValue);
       wx.navigateTo({
-        url: '../result/result?totalScore=' + this.data.totalScore + '&wrongList=' + wrongList + '&wrongListSort=' + wrongListSort + '&testId=' + this.data.testId + '&redirect=' + 'learning'
+        url: '../result/result?totalScore=' + this.data.totalScore  +  '&testId=' + this.data.testId + "&currLec=" + this.data.currLec + '&wrongList=' + encodeURIComponent(wrongList) + '&redirect=' + this.data.redirect + "&speak=ture"
       })
 
       // 设置缓存
@@ -526,9 +568,6 @@ Page({
       }
       logs.unshift(logsList);
       wx.setStorageSync('logs', logs);
-      let collectionList = JSON.stringify(this.data.collection);
-      wx.setStorageSync('collection', collectionList);
-      wx.setStorageSync('wrongorallist', wrongList);
     }
   },
 
@@ -536,17 +575,24 @@ Page({
    * 判断对错
    */
   ifRight: function () {
+    var question = this.data.questionList[this.data.shuffleIndex[this.data.index]].question;
     if (!this.data.result) {
       console.log('错了');
+      var wrongQuestion = {
+        "questionText" : question.question,
+        "answer": this.data.questionList[this.data.shuffleIndex[this.data.index]].example
+      }
       this.data.wrong++;
-      this.data.wrongListSort.push(this.data.index);
-      this.data.wrongList.push(this.data.shuffleIndex[this.data.index]);
+      this.data.wrongList.push(wrongQuestion);
+      this.data.wrongListID.push(question.questionID);
+      console.log(this.data.wrongList);
+      console.log(this.data.wrongListID);
     } else {
       this.setData({
-        totalScore: this.data.totalScore + this.data.questionList[this.data.shuffleIndex[this.data.index]]['scores'] // 扣分操作
+        totalScore: this.data.totalScore + 10 // 加分操作
       })
+      this.data.rightListID.push(question.questionID);
     }
-    console.log(this.data.wrongListSort);
     console.log(this.data.totalScore);
   },
 
@@ -557,5 +603,17 @@ Page({
    */
   generateArray: function (start, end) {
     return Array.from(new Array(end + 1).keys()).slice(start)
-  }
+  },
+
+  loadingOn: function() {
+    wx.showLoading({
+      title: 'Loading',
+    })
+  },
+
+  loadingOff: function(){
+    wx.hideLoading({
+      success: (res) => {},
+    })
+  },
 })

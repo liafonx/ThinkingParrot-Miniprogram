@@ -18,12 +18,13 @@ Page({
     isChoosed: false, //是否已答题
     width: 100, //时间条长度
     maxtime: 10, //答题时间
-    color: '#4DCF32', //时间条颜色
+    color: '#46c557', //时间条颜色
     collection: '',
     src: '', //语音路径
     currLec: '',
     testId: '',
     state: '',
+    redirect: ''
   },
   onLoad: function (options) {
     var that = this;
@@ -38,6 +39,7 @@ Page({
       testId: testId,
       currLec: currLec,
       state: options.state,
+      redirect: options.redirect
     })
     //创建内部 audio 上下文 InnerAudioContext 对象。
     this.innerAudioContext = wx.createInnerAudioContext(true);
@@ -117,8 +119,9 @@ Page({
   },
 
   onUnload: function () {
+    var page = this.data.redirect
     wx.reLaunch({
-      url: '../learning/learning'
+      url: '../'+page+'/'+page
     })
   },
 
@@ -130,10 +133,15 @@ Page({
   startPlay: function (e) {
     var that = this;
     var question = this.data.questionList[this.data.shuffleIndex[this.data.index]].question.question
+    if(this.data.testId == "Level1") {
+      var name = 1
+    }else{
+      var name = 2
+    }
     wx.downloadFile({
       method: 'POST',
       header: { "accept": "multipart/form-data","content-type": "application/x-www-form-urlencoded" },
-      url: 'http://34.92.251.246:8091/questionRecord/textToSpeechEN/?text=' + question,
+      url: 'http://34.92.251.246:8091/questionRecord/textToSpeechEN/?text=' + question + "&name=" + name,
       // data: {
       //   text: 'Setting data field "questionList" to undefined is invalid.'
       // },
@@ -263,10 +271,10 @@ Page({
         choosed: '',
         answer: '',
         isChoosed: false,
-        collected: false,
+        collected: that.data.questionList[that.data.shuffleIndex[that.data.index+1]].question.whetherCollect,
         totalScore: this.data.totalScore,
         width: 100,
-        color: '#4DCF32',
+        color: '#46c557',
         src: '', //语音路径
       })
       this.countdown();
@@ -315,9 +323,11 @@ Page({
         }
       })
       let wrongList = JSON.stringify(this.data.wrongList);
+      console.log(((100 / this.data.questionList.length) * this.data.wrongList.length).toFixed(0));
+      var score = 100 - ((100 / this.data.questionList.length) * this.data.wrongList.length).toFixed(0)
       console.log("currLec", this.data.currLec);
       wx.navigateTo({
-        url: '../result/result?totalScore=' + this.data.totalScore  +  '&testId=' + this.data.testId + "&currLec=" + this.data.currLec + '&wrongList=' + encodeURIComponent(wrongList)
+        url: '../result/result?totalScore=' + score  +  '&testId=' + this.data.testId + "&currLec=" + this.data.currLec + '&wrongList=' + encodeURIComponent(wrongList) + "&redirect=" + this.data.redirect
       })
 
       // 设置缓存
@@ -514,10 +524,10 @@ Page({
           //根据时间改变进度条颜色
           switch (width) {
             case 60:
-              color = '#E8CE67';
+              color = '#E9C66C';
               break;
             case 20:
-              color = '#ff881f';
+              color = '#E76E51';
             default:
               break;
           }

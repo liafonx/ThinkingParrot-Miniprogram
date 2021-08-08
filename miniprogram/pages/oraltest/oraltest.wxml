@@ -1,9 +1,0 @@
-<!--miniprogram/pages/oraltest/oraltest.wxml-->
-<!--index.wxml-->
-<view class="container">
-  <textarea class="text"></textarea>
-  <view class="btn">
-    <button bindtap="start"> 开始 </button>
-    <button bindtap="end"> 结束 </button>
-  </view>
-</view>

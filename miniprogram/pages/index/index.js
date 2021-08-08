@@ -167,7 +167,7 @@ Page({
   onBindTap: function () {
     prompt.loadingOn()
     var that = this;
-    var url = 'http://34.92.251.246:8091/questionRecord/signAddScore/';
+    var url = 'https://uicaitutor.info/questionRecord/signAddScore/';
     wx.request({
       method: 'POST',
       header: {
@@ -288,15 +288,16 @@ Page({
         "accept": "*/*",
         "content-type": "application/x-www-form-urlencoded"
       },
-      url: 'http://34.92.251.246:8091/questionRecord/getUserRank/',
+      url: 'https://uicaitutor.info/questionRecord/getUserRank/',
       data: {
         commonUserID: openId,
       },
       success: function (response) {
+        console.log(response);
         if(response.data.state == 'fail'){
+          prompt.toast("积分获取失败！")
           return;
         }
-        console.log(response);
         that.setData({
             toNext: response.data.toNext,
             score: response.data.score,

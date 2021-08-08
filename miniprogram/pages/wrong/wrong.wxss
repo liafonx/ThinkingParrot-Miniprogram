@@ -120,7 +120,7 @@ page {
 }
 
 .unlocked {
-  background-color: #265962;
+  background-color: #4F7E8E;
 }
 
 .level-btn {
@@ -132,11 +132,11 @@ page {
 }
 
 .no-wrong {
-  background-color: rgb(0, 187, 0);
+  background-color: #4db85b;
 }
 
 .locked {
-  background-color: #7A7A7A;
+  background-color: #8a8b8d;
 }
 
 .icon {

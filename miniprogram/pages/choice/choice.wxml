@@ -24,6 +24,7 @@
   </view> -->
   <!--内容-->
   <!-- <view class="page__bd">  -->
+ 
   <view class="option-box" style="pointer-events:{{isChoosed?'none':'auto'}}">
     <!-- <view class="option" bindtap="radioChange" wx:for="{{questionList[shuffleIndex[index]].option}}" wx:for-index="key"  wx:for-item="value">
       <view class="option-text" value="{{key}}" checked="{{questionList[shuffleIndex[index]].checked}}">{{value}}</view>
@@ -52,6 +53,7 @@
     </radio-group> -->
   <!-- </view> -->
   <!--按钮-->
+  <view class="middle"></view>
   <view class="btom-box">
     <view class="collect-box">
       <image class="icon-coll" bindtap="Collect"

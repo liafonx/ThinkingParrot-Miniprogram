@@ -15,6 +15,8 @@ Page({
     listhidden: true,
     toView: `card_${DEFAULT_PAGE}`,
     list: ['Javascript', 'Typescript', 'Java', 'PHP', 'Go'],
+    redirect: '',
+    speak: '',
   },
   onLoad: function (options) {
     console.log(options);
@@ -23,18 +25,19 @@ Page({
     let wrongList = JSON.parse(decodeURIComponent((options.wrongList))) ;
     console.log(wrongList);
     let totalScore = options.totalScore;
-    if(options.redirect){
-      redirect = options.redirect;
-    }
     if(totalScore != null||totalScore != "" ) {
       totalScore = Number(options.totalScore) ;
     }else {
       totalScore = "无";
     }
+    if (options.speak != null || options.speak != '') {
+      this.data.speak = options.speak
+    }
     this.setData({
       totalScore: totalScore,
       wrongList: wrongList,
-      testId: options.testId  // 课程ID
+      testId: options.testId,  // 课程ID
+      redirect: options.redirect,
     })
   
   },
@@ -80,10 +83,8 @@ Page({
 
   // 返回首页
   toIndex: function(){
-    var url = '../learning/learning'
-    if(redirect){
-      var url = '../wrong/wrong'
-    }
+
+    var url = '../'+this.data.redirect+'/'+this.data.redirect
     wx.switchTab({
       url: url
     })

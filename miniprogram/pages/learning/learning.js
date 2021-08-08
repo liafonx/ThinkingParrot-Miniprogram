@@ -4,6 +4,15 @@ Page({
   data: {
     currLevel: '1',
     currLec: "Lecture  1",
+    history:{
+      // "Level1": {"whetherDone":true},
+      // "Level2": {"whetherLock":true},
+      // "Level3": {"whetherLock":true},
+      // "Level4": {"whetherLock":true},
+      // "Level5": {"whetherLock":true},
+      // "Level6": {"whetherLock":true}
+    },
+    request: false,
     slist: [{
         id: 1,
         name: "Lecture  1"
@@ -91,6 +100,11 @@ Page({
         success: function (response) {
           // that.loadingOff();
           console.log(response);
+          that.setData({
+            history: response.data.allDone,
+            request: true
+          })
+          console.log(that.data.history);
         },
         fail: function (res) {
           console.log(res);
@@ -118,22 +132,22 @@ Page({
     switch (this.data.currLevel) {
       case '1':
         wx.navigateTo({
-          url: '' + testId //跳转到答题页， 传入试题
+          url: '../concept/concept?testId=' + testId + '&currLec=' + this.data.currLec + "&rederict=learning"  //跳转到答题页， 传入试题 //跳转到答题页， 传入试题
         })
         break;
       case '2':
         wx.navigateTo({
-          url: '../choice/choice?testId=' + testId + '&currLec=' + this.data.currLec //跳转到答题页， 传入试题
+          url: '../choice/choice?testId=' + testId + '&currLec=' + this.data.currLec + "&redirect=learning"//跳转到答题页， 传入试题
         })
         break;
       case '3':
         wx.navigateTo({
-          url: '../choice/choice?testId=' + testId + '&currLec=' + this.data.currLec //跳转到答题页， 传入试题
+          url: '../choice/choice?testId=' + testId + '&currLec=' + this.data.currLec + "&redirect=learning"//跳转到答题页， 传入试题
         })
         break;
       case '4':
         wx.navigateTo({
-          url: '../speak/speak?testId=' + testId + '&currLec=' + this.data.currLec //
+          url: '../speak/speak?testId=' + testId + '&currLec=' + this.data.currLec + "&redirect=learning" //
         })
         break;
       default:
@@ -143,12 +157,10 @@ Page({
 
   changeState: function (e) {
     var that = this;
-    if (e.currentTarget.dataset.unlock) {
       that.setData({
         currLevel: e.currentTarget.dataset.level
       });
       wx.setStorageSync('currLevel', e.currentTarget.dataset.level)
-    };
   },
 
   opens: function (e) {

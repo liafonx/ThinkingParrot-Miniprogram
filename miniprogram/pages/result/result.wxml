@@ -11,7 +11,9 @@
       <!-- <text class="score-text">Points</text> -->
     </view>
   </view>
-  <text class="score-remark {{totalScore==100?'score-good':(totalScore>=80?'socre-decent':'')}}">{{totalScore=='无'?remark[3]:totalScore==100?remark[0]:(totalScore>=80?remark[1]:remark[2])}}</text>  <!-- 评价 -->
+  <text
+    class="score-remark {{totalScore==100?'score-good':(totalScore>=80?'socre-decent':'')}}">{{totalScore=='无'?remark[3]:totalScore==100?remark[0]:(totalScore>=80?remark[1]:remark[2])}}</text>
+  <!-- 评价 -->
   <!--查询错误-->
   <view class='page-footer'>
     <!-- <view class="wrong-view" wx:if="{{wrongList.length > 0}}">
@@ -19,31 +21,33 @@
       <text wx:for="{{wrongListSort}}" class="wrong-index">{{item-0+1}}</text> 
     </view> -->
     <view class="wrong-btns">
-      <view bindtap="toView"  class="home-btn  wrong-btn" wx:if="{{wrongList.length > 0}}"> 查看错题 </view>
-      <view bindtap="toIndex" class="home-btn ">返回首页</view>
+      <view bindtap="toView" class="home-btn  wrong-btn" wx:if="{{wrongList.length > 0}}"> 查看错题 </view>
+      <view bindtap="toIndex" class="home-btn ">返回主页</view>
     </view>
   </view>
-  <scroll-view class="scroll-box" scroll-x scroll-with-animation
-  scroll-into-view="{{toView}}"
-  bindtouchstart="touchStart"
-  bindtouchend="touchEnd" hidden="{{listhidden}}">
-    <view wx:for="{{wrongList}}" wx:key="index" class="card-box" id="question_{{index}}">
-      <view class="card">
-        <view class="question"
-        ><text class="question-text">{{item.questionText}}</text>
-        </view>
-        <view class="choosed-answer">
-          <view class="choosed-text">你的答案</view>
-          <view class="choosed">{{item.userAnswer}}</view>
-        </view>
-        <view class='choosed-answer answer-box'>
-        <view class="choosed-text answer-text">正确答案</view>
-        <view class="choosed answer">{{item.answer}}</view>
+  <view class="mask" hidden="{{listhidden}}">
+
+    <scroll-view class="scroll-box" scroll-x scroll-with-animation scroll-into-view="{{toView}}"
+      bindtouchstart="touchStart" bindtouchend="touchEnd" hidden="{{listhidden}}">
+      <view wx:for="{{wrongList}}" wx:key="index" class="card-box" id="question_{{index}}">
+        <view class="card">
+          <view class="question">
+            <view class="question-text">
+                {{item.questionText}}
+            </view>
+          </view>
+          <view class="choosed-answer" wx:if="{{item.userAnswer}}">
+            <view class="choosed-text">你的答案</view>
+            <view class="choosed">{{item.userAnswer}}</view>
+          </view>
+          <view class='choosed-answer answer-box'>
+            <view class="choosed-text answer-text">正确答案</view>
+            <view class="choosed answer">{{item.answer}}</view>
+          </view>
         </view>
       </view>
-    </view>
-</scroll-view>
-<!-- <scroll-view class="scroll-box" scroll-x scroll-with-animation
+    </scroll-view>
+    <!-- <scroll-view class="scroll-box" scroll-x scroll-with-animation
   scroll-into-view="{{toView}}"
   bindtouchstart="touchStart"
   bindtouchend="touchEnd">
@@ -63,8 +67,9 @@
       </view>
     </view>
 </scroll-view> -->
-<view class="exit-box" hidden="{{listhidden}}" bindtap="Exit">  
-  <image class="exit-icon" src="images/exit.png">
-  </image>
-</view>
+    <view class="exit-box" hidden="{{listhidden}}" bindtap="Exit">
+      <image class="exit-icon" src="images/exit.png">
+      </image>
+    </view>
+  </view>
 </view>

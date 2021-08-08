@@ -1,0 +1,46 @@
+<!--pages/speak/speak.wxml-->
+<view class="page">
+    <!-- <text class='headpiece-num'>{{t}}</text> -->
+    <view class="question-num-box" style="background-color:{{color}}">{{index+1}}</view>
+  
+  <view class="answer-box" data-question="{{questionList[shuffleIndex[index]].question.question}}">
+    <view class="example">{{questionList[shuffleIndex[index]].example}}</view>
+    <view class="box meaning-box">
+      <view class="tag meaning-tag">含义</view>
+      <view class="text meaning">{{questionList[shuffleIndex[index]].question.meaning}}</view>
+    </view>
+    <view class=" box trans-box">
+      <view class="tag trans-tag">翻译</view>
+      <view class="text trans">{{questionList[shuffleIndex[index]].question.translation}}</view>
+    </view>
+    <view class="line-box">
+    <view class="cut-line">
+      <view class="lines"></view>
+      <view class="line-text">Concepts</view>
+      <view class="lines"></view>
+    </view>
+  </view>
+  <!-- <view class="answer-box">
+    </view> -->
+    
+    <view class="concept-box">
+      <view class="concpet">{{questionList[shuffleIndex[index]].question.concept}}</view>
+      <view class="concpet sub-concept" wx:if="{{questionList[shuffleIndex[index]].question.subConcept != '' || item != ''}}"
+      wx:for="{{questionList[shuffleIndex[index]].question.subConcept}}" wx:key="item">{{item}}</view>
+    </view>
+  </view>
+  <view class="middle"></view>
+  <view class="btom-box">
+    <view class="collect-box">
+      <image class="icon-coll" bindtap="Collect"
+        src="{{collected == true?'images/collected.png':'images/uncollected.png'}}"></image>
+    </view>
+    <view id="btn-box">
+      <view class="btn" bindtap='nextQuestion'>
+        <image class="icon-next" src="images/restart.png" wx:if="{{index == shuffleIndex.length - 1}}"></image>
+        <image class="icon-next" src="images/next.png" wx:else></image>
+      </view>
+    </view>
+    <view class="placeholder"></view>
+  </view>
+</view>

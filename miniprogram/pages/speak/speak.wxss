@@ -3,6 +3,11 @@
 .page {
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content:center;
@@ -14,7 +19,7 @@
   margin-bottom: 0.5rem;
   margin-left: 0.7rem;
   margin-right: 0.5rem;
-  font-size: 15px;
+  font-size: 17px;
   word-wrap: break-word;
   text-align: left;
 }
@@ -69,24 +74,32 @@ cover-image {
 }
 
 .question {
-  margin-bottom: -1rem;
+  margin-top: 1rem;
+  padding-left: 1rem;
+  min-height: 6rem;
+  /* margin-bottom: -1rem; */
   margin-left: 1rem;
   margin-right: 1rem;
-  font-size: 18px;
+  font-size: 20px;
   word-wrap: break-word;
-  text-align: center;
+  flex-flow: column;
+  justify-items: flex-start;
+  align-items: center;
+  color: #5e5c63;
+  font-weight: 550;
+  color: rgb(49, 49, 49);
 }
 
 .btn {
   z-index: 1;
-  
   width: 6rem;
   height: 6rem;
   border-radius: 30rem;
-  background-color: #E8CE67;
+  background-color: #e6ce9a;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px 0px 8px 1px  #9696966b;
 }
 
 .btn-text {
@@ -95,28 +108,30 @@ cover-image {
 }
 
 .answer-box {
-  z-index: -1;
-  margin-top: 5rem;
+  z-index: 1;
+  margin-top: 1rem;
   width: 20rem;
   height: 9rem;
   border-radius: 1rem;
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(241, 241, 241);
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 5rem;
+  box-shadow: 0px 0px 15px 2px  #9696966b;
 }
 
 .correctness-box {
-  z-index: 1;
+  z-index: 2;
   margin-top: -6.5rem;
   width: 3rem;
   height: 3rem;
   border-radius: 2rem;
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(241, 241, 241);
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px 10px 15px 2px  #9696966b;
 }
 
 .cb-default {
@@ -133,14 +148,8 @@ cover-image {
   height: 70%;
 }
 
-.question {
-  margin-bottom: -1rem;
-  font-size: 20px;
-}
 
 .top-box {
-  
- 
   width: 100%;
   height: auto;
   display: flex;
@@ -193,7 +202,7 @@ cover-image {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-top: 5rem;
+  margin-bottom: 4.5rem;
 }
 
 .headpiece-process-right{
@@ -234,4 +243,14 @@ cover-image {
   flex-direction: row-reverse;
   /* background: #ffffff; */
   
+}
+
+.middle {
+  width: 5rem;
+  height: 5rem;
+  z-index: 0;
+  /* width: 5rem;
+  height: 5rem; */
+  /* background-color: blue; */
+  flex: 1;
 }

@@ -50,18 +50,18 @@
 }
 
 #btn-box {
-  z-index: 1;
+  /* z-index: 1; */
   /* background-color: #4DCF32; */
   margin-top: 7.5rem;
 }
 
 .btn {
-  z-index: 1;
+  /* z-index: 1; */
   /* margin-top: 5rem; */
   width: 9rem;
   height: 9rem;
   border-radius: 30rem;
-  background-color: #44b62d;
+  background: linear-gradient(#46c557, #3aa148);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,7 +78,7 @@
 
 .btn-text {
   color: #fff;
-  font-size: 24px;
+  font-size: 22px;
 }
 
 .background {
@@ -122,7 +122,8 @@
   /* margin-top: 10vh; */
   flex-direction: column;
   justify-content: space-around;
-  margin-top: 4.5rem;
+  /* margin-top: 4.5rem; */
+  /* background-color: violet; */
 }
 
 #text-box {
@@ -131,7 +132,7 @@
 }
 
 .unlocked {
-  background-color: #d6c581;
+  background-color: #e0c683;
 }
 
 .level-btn {
@@ -258,4 +259,18 @@
   right: 0;
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(8px);
+}
+
+.btn-icon {
+  width: 70%;
+  height: 70%;
+}
+
+.prompt {
+  margin-top: 1.5rem;
+  background-color: #e0c683;
+  color: #f0f0f0;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 1rem;
 }

@@ -1,8 +1,0 @@
-<view style="margin-left:10px">
-  You said:
-  <view>
-    {{msg}}
-  </view>
-</view>
-<button type='default' hover-class='' bindtouchstart='startrecorderHandel' bindtouchend="sendrecorderHandel"
-  style="position: fixed;width:100%;bottom:0;margin:100px auto">Start Speaking</button>

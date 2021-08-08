@@ -122,17 +122,17 @@ Page({
         break;
       case '2':
         wx.navigateTo({
-          url: '../choice/choice?testId=Level' + testId + "&state=wrong" + "&currLec=改错" //跳转到答题页， 传入试题
+          url: '../choice/choice?testId=Level' + testId + "&state=wrong" + "&currLec=改错"+ "&redirect=wrong" //跳转到答题页， 传入试题
         })
         break;
       case '3':
         wx.navigateTo({
-          url: '../choice/choice?testId=Level' + testId + "&state=wrong" + "&currLec=改错" //跳转到答题页， 传入试题
+          url: '../choice/choice?testId=Level' + testId + "&state=wrong" + "&currLec=改错"+ "&redirect=wrong" //跳转到答题页， 传入试题
         })
         break;
       case '4':
         wx.navigateTo({
-          url: '../speak/speak?testId=Level' + testId + "&state=wrong" + "&currLec=改错" //
+          url: '../speak/speak?testId=Level' + testId + "&state=wrong" + "&currLec=改错"+ "&redirect=wrong" //
         })
         break;
       default:

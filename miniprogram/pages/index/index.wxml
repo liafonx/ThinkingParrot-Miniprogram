@@ -41,7 +41,8 @@
     </view>
     <view class="score" >{{score}}</view>
     <view id="detail-box">
-      <view class="detail" wx:if="{{checked}}">已连续签到{{days}}天</view>
+      <view class="detail" wx:if="{{checked && days == 0}}">已签到1天</view>
+      <view class="detail" wx:if="{{checked && days != 0}}">已连续签到{{days+1}}天</view>
       <view id="point-box">
         <text class="detail" wx:if="{{toNext == 0}}">已达最高段位</text>
         <text class="detail" wx:else>距离下一个段位还有{{toNext}}积分</text>

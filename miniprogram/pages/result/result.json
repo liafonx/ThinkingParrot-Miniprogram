@@ -1,6 +1,3 @@
 {
-  "navigationBarTitleText": "WeChatTest",
-  "usingComponents": {
-    "wrong-modal": "../review/review"
-  }
+  "navigationBarTitleText": "AI Teaching"
 }

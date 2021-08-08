@@ -211,7 +211,7 @@ btn-checked {
 }
 
 #learning-box {
-  background-color: #4DCF32;
+  background-color: #46c557;
 }
 
 .task-box-left {

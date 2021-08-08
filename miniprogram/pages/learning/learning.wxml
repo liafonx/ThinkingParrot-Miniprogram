@@ -20,41 +20,39 @@
       </view>
     </view>
   </view>
-  <view id="btn-box" bindtap="toTestPage" data-testId="Level{{currLevel}}">
+  <view id="btn-box" bindtap="{{history['Level'+currLevel]['whetherDone']?'':'toTestPage'}}" data-testId="Level{{currLevel}}">
     <view class="btn">
-      <text class="btn-text">开始学习</text>
+      <image class='btn-icon' src="images/done.png" wx:if="{{history['Level'+currLevel]['whetherDone']}}"></image>
+      <text class="btn-text" wx:else>开始学习</text>
     </view>
     <view id="detail-box">
-      <text id="level-in" class="detail">Level {{currLevel}} </text>
-      <view id="text-box">
-        <text id="num-done" class="detail">177/323</text>
-        <!-- <text>/</text>
-        <text id="num-total" class="detail">323</text> -->
-      </view>
+      <text id="level-in" class="detail">Level {{currLevel}}</text>
+      <text id="num-done" class="detail" wx:if="{{request}}"> {{history['Level'+currLevel]['doneNum']}}/{{history['Level'+currLevel]['allLevelNum']}}</text>
     </view>
   </view>
+    <view class="prompt"  wx:if="{{history['Level'+currLevel]['whetherDone']}}">题目已经答完了，请选择其他Level或Lecture</view>
   <view id="bottom-panel">
     <view class="levels-box">
-      <view id="level1" class="level-btn  {{currLevel==1?'current':'unlocked'}}" data-level="1" data-unlock="true"
-        catchtap='changeState'>
-        <image class="icon" src="{{currLevel==1?'images/current.png':'images/unlocked.png'}}"></image>
+      <view id="level1" class="level-btn  {{history['Level1']['whetherDone']?'locked':currLevel==1?'current':'unlocked'}}" data-level="1"
+      catchtap="{{!history['Level1']['whetherLock']?!history['Level1']['whetherDone']?'changeState':'':''}}">
+        <image class="icon" src="{{history['Level1']['whetherDone']?'images/done.png':currLevel==1?'images/current.png':'images/unlocked.png'}}"></image>
         <text class="level-text">Level 1</text>
       </view>
-      <view id="level2" class="level-btn {{currLevel==2?'current':'unlocked'}}" data-level="2" data-unlock="true"
-        catchtap='changeState'>
-        <image class="icon" src="{{currLevel==2?'images/current.png':'images/unlocked.png'}}"></image>
+      <view id="level2" class="level-btn {{!history['Level2']['whetherLock']?!history['Level2']['whetherDone']?currLevel==2?'current':'unlocked':'locked':'locked'}}" data-level="2"
+        catchtap="{{!history['Level2']['whetherLock']?!history['Level2']['whetherDone']?'changeState':'':''}}">
+        <image class="icon" src="{{!history['Level2']['whetherLock']?history['Level3']['whetherDone']?'images/done.png':currLevel==3?'images/current.png':'images/unlocked.png':'images/locked.png'}}"></image>
         <text class="level-text">Level 2</text>
       </view>
-      <view  id="level3" class="level-btn {{currLevel==3?'current':'unlocked'}}" data-level="3" data-unlock="true"
-        catchtap='changeState'>
-        <image class="icon" src="{{currLevel==3?'images/current.png':'images/unlocked.png'}}"></image>
+      <view  id="level3" class="level-btn {{!history['Level3']['whetherLock']?!history['Level3']['whetherDone']?currLevel==3?'current':'unlocked':'locked':'locked'}}" data-level="3"
+        catchtap="{{!history['Level3']['whetherLock']?!history['Level3']['whetherDone']?'changeState':'':''}}">
+        <image class="icon" src="{{!history['Level3']['whetherLock']?history['Level3']['whetherDone']?'images/done.png':currLevel==3?'images/current.png':'images/unlocked.png':'images/locked.png'}}"></image>
         <text class="level-text">Level 3</text>
       </view>
     </view>
     <view class="levels-box">
-      <view id="level4" class="level-btn {{currLevel==4?'current':'unlocked'}}" data-level="4" data-unlock="true"
-        catchtap='changeState'>
-        <image class="icon" src="{{currLevel==4?'images/current.png':'images/unlocked.png'}}"></image>
+      <view id="level4" class="level-btn {{!history['Level4']['whetherLock']?!history['Level4']['whetherDone']?currLevel==4?'current':'unlocked':'locked':'locked'}}" data-level="4"
+        catchtap="{{!history['Level4']['whetherLock']?!history['Level4']['whetherDone']?'changeState':'':''}}">
+        <image class="icon" src="{{!history['Level4']['whetherLock']?history['Level4']['whetherDone']?'images/done.png':currLevel==4?'images/current.png':'images/unlocked.png':'images/locked.png'}}"></image>
         <text class="level-text">Level 4</text>
       </view>
       <view class="level-btn locked">

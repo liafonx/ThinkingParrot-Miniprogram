@@ -56,8 +56,8 @@ Page({
    */
   data: {
    collection: '',
-   choosed: '',
-   currLevel: '',
+   choosed: null,
+   currLevel: null,
    hiddensetting: true,
    delete:'',
    ifCollected: false,
@@ -71,16 +71,14 @@ Page({
     var that = this;
     var openId = wx.getStorageSync('openid');
     if (wx.getStorageSync("collectLect")) {
-      var currLect = wx.getStorageSync("collectLect")
+      this.data.choosed = wx.getStorageSync("collectLect")
+      wx.setStorageSync('collectLect', '')
     }
     if (wx.getStorageSync("collectlevel")) {
-      var currLevel = wx.getStorageSync("collectlevel")
+      this.data.currLevel = wx.getStorageSync("collectlevel")
+      wx.setStorageSync('collectlevel', '')
     }
-    this.setData({
-      choosed: currLect,
-      currLevel: currLevel,
-    })
-    console.log(openId);
+    console.log(this.data.choosed, this.data.currLevel);
     wx.request({
       method: 'POST',
       header: {
@@ -124,7 +122,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(this.data.collection['unit1']);
+
   },
 
   /**

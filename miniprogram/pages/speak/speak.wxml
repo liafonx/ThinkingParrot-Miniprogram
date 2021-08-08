@@ -21,6 +21,7 @@
     <image class="icon" wx:elif="{{result == true}}" src="images/correct.png"></image>
     <image class="icon" wx:else src="images/wrong.png"></image>
   </view>
+  <view class="middle"></view>
   <view class="btom-box">
     <view class="collect-box">
       <image class="icon-coll" bindtap="Collect"

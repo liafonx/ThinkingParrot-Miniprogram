@@ -45,13 +45,13 @@
         {
           "name": "choice",
           "pathName": "pages/choice/choice",
-          "query": "",
+          "query": "testId=Level2&currLec=Lecture  10",
           "scene": null
         },
         {
           "name": "speak",
           "pathName": "pages/speak/speak",
-          "query": "testId=unit2",
+          "query": "testId=Level4&currLec=Lecture  10",
           "scene": null
         },
         {
@@ -69,7 +69,7 @@
         {
           "name": "result",
           "pathName": "pages/result/result",
-          "query": "",
+          "query": "totalScore= 30&testId=Level3&currLec=Lecture  7&wrongList=%5B%7B%22questionText%22%3A%22What%20is%20the%20me…thing%20that%20people%20disagree%20about%22%7D%5D&redirect=learning",
           "scene": null
         },
         {
@@ -118,6 +118,12 @@
           "name": "login",
           "pathName": "pages/login/login",
           "query": "",
+          "scene": null
+        },
+        {
+          "name": "concept",
+          "pathName": "pages/concept/concept",
+          "query": "testId=Level1&currLec=Lecture  8",
           "scene": null
         }
       ]

@@ -2,10 +2,16 @@
 .page {
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content:center;
   align-items: center;
+  /* background-color: blueviolet; */
 }
 
 .page__bd {
@@ -26,6 +32,7 @@
 }
 
 .question-num-box {
+  flex-grow: 0;
   z-index: 2;
   color: white;
   font-size: 21px;
@@ -44,18 +51,27 @@
 }
 
 .question {
+  flex-grow: 0;
+  padding-left: 1rem;
+  min-height: 6rem;
   margin-bottom: -1rem;
   margin-left: 1rem;
   margin-right: 1rem;
-  font-size: 18px;
+  font-size: 20px;
+  color: #5e5c63;
+  font-weight: 550;
   word-wrap: break-word;
-  text-align: center;
+  display: flex;
+  justify-items: flex-start;
+  align-items: center;
+  color: rgb(49, 49, 49);
 }
 
 .option-box {
+  flex-grow: 0;
   width: 100%;
   height: auto;
-  margin-top: 5rem;
+  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -65,15 +81,18 @@
 
 .option {
   width: 87%;
-  height: 3.5rem;
+  height: auto;
+  min-height: 3.5rem;
   border-radius: 0.5rem;
   margin-bottom: 1.5rem;
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(241, 241, 241);
+  color: rgb(41, 41, 41);
   display: flex;
   flex-direction: row;
   align-items: center;
   padding-left: 0.5rem;
   font-size: 16px;
+  box-shadow: 0px 0px 8px 1px  #9696966b;
 }
 
 .option:active {
@@ -82,30 +101,34 @@
 
 .right {
   background-color: #02a302;
-  width: 85%;
-  height: 3.5rem;
+  width: 87%;
+  height: auto;
+  min-height: 3.5rem;
   border-radius: 0.5rem;
   margin-bottom: 1.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding-left: 1rem;
+  padding-left: 0.5rem;
   font-size: 16px;
   color: white;
+  box-shadow: 0px 0px 8px 1px  #9696966b;
 }
 
 .wrong {
-  background-color: #f73636;
-  width: 85%;
-  height: 3.5rem;
+  background-color: #d83636;
+  width: 87%;
+  height: auto;
+  min-height: 3.5rem;
   border-radius: 0.5rem;
   margin-bottom: 1.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding-left: 1rem;
+  padding-left: 0.5rem;
   font-size: 16px;
   color: white;
+  box-shadow: 0px 0px 8px 1px  #9696966b;
 }
 
 .option-text {
@@ -113,18 +136,20 @@
 }
 
 .btn {
+  flex-grow: 0;
   z-index: 1;
   width: 6rem;
   height: 6rem;
   border-radius: 30rem;
-  background-color: #dac262;
+  background-color: #e6ce9a;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px 0px 8px 1px  #9696966b;
 }
 
 .btn:active {
-  background-color: #c7b15b;
+  background-color: #e0ca6e;
 }
 
 .icon-next {
@@ -163,15 +188,16 @@
 }
 
 .btom-box{
+  flex-grow: 0;
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-top: 2rem;
+  margin-bottom: 4.5rem;
 }
 
 .index-timer-box {
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   margin-top: 2rem;
   display: flex;
   flex-direction: row;
@@ -218,6 +244,13 @@
   flex-direction: row-reverse;
   /* background: #ffffff; */
   
+}
+
+.middle {
+  width: 5rem;
+  height: 5rem;
+  /* background-color: blue; */
+  flex: 1;
 }
 
 
