@@ -237,7 +237,7 @@ Page({
         data: {
           commonUserID: app.globalData.openId,
           questionID: question.question.questionID,
-          level: 'Level4',
+          level: 'Level1',
         },
         success: function (response) {
           console.log(response);
@@ -280,7 +280,7 @@ Page({
         data: {
           commonUserID: app.globalData.openId,
           questionID: question.question.questionID,
-          level: 'Level4',
+          level: 'Level1',
         },
         success: function (response) {
           console.log(response);
