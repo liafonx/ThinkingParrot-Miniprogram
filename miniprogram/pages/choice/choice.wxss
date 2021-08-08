@@ -54,7 +54,8 @@
   flex-grow: 0;
   padding-left: 1rem;
   min-height: 6rem;
-  margin-bottom: -1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   margin-left: 1rem;
   margin-right: 1rem;
   font-size: 20px;

@@ -97,6 +97,10 @@ cover-image {
   box-shadow: 0px 0px 8px 1px  #9696966b;
 }
 
+.btn-hover {
+  background-color: #d3bd8f;
+}
+
 .btn-text {
   color: #fff;
   font-size: 20px;
@@ -328,4 +332,107 @@ cover-image {
   height: 5rem; */
   /* background-color: blue; */
   flex: 1;
+}
+
+
+.concept-btn {
+  background-color: #8a7d7e;
+}
+
+/* 遮罩 */
+.shade {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(48, 48, 48, 0.75);
+  z-index: 10;
+}
+.shade_box {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  z-index: 11;
+  min-width: 200rpx;
+  min-height: 200rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+  color: #333;
+  font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0;
+  word-wrap: break-word;
+
+  animation-name:popup;
+  animation-duration:0.2s;
+  animation-timing-function:linear;
+  animation-delay:0;
+  animation-iteration-count:1;
+  animation-direction:normal;
+}
+
+@keyframes popup
+{
+  from{opacity:0;transform:scale(0.3,0.3);}
+  to 	{opacity:1;transform:scale(1,1);}
+}
+
+
+/* 当前弹窗样式 */
+.popup{
+  width: 600rpx;
+  height: 600rpx;
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  padding: 1rem;
+}
+.popup .title{
+  padding: 0 20rpx;
+  border-bottom: #e5e5e5 solid 1px;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 32rpx;
+  background-color: #f6f6f6;
+}
+
+.popup-concept {
+  width: 100%;
+  min-height: 3rem;
+  /* top :0; */
+  margin-top: 0rem;
+  /* padding-left: 1rem; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+  color: #5e5c63;
+  /* margin-bottom: 0.7rem; */
+  word-wrap: break-word;
+  font-weight: 550;
+}
+.popup .copy{
+  color: #999999;
+  text-align: center;
+}
+.popup .msg{
+  color: #ff0000;
+  text-align: center;
+  margin-top: 30rpx;
+}
+
+.description {
+  /* z-index: 1; */
+  /* margin-top: -29px; */
+  font-size: 18px;
+  /* text-indent:3.2em; */
+  /* background-color: rgb(168, 168, 168); */
+  line-height: 32px;
+  /* padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  border-radius: 0.5rem;
+  padding-bottom: 0.3rem; */
 }

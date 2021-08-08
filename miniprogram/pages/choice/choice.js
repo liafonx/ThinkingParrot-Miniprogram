@@ -133,7 +133,7 @@ Page({
   startPlay: function (e) {
     var that = this;
     var question = this.data.questionList[this.data.shuffleIndex[this.data.index]].question.question
-    if(this.data.testId == "Level1") {
+    if(this.data.testId == "Level2") {
       var name = 1
     }else{
       var name = 2

@@ -1,1 +1,11 @@
-<button type='primary' bindtap='getOpenid'>获取用户openid</button><text>{{openid}}</text>
+<view class='shade' hidden='{{popup}}' bindtap='hidePopup'></view>
+<view class='shade_box popup' hidden='{{popup}}'>
+    <!-- <view class='title'><text>弹窗：</text></view> -->
+    <view class='content'>我是一个有动画的特效的窗口</view>
+    <view class='copy'>© 2018 helang.love@qq.com</view>
+    <view class='msg' bindtap='hidePopup'>点击遮罩层关闭弹窗</view>
+</view>
+ 
+<view  style='margin:20rpx 50rpx;'>
+    <button type='primary' bindtap='showPopup'>打开弹窗</button>
+</view>

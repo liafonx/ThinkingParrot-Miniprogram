@@ -1,5 +1,19 @@
 <!--pages/speak/speak.wxml-->
 <view class="page">
+  <view class='shade' hidden='{{popup}}' bindtap='hidePopup'></view>
+  <view class='shade_box popup' hidden='{{popup}}'>
+    <!-- <view class='title'><text>弹窗：</text></view> -->
+    <view class='popup-concept'>{{questionList[shuffleIndex[index]].question.concept}}</view>
+    <view class="line-box">
+    <view class="cut-line">
+      <view class="lines"></view>
+      <!-- <view class="line-text">Concepts</view> -->
+      <view class="lines"></view>
+    </view>
+  </view>
+    <view class='description'>{{questionList[shuffleIndex[index]].question.conceptDescription}}</view>
+    </view>
+   
     <!-- <text class='headpiece-num'>{{t}}</text> -->
     <view class="question-num-box" style="background-color:{{color}}">{{index+1}}</view>
   
@@ -24,7 +38,7 @@
     </view> -->
     
     <view class="concept-box">
-      <view class="concpet">{{questionList[shuffleIndex[index]].question.concept}}</view>
+      <view class="concpet" hover-class="concept-btn" bindtap='showPopup'>{{questionList[shuffleIndex[index]].question.concept}} </view>
       <view class="concpet sub-concept" wx:if="{{questionList[shuffleIndex[index]].question.subConcept != '' || item != ''}}"
       wx:for="{{questionList[shuffleIndex[index]].question.subConcept}}" wx:key="item">{{item}}</view>
     </view>
@@ -36,7 +50,7 @@
         src="{{collected == true?'images/collected.png':'images/uncollected.png'}}"></image>
     </view>
     <view id="btn-box">
-      <view class="btn" bindtap='nextQuestion'>
+      <view class="btn" hover-class="btn-hover" bindtap='nextQuestion'>
         <image class="icon-next" src="images/restart.png" wx:if="{{index == shuffleIndex.length - 1}}"></image>
         <image class="icon-next" src="images/next.png" wx:else></image>
       </view>
