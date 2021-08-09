@@ -13,7 +13,7 @@
   </view>
 </view>
   <view id="btn-box">
-    <view class="btn">
+    <view class="btn" bindtap="{{worongtotalnumber == 0?'':'switchLevel'}}" data-testId="">
      <text class="worng-quantity">{{worongtotalnumber}}</text>
     <text class="btn-text">错题数</text>
   </view>

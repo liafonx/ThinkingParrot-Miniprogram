@@ -21,7 +21,7 @@ Page({
     collected: false, //是否收藏
     userID: '',
     width: 100, //时间条长度
-    maxtime: 1, //答题时间
+    maxtime: 12, //答题时间
     color: '#46c557', //时间条颜色
     src: '',
     testId: '',

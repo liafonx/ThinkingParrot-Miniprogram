@@ -15,9 +15,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
-    var wronglistnumber = [];
-    var worongtotalnumber = 0;
     var that = this;
     var url = 'http://34.92.251.246:8091/questionRecord/getWrongNum/';
     wx.request({
@@ -68,14 +65,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var wrongnumber = 0;
-    if(wx.getStorageSync('wronglist')){
-      wrongnumber = JSON.parse(wx.getStorageSync('wronglist')).length;
-    }
+    // var wrongnumber = 0;
+    // if(wx.getStorageSync('wronglist')){
+    //   wrongnumber = JSON.parse(wx.getStorageSync('wronglist')).length;
+    // }
     
-    this.setData({
-      wrongnumber: wrongnumber,
-    })
+    // this.setData({
+    //   wrongnumber: wrongnumber,
+    // })
   },
 
   /**
@@ -144,5 +141,18 @@ Page({
       // url: '../logs/logs'
       url: '../collection/collection'
     })
+  },
+
+  switchLevel: function (e) {
+    for(var i = 2; i <= 4; i++){
+      console.log('Level'+i.toString());
+      if(this.data.wronglistnumber['Level'+i.toString()]['wrongNum'] != 0) {
+          break;
+      }
+    }
+    
+    e.currentTarget.dataset['testid'] = i.toString();
+    console.log(e.currentTarget.dataset['testid']);
+    this.toTestPage(e);
   }
 })

@@ -159,7 +159,7 @@ Page({
         "accept": "multipart/form-data",
         "content-type": "application/x-www-form-urlencoded"
       },
-      url: 'http://34.92.251.246:8091/questionRecord/textToSpeechEN/?text=' + question + "&name=3",
+      url: 'http://34.92.251.246:8091/questionRecord/textToSpeechEN/?text=' + question, //+ "&name=3",
       // data: {
       //   text: 'Setting data field "questionList" to undefined is invalid.'
       // },
