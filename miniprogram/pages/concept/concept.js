@@ -317,6 +317,9 @@ Page({
   },
 
   nextQuestion: function () {
+    //已做题目+1
+    app.globalData.questionDone++;
+    console.log(app.globalData.questionDone);
     // wx.navigateTo({
     //   url: '../speak/speak'
     // })

@@ -1,7 +1,7 @@
 <!--miniprogram/pages/collection/collection.wxml-->
 <view class="page">
     <view class="unit-bar">
-        <view class='align-box' wx:for="{{collection}}" wx:if="{{ifCollected}}" wx:key="index">
+        <view class='align-box' wx:for="{{collection}}" wx:if="{{ifCollected || collection.length != 0}}" wx:key="index">
             <view class="unit {{choosed == index?'choosed':' '}}"  data-unit="{{index}}" bindtap="ChangeUnit">{{collection[index][0]}}</view>
         </view>
         <view class="warning" wx:if="{{!ifCollected}}">还没有收藏任何题目哦</view>

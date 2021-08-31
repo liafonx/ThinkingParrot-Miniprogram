@@ -11,7 +11,7 @@
       <view class="lines"></view>
     </view>
   </view>
-    <view class='description'>{{questionList[shuffleIndex[index]].question.conceptDescription}}</view>
+    <view class='description'>{{questionList[shuffleIndex[index]].question.conceptDescription == ''?'The concept description has not been added yet!':questionList[shuffleIndex[index]].question.conceptDescription}}</view>
     </view>
    
     <!-- <text class='headpiece-num'>{{t}}</text> -->
@@ -45,16 +45,16 @@
   </view>
   <view class="middle"></view>
   <view class="btom-box">
-    <view class="collect-box">
+    <!-- <view class="collect-box">
       <image class="icon-coll" bindtap="Collect"
         src="{{collected == true?'images/collected.png':'images/uncollected.png'}}"></image>
-    </view>
+    </view> -->
     <view id="btn-box">
       <view class="btn" hover-class="btn-hover" bindtap='nextQuestion'>
         <image class="icon-next" src="images/restart.png" wx:if="{{index == shuffleIndex.length - 1}}"></image>
         <image class="icon-next" src="images/next.png" wx:else></image>
       </view>
     </view>
-    <view class="placeholder"></view>
+    <!-- <view class="placeholder"></view> -->
   </view>
 </view>

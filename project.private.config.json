@@ -45,13 +45,13 @@
         {
           "name": "choice",
           "pathName": "pages/choice/choice",
-          "query": "testId=Level3&currLec=Lecture  10",
+          "query": "testId=Level3&currLec=Lecture  1",
           "scene": null
         },
         {
           "name": "speak",
           "pathName": "pages/speak/speak",
-          "query": "testId=Level4&currLec=Lecture  10",
+          "query": "testId=Level4&currLec=Lecture  1",
           "scene": null
         },
         {

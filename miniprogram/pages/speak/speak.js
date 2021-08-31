@@ -21,7 +21,7 @@ Page({
     collected: false, //是否收藏
     userID: '',
     width: 100, //时间条长度
-    maxtime: 12, //答题时间
+    maxtime: 20, //答题时间
     color: '#46c557', //时间条颜色
     src: '',
     testId: '',
@@ -102,6 +102,7 @@ Page({
           shuffleIndex: that.shuffle(count), // 生成随机题序 [2,0,3] 并截取num道题
         })
         that.data.collected = that.data.questionList[that.data.shuffleIndex[that.data.index]].question.whetherCollect
+        
         that.countdown();
         that.initRecord();
         console.log(that.data.questionList);
@@ -146,6 +147,7 @@ Page({
   startPlay: function (e) {
     var that = this;
     var question = this.data.questionList[this.data.shuffleIndex[this.data.index]].question.question
+    console.log(that.data.questionList[that.data.shuffleIndex[that.data.index]].example);
     wx.downloadFile({
       method: 'POST',
       header: { "accept": "multipart/form-data","content-type": "application/x-www-form-urlencoded" },
@@ -342,13 +344,14 @@ Page({
         level: 'Level4',
       },
       success: function (res) {
+        JSON.parse(res.data)
         console.log(res)
-        if (res.state == "success" || res.errMsg == '') {
+        if (JSON.parse(res.data).state == "success") {
           that.setData({
-            result: value["result"],
+            result: JSON.parse(res.data).result,
             done: true,
           })
-          console.log(value["result"]);
+          console.log(JSON.parse(res.data).result);
         } else {
           that.setData({
             done: false

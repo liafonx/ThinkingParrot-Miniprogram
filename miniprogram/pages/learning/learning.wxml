@@ -20,9 +20,10 @@
       </view>
     </view>
   </view>
-  <view id="btn-box" bindtap="{{history['Level'+currLevel]['whetherDone']?'':'toTestPage'}}" data-testId="Level{{currLevel}}">
+  <view id="btn-box" bindtap="{{history['Level'+currLevel]['whetherDone'] || history['Level'+currLevel]['whetherLock']?'':'toTestPage'}}" data-testId="Level{{currLevel}}">
     <view class="btn">
       <image class='btn-icon' src="images/done.png" wx:if="{{history['Level'+currLevel]['whetherDone']}}"></image>
+      <image class='btn-icon' src="images/locked.png" wx:if="{{history['Level'+currLevel]['whetherLock']}}"></image>
       <text class="btn-text" wx:else>开始学习</text>
     </view>
     <view id="detail-box">
@@ -31,6 +32,7 @@
     </view>
   </view>
     <view class="prompt"  wx:if="{{history['Level'+currLevel]['whetherDone']}}">题目已经答完了，请选择其他Level或Lecture</view>
+    <view class="prompt"  wx:if="{{history['Level'+currLevel]['whetherLock']}}">当前Level未解锁，请选择其他Level或Lecture</view>
   <view id="bottom-panel">
     <view class="levels-box">
       <view id="level1" class="level-btn  {{history['Level1']['whetherDone']?'locked':currLevel==1?'current':'unlocked'}}" data-level="1"

@@ -60,6 +60,9 @@ Page({
     var url = 'http://34.92.251.246:8091/questionRecord/getNewQuestion/';
     if (this.data.state) {
       url = 'http://34.92.251.246:8091/questionRecord/getWrongQuestion/'
+      //已做题目+1
+      app.globalData.wrongDone++;
+      console.log(app.globalData.wrongDone);
     }
     console.log(url);
     wx.request({
@@ -77,6 +80,12 @@ Page({
       success: function (response) {
         console.log(response);
         prompt.loadingOff();
+        if(!response.data.question.length){
+          prompt.toast('获取题目失败');
+          setTimeout(function () {
+            that.onUnload();
+          }, 2000)
+        }
         if (that.data.state) {
           var questionList = response.data.wrongQuestion
           var length = response.data.wrongQuestion.length
@@ -153,17 +162,11 @@ Page({
                   that.data.src = voice;   //替换掉playVoice那段 
                   that.yuyinPlay();       
           } else {
-              wx.showToast({
-                  title: '语音播放失败',
-                  icon: none,
-              })
+            prompt.toast('语音播放失败')
           }
       },
       fail: function (res) {
-        wx.showToast({
-          title: '语音播放失败',
-          icon: none
-      })
+        prompt.toast('语音播放失败')
         console.log(res);
       }
   })

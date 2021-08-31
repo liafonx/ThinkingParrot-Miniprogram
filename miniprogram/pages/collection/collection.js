@@ -94,10 +94,18 @@ Page({
         console.log(response);
         console.log(response.data.collectedQuestion);
         if (response.data.collectedQuestion) {
-          that.setData({
-            collection: response.data.collectedQuestion,
-            ifCollected: true,
-          })
+          if(response.data.collectedQuestion.length != 0){
+            that.setData({
+              collection: response.data.collectedQuestion,
+              ifCollected: true,
+            })
+          }else{
+            that.setData({
+              collection: [],
+              ifCollected: false,
+            })
+          }
+          
         }else{
             prompt.toast("获取收藏夹失败")
         }
