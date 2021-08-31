@@ -210,22 +210,20 @@ Page({
           })
           prompt.toast("删除成功")
           setTimeout(function () {
-            that.onUnload();
+            that.onLoad();
           }, 2000)
-          that.onLoad()
           console.log(response);
         },
         fail: function (res) {
           prompt.loadingOff();
           prompt.toast("删除失败")
-          setTimeout(function () {
-            that.onUnload();
-          }, 2000)
           that.setData({
             hiddensetting: true,
             delete: '',
           })
-          that.onLoad();
+          setTimeout(function () {
+            that.onLoad();
+          }, 2000)
           return;
         }
       })

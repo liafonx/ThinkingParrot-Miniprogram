@@ -1,5 +1,7 @@
-var app = getApp()
+const Prompt = require("../../utils/prompt");
 
+var app = getApp();
+var prompt = Prompt
 Page({
   data: {
     currLevel: '1',
@@ -64,6 +66,7 @@ Page({
   },
 
   onLoad: function (options) {
+    prompt.loadingOn();
     if (wx.getStorageSync('currLevel')) {
       this.setData({
         currLevel: wx.getStorageSync('currLevel'),
@@ -80,7 +83,6 @@ Page({
   onShow: function () {
     console.log(this.data.currLec);
     this.updateHistory(this.data.currLevel, this.data.currLec)
-    
   },
 
   updateHistory: function(level, lecture) {
@@ -98,17 +100,56 @@ Page({
           lecture: lecture,
         },
         success: function (response) {
-          // that.loadingOff();
-          console.log(response);
+          prompt.loadingOff();
+          if(response.data.state != 'fail') {
+            console.log(response);
           that.setData({
             history: response.data.allDone,
             request: true
           })
           console.log(that.data.history);
+          }else{
+            var history = {
+              "Level1": {
+                'whetherLock': true,
+              },
+              "Level2": {
+                'whetherLock': true,
+              },
+              "Level3": {
+                'whetherLock': true,
+              },
+              "Level4": {
+                'whetherLock': true,
+              },
+              "Level5": {
+                'whetherLock': true,
+              },
+              "Level6": {
+                'whetherLock': true,
+              }
+            }
+            that.setData({
+              history: history,
+              request: false
+            })
+            wx.showToast({
+              title: '获取历史失败',
+              icon: 'none',
+              duration: 2000,
+              success: function () {
+                return;
+              }
+            })
+            setTimeout(function () {
+              that.onUnload();
+            }, 2000)
+            return
+          }
         },
         fail: function (res) {
           console.log(res);
-          // that.loadingOff();
+          prompt.loadingOff();
           wx.showToast({
             title: '获取历史失败',
             icon: 'none',
