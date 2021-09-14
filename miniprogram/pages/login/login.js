@@ -61,11 +61,11 @@ Page({
 
   },
 
-  onUnload: function () {
-    wx.reLaunch({
-      url: '../index/index'
-    })
-  },
+  // onUnload: function () {
+  //   wx.reLaunch({
+  //     url: '../intro/intro'
+  //   })
+  // },
 
   /**
    * 用户点击右上角分享
@@ -164,7 +164,10 @@ Page({
                 // that.setData({
                 //   openid: "获取到的openid：" + openid
                 // })
-                that.onUnload()
+                // that.onUnload()
+                wx.reLaunch({
+                  url: '../intro/intro'
+                })
               },
               fail: function (res) {
                 console.log(res);
@@ -173,6 +176,15 @@ Page({
          },
          fail(e){
            console.log(e);
+           wx.showToast({ //弹窗提示
+            title: '登录失败，请重试',
+            icon: 'none',
+            duration: 2000,
+            success: function () {
+              
+            }
+          })
+          return;
          }
         })
         console.log(iv);

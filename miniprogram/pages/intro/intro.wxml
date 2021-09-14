@@ -1,0 +1,7 @@
+<scroll-view scroll-y="{{true}}" style="width:100%;height:{{sysheight}}px;">
+    <view class="img-size">
+     <image src="images/intro2.jpg" mode="widthFix" class="liucheng-img"></image>
+    </view>
+    <button bindtap="toindex">Start Learning</button>
+</scroll-view>
+<!-- <button>Start Learning</button> -->

@@ -10,7 +10,7 @@
     "pages/result/result",
     "pages/login/login",
     "pages/concept/concept",
-    "pages/test/test"
+    "pages/intro/intro"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

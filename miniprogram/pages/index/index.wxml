@@ -26,11 +26,17 @@
       </view>
     </modal>
   </view>
-  <view id="rankList-box" bindtap="OpenRank">
+  <view class="top-box">
+    <view id="rankList-box" bindtap="OpenRank">
     <view id="rankList-btn">
       <image id="rankList" src="images/rank.png"></image>
       <text id="rankList-text">排行榜</text>
     </view>
+    
+  </view>
+  <view class="info-box">
+    <image class="icon" src="images/info.png" bindtap="ToIntro"></image>
+  </view>
   </view>
   <view id="btn-box">
     <view class="btn" bindtap="{{checked == false?'onBindTap':''}}">

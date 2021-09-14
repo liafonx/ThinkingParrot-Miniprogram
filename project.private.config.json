@@ -125,6 +125,12 @@
           "pathName": "pages/concept/concept",
           "query": "testId=Level1&currLec=Lecture  8",
           "scene": null
+        },
+        {
+          "name": "intro",
+          "pathName": "pages/intro/intro",
+          "query": "",
+          "scene": null
         }
       ]
     }

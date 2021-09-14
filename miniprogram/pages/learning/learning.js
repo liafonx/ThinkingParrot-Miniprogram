@@ -100,6 +100,7 @@ Page({
           lecture: lecture,
         },
         success: function (response) {
+          console.log(response);
           prompt.loadingOff();
           if(response.data.state != 'fail') {
             console.log(response);

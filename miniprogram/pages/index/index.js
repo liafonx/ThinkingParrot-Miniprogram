@@ -314,4 +314,10 @@ Page({
       }
     })
   },
+
+  ToIntro: function (params) {
+    wx.navigateTo({
+      url: '../intro/intro',
+    })
+  }
 })

@@ -251,6 +251,25 @@ btn-checked {
   margin-right: 10px;
 }
 
+.top-box {
+  margin-top: 10px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-evenly;
+  align-items: center;
+  /* background-color: blue; */
+}
+
+.info-box {
+  margin-right: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 #rankList-box {
   z-index: 0;
   width: 100%;
@@ -262,7 +281,7 @@ btn-checked {
 #rankList-btn {
   width: 100px;
   height: 32px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   margin-left: 20px;
   border: #7A7A7A 1px solid;
   border-radius: 0.3rem;
