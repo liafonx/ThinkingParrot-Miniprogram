@@ -12,6 +12,23 @@ App({
   },
   onLaunch: function () {
     let that = this; //获取openid不需要授权
+    var Today = (new Date()).getDate().toString();
+    console.log(Today);
+    console.log(wx.getStorageSync('LastDay'));
+    if (Today != wx.getStorageSync('LastDay')) {
+      wx.setStorageSync('LastDay', Today);
+      wx.setStorageSync('questionDone', 0)
+      wx.setStorageSync('wrongDone', 0)
+    }
+    if (wx.getStorageSync('questionDone') != '') {
+      this.globalData.questionDone = wx.getStorageSync('questionDone')
+      
+    }
+    if (wx.getStorageSync('wrongDone') != '') {
+      this.globalData.wrongDone = wx.getStorageSync('wrongDone')
+    }
+    console.log("questionDone", this.globalData.questionDone);
+    console.log("wrongDone", this.globalData.wrongDone);
     if (!wx.getStorageSync('openid')) {
       //延迟执行，可能小程序页面未注册完，导致无法跳转
       setTimeout(function () {
@@ -21,7 +38,7 @@ App({
       }, 500)
     } else {
       this.globalData.openId = wx.getStorageSync('openid'),
-      console.log(wx.getStorageSync('openid'));
+        console.log("wx.getStorageSync('openid')", this.globalData.openId);
     }
   },
 })

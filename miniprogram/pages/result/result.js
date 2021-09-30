@@ -83,7 +83,6 @@ Page({
 
   // 返回首页
   toIndex: function(){
-
     var url = '../'+this.data.redirect+'/'+this.data.redirect
     wx.switchTab({
       url: url

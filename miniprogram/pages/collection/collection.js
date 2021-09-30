@@ -85,7 +85,7 @@ Page({
         "accept": "*/*",
         "content-type": "application/x-www-form-urlencoded"
       },
-      url: 'http://34.92.251.246:8091/questionRecord/getNotesCollection/',
+      url: 'https://aitutor.uic.edu.cn/questionRecord/getNotesCollection/',
       data: {
         commonUserID: openId,
       },
@@ -189,7 +189,7 @@ Page({
     wx.setStorageSync('collectlevel', this.data.currLevel)
     wx.setStorageSync('collectLect', this.data.choosed)
     var that = this;
-      var url = 'http://34.92.251.246:8091/questionRecord/toCancelCollect/';
+      var url = 'https://aitutor.uic.edu.cn/questionRecord/toCancelCollect/';
       wx.request({
         method: 'POST',
         header: {

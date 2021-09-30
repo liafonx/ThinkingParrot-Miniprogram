@@ -62,11 +62,19 @@ Page({
     ],
     isstart: false,
     openimg: "/images/list/list.png",
-    offimg: "/images/list/list1.png"
+    offimg: "/images/list/list1.png",
+    lastPage: '',
   },
 
   onLoad: function (options) {
-    prompt.loadingOn();
+    this.data.lastPage = options
+    console.log(options['exitState']);
+    console.log(this.data.currLec);
+  },
+
+  onShow: function () {
+    var that = this
+    console.log(this.data.currLec);
     if (wx.getStorageSync('currLevel')) {
       this.setData({
         currLevel: wx.getStorageSync('currLevel'),
@@ -77,17 +85,27 @@ Page({
         currLec: wx.getStorageSync('currLec'),
       })
     }
-    console.log(this.data.currLec);
-  },
-
-  onShow: function () {
-    console.log(this.data.currLec);
-    this.updateHistory(this.data.currLevel, this.data.currLec)
+    if(this.data.lastPage != undefined && JSON.stringify(this.data.lastPage) != '{}') {
+      console.log("enterIf", this.data.lastPage);
+      if(this.data.lastPage['exitState'] == 'unfinshed'){
+        console.log("enter");
+        Prompt.toast("未完成所有题目，已答题目将不被记录！")
+        setTimeout(function () {
+          prompt.loadingOn();
+          that.updateHistory(that.data.currLevel, that.data.currLec)
+        }, 2000)
+      }
+    }else{
+      console.log("else");
+      prompt.loadingOn();
+      this.updateHistory(this.data.currLevel, this.data.currLec)
+    }
+    
   },
 
   updateHistory: function(level, lecture) {
     var that = this;
-      var url = 'http://34.92.251.246:8091/questionRecord/getHistoryNum/';
+      var url = 'https://aitutor.uic.edu.cn/questionRecord/getHistoryNum/';
       wx.request({
         method: 'POST',
         header: {

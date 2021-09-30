@@ -28,6 +28,7 @@ Page({
     wrongSetNum: 0,
     minusStatusLearn: 'disabled',
     minusStatusWrong: 'disabled',
+    flag: true,
   },
 
   bindMinusLearn: function () {
@@ -90,6 +91,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(this.data.learnNum);
+    this.getSelfRank();
   },
 
   /**
@@ -103,9 +106,20 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var DT = wx.getStorageSync('D');
-    var D = (new Date()).getDate().toString();
+    var that = this;
     console.log(app.globalData.questionDone);
+    console.log("wx.getStorageSync('learnNum')", wx.getStorageSync('learnNum'));
+    if(wx.getStorageSync('learnNum') != ''){
+      console.log("enter");
+      that.setData({
+        learnNum: wx.getStorageSync('learnNum')
+      })
+    }
+    if (wx.getStorageSync('wrongNum') != '') {
+      that.setData({
+        wrongNum: wx.getStorageSync('wrongNum')
+      })
+    }
     var numLearnDone = app.globalData.questionDone;
     var numWrongDone = app.globalData.wrongDone;
     if (this.data.learnNum <= numLearnDone) {
@@ -124,7 +138,7 @@ Page({
       numLearnDone: numLearnDone,
       numWrongDone: numWrongDone,
     })
-      this.getSelfRank()
+
     //签到
   },
 
@@ -167,7 +181,7 @@ Page({
   onBindTap: function () {
     prompt.loadingOn()
     var that = this;
-    var url = 'https://uicaitutor.info/questionRecord/signAddScore/';
+    var url = 'https://aitutor.uic.edu.cn/questionRecord/signAddScore/';
     wx.request({
       method: 'POST',
       header: {
@@ -227,9 +241,12 @@ Page({
   },
 
   Confirm: function () {
-    console.log(this.data.learnNum);
+    
     var learnNum = this.data.learnSetNum;
     var wrongNum = this.data.wrongSetNum;
+    console.log("Confirm", learnNum);
+    wx.setStorageSync('learnNum', learnNum);
+    wx.setStorageSync('wrongNum', wrongNum);
     if (learnNum > app.globalData.questionDone) {
       this.setData({
         taskfinished: false,
@@ -288,7 +305,7 @@ Page({
         "accept": "*/*",
         "content-type": "application/x-www-form-urlencoded"
       },
-      url: 'https://uicaitutor.info/questionRecord/getUserRank/',
+      url: 'https://aitutor.uic.edu.cn/questionRecord/getUserRank/',
       data: {
         commonUserID: openId,
       },

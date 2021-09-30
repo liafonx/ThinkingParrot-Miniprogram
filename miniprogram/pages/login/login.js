@@ -134,7 +134,7 @@ Page({
               header: {
                 'content-type': 'application/x-www-form-urlencoded'
               },
-              url: 'http://34.92.251.246:8091/questionRecord/userinfo',
+              url: 'https://aitutor.uic.edu.cn/questionRecord/userinfo',
               data: {
                 appid: 'wxd27ea3eb3d649f0d',
                 secret: 'da1e11486e57ebb44c7753180e3285a5',

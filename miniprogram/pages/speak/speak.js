@@ -69,7 +69,7 @@ Page({
         "accept": "*/*",
         "content-type": "application/x-www-form-urlencoded"
       },
-      url: 'http://34.92.251.246:8091/questionRecord/getNewQuestion/',
+      url: 'https://aitutor.uic.edu.cn/questionRecord/getNewQuestion/',
       data: {
         commonUserID: app.globalData.openId,
         level: level,
@@ -151,7 +151,7 @@ Page({
     wx.downloadFile({
       method: 'POST',
       header: { "accept": "multipart/form-data","content-type": "application/x-www-form-urlencoded" },
-      url: 'http://34.92.251.246:8091/questionRecord/textToSpeechEN_CN/?text=' + that.audioText(question),
+      url: 'https://aitutor.uic.edu.cn/questionRecord/textToSpeechEN_CN/?text=' + that.audioText(question),
       // data: {
       //   text: 'Setting data field "questionList" to undefined is invalid.'
       // },
@@ -226,7 +226,7 @@ Page({
           "accept": "*/*",
           "content-type": "application/x-www-form-urlencoded"
         },
-        url: 'http://34.92.251.246:8091/questionRecord/toCancelCollect/',
+        url: 'https://aitutor.uic.edu.cn/questionRecord/toCancelCollect/',
         data: {
           commonUserID: app.globalData.openId,
           questionID: question.question.questionID,
@@ -269,7 +269,7 @@ Page({
           "accept": "*/*",
           "content-type": "application/x-www-form-urlencoded"
         },
-        url: 'http://34.92.251.246:8091/questionRecord/toCollect/',
+        url: 'https://aitutor.uic.edu.cn/questionRecord/toCollect/',
         data: {
           commonUserID: app.globalData.openId,
           questionID: question.question.questionID,
@@ -331,7 +331,7 @@ Page({
     console.log(question.question.questionID);
     console.log(app.globalData.openId);
     wx.uploadFile({
-      // url: 'http://34.92.251.246:8091/questionRecord/judgeAnswer',
+      // url: 'https://aitutor.uic.edu.cn/questionRecord/judgeAnswer',
       url: 'http://34.92.251.246:8091/questionRecord/judgeAnswer/',
       filePath: filePath,
       name: "file",
@@ -344,14 +344,27 @@ Page({
         level: 'Level4',
       },
       success: function (res) {
-        JSON.parse(res.data)
-        console.log(res)
-        if (JSON.parse(res.data).state == "success") {
-          that.setData({
-            result: JSON.parse(res.data).result,
-            done: true,
-          })
-          console.log(JSON.parse(res.data).result);
+        console.log(res);
+        if (res.data.substring(0,1) != '<') {
+          if(JSON.parse(res.data).state == "success") {
+            that.setData({
+              result: JSON.parse(res.data).result,
+              done: true,
+            })
+            console.log(JSON.parse(res.data).result);
+          }else{
+            that.setData({
+              done: false
+            });
+            wx.showToast({ //弹窗提示
+              title: '答题失败，请重试！',
+              icon: 'none',
+              duration: 2000,
+              success: function () {
+                return;
+              }
+            })
+          }
         } else {
           that.setData({
             done: false
@@ -516,10 +529,10 @@ Page({
       this.countdown();
       this.startPlay();
     } else {
-      var url = 'http://34.92.251.246:8091/questionRecord/recordAnswer/'
+      var url = 'https://aitutor.uic.edu.cn/questionRecord/recordAnswer/'
       var score = that.data.totalScore*0.2
       if(that.data.state) {
-        var url = "http://34.92.251.246:8091/questionRecord/correctAnswer/"
+        var url = "https://aitutor.uic.edu.cn/questionRecord/correctAnswer/"
         var score = that.data.totalScore*0.1
       }
       wx.request({
@@ -557,6 +570,8 @@ Page({
         }
       })
       let wrongList = JSON.stringify(this.data.wrongList);
+      wx.setStorageSync('questionDone', app.globalData.questionDone)
+      wx.setStorageSync('wrongDone', app.globalData.wrongDone)
       // let chooseValue = JSON.stringify(this.data.chooseValue);
       wx.navigateTo({
         url: '../result/result?totalScore=' + this.data.totalScore  +  '&testId=' + this.data.testId + "&currLec=" + this.data.currLec + '&wrongList=' + encodeURIComponent(wrongList) + '&redirect=' + this.data.redirect + "&speak=ture"

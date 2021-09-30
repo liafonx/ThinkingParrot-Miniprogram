@@ -57,9 +57,9 @@ Page({
     var that = this
     prompt.loadingOn();
     var that = this;
-    var url = 'http://34.92.251.246:8091/questionRecord/getNewQuestion/';
+    var url = 'https://aitutor.uic.edu.cn/questionRecord/getNewQuestion/';
     if (this.data.state) {
-      url = 'http://34.92.251.246:8091/questionRecord/getWrongQuestion/'
+      url = 'https://aitutor.uic.edu.cn/questionRecord/getWrongQuestion/'
       //已做题目+1
       app.globalData.wrongDone++;
       console.log(app.globalData.wrongDone);
@@ -80,7 +80,7 @@ Page({
       success: function (response) {
         console.log(response);
         prompt.loadingOff();
-        if(!response.data.question.length){
+        if(response.data.question == undefined || !response.data.wrongQuestion.length){
           prompt.toast('获取题目失败');
           setTimeout(function () {
             that.onUnload();
@@ -147,14 +147,16 @@ Page({
     }else{
       var name = 2
     }
+    console.log('https://aitutor.uic.edu.cn/questionRecord/textToSpeechEN/?text=' + question + "&name=" + name);
     wx.downloadFile({
       method: 'POST',
       header: { "accept": "multipart/form-data","content-type": "application/x-www-form-urlencoded" },
-      url: 'http://34.92.251.246:8091/questionRecord/textToSpeechEN/?text=' + question + "&name=" + name,
+      url: 'https://aitutor.uic.edu.cn/questionRecord/textToSpeechEN/?text=' + question + "&name=" + name,
       // data: {
       //   text: 'Setting data field "questionList" to undefined is invalid.'
       // },
       success(res){
+
           console.log('download res:', res);
           if (res.statusCode === 200) {
                   var voice = res.tempFilePath;
@@ -285,10 +287,10 @@ Page({
     } else {
       console.log(that.data.wrongListID);
       console.log(that.data.rightListID);
-      var url = 'http://34.92.251.246:8091/questionRecord/recordAnswer/'
+      var url = 'https://aitutor.uic.edu.cn/questionRecord/recordAnswer/'
       var score = that.data.totalScore*0.2
       if(that.data.state) {
-        var url = "http://34.92.251.246:8091/questionRecord/correctAnswer/"
+        var url = "https://aitutor.uic.edu.cn/questionRecord/correctAnswer/"
         var score = that.data.totalScore*0.1
       }
       wx.request({
@@ -329,6 +331,8 @@ Page({
       console.log(((100 / this.data.questionList.length) * this.data.wrongList.length).toFixed(0));
       var score = 100 - ((100 / this.data.questionList.length) * this.data.wrongList.length).toFixed(0)
       console.log("currLec", this.data.currLec);
+      wx.setStorageSync('questionDone', app.globalData.questionDone)
+      wx.setStorageSync('wrongDone', app.globalData.wrongDone)
       wx.navigateTo({
         url: '../result/result?totalScore=' + score  +  '&testId=' + this.data.testId + "&currLec=" + this.data.currLec + '&wrongList=' + encodeURIComponent(wrongList) + "&redirect=" + this.data.redirect
       })
@@ -387,7 +391,7 @@ Page({
           "accept": "*/*",
           "content-type": "application/x-www-form-urlencoded"
         },
-        url: 'http://34.92.251.246:8091/questionRecord/toCancelCollect/',
+        url: 'https://aitutor.uic.edu.cn/questionRecord/toCancelCollect/',
         data: {
           commonUserID: app.globalData.openId,
           questionID: question.question.questionID,
@@ -432,7 +436,7 @@ Page({
           "accept": "*/*",
           "content-type": "application/x-www-form-urlencoded"
         },
-        url: 'http://34.92.251.246:8091/questionRecord/toCollect/',
+        url: 'https://aitutor.uic.edu.cn/questionRecord/toCollect/',
         data: {
           commonUserID: app.globalData.openId,
           questionID: question.question.questionID,

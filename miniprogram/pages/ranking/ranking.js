@@ -30,7 +30,7 @@ Page({
           "accept": "*/*",
           "content-type": "application/json"
         },
-        url: 'http://34.92.251.246:8091/questionRecord/getRankWithoutLevel/',
+        url: 'https://aitutor.uic.edu.cn/questionRecord/getRankWithoutLevel/',
         // data: {
         //   commonUserID: openId,
         // },
@@ -81,7 +81,7 @@ Page({
         "accept": "*/*",
         "content-type": "application/x-www-form-urlencoded"
       },
-      url: 'http://34.92.251.246:8091/questionRecord/getUserRank/',
+      url: 'https://aitutor.uic.edu.cn/questionRecord/getUserRank/',
       data: {
         commonUserID: openId,
       },

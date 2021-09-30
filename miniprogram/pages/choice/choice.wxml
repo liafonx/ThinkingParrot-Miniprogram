@@ -29,7 +29,7 @@
     <!-- <view class="option" bindtap="radioChange" wx:for="{{questionList[shuffleIndex[index]].option}}" wx:for-index="key"  wx:for-item="value">
       <view class="option-text" value="{{key}}" checked="{{questionList[shuffleIndex[index]].checked}}">{{value}}</view>
     </view> -->
-    <view class="{{choosed == key?answer == key?'right':'wrong':answer == key?'right':'option'}}"
+    <view class="option {{choosed == key?answer == key?'right':'wrong':answer == key?'right':''}}"
       data-optionkey="{{key}}" data-iskey="false" data-istapped="false" bindtap="tapOption"
       wx:for="{{questionList[shuffleIndex[index]].question.options}}" wx:for-index="key" wx:for-item="value"
       pointer-events='none'>

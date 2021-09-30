@@ -18,7 +18,7 @@ Page({
     src: '',
     testId: '',
     currLec: '',
-    redirect:'',
+    redirect: '',
     popup: true
   },
 
@@ -59,7 +59,7 @@ Page({
         "accept": "*/*",
         "content-type": "application/x-www-form-urlencoded"
       },
-      url: 'http://34.92.251.246:8091/questionRecord/getNewQuestion/',
+      url: 'https://aitutor.uic.edu.cn/questionRecord/getNewQuestion/',
       data: {
         commonUserID: app.globalData.openId,
         level: level,
@@ -81,7 +81,7 @@ Page({
           setTimeout(function () {
             that.onUnload();
           }, 2000)
-        }else if(response.data.question.length == 0) {
+        } else if (response.data.question.length == 0) {
           wx.showToast({
             title: '题目已经答完啦！',
             icon: 'none',
@@ -131,18 +131,13 @@ Page({
 
   onUnload: function () {
     wx.reLaunch({
-      url: '../learning/learning'
+      url: '../learning/learning',
     })
+
   },
 
   onReady: function () {
 
-  },
-
-  onUnload: function () {
-    wx.reLaunch({
-      url: '../learning/learning'
-    })
   },
 
   onShow: function () {
@@ -159,7 +154,7 @@ Page({
         "accept": "multipart/form-data",
         "content-type": "application/x-www-form-urlencoded"
       },
-      url: 'http://34.92.251.246:8091/questionRecord/textToSpeechEN/?text=' + question, //+ "&name=3",
+      url: 'https://aitutor.uic.edu.cn/questionRecord/textToSpeechEN/?text=' + question, //+ "&name=3",
       // data: {
       //   text: 'Setting data field "questionList" to undefined is invalid.'
       // },
@@ -234,7 +229,7 @@ Page({
           "accept": "*/*",
           "content-type": "application/x-www-form-urlencoded"
         },
-        url: 'http://34.92.251.246:8091/questionRecord/toCancelCollect/',
+        url: 'https://aitutor.uic.edu.cn/questionRecord/toCancelCollect/',
         data: {
           commonUserID: app.globalData.openId,
           questionID: question.question.questionID,
@@ -277,7 +272,7 @@ Page({
           "accept": "*/*",
           "content-type": "application/x-www-form-urlencoded"
         },
-        url: 'http://34.92.251.246:8091/questionRecord/toCollect/',
+        url: 'https://aitutor.uic.edu.cn/questionRecord/toCollect/',
         data: {
           commonUserID: app.globalData.openId,
           questionID: question.question.questionID,
@@ -345,8 +340,11 @@ Page({
   },
 
   confirm: function () {
+    wx.setStorageSync('questionDone', app.globalData.questionDone)
+    wx.setStorageSync('wrongDone', app.globalData.wrongDone)
+    console.log("wx.setStorageSync('wrongDone', app.globalData.questionDone)", app.globalData.questionDone);
     var that = this;
-    var url = 'http://34.92.251.246:8091/questionRecord/recordAnswer/'
+    var url = 'https://aitutor.uic.edu.cn/questionRecord/recordAnswer/'
     var score = 100 * 0.2
     wx.request({
       method: 'POST',
@@ -367,7 +365,7 @@ Page({
         // that.setData({
         //   rankingList: response.data.result
         // })
-        if(response.data.state == 'fail'){
+        if (response.data.state == 'fail') {
           wx.showToast({
             title: '上传答题记录失败',
             icon: 'none',
@@ -377,7 +375,7 @@ Page({
             }
           })
           console.log(res);
-        }else{
+        } else {
           wx.showToast({
             title: '积分+20！',
             icon: 'none',
@@ -422,7 +420,7 @@ Page({
   /* 隐藏弹窗 */
   hidePopup(flag = true) {
     this.setData({
-        "popup": flag
+      "popup": flag
     });
   },
   /* 显示弹窗 */

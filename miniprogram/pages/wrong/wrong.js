@@ -1,5 +1,6 @@
 // pages/learning.js
-
+const Prompt = require("../../utils/prompt");
+var prompt = Prompt
 var app = getApp();
 Page({
 
@@ -13,10 +14,17 @@ Page({
 
   /**
    * 生命周期函数--监听页面加载
+   * 
    */
   onLoad: function (options) {
+    this.data.lastPage = options
+    console.log(options['exitState']);
+    console.log(this.data.currLec);
+  },
+
+  getData: function () {
     var that = this;
-    var url = 'http://34.92.251.246:8091/questionRecord/getWrongNum/';
+    var url = 'https://aitutor.uic.edu.cn/questionRecord/getWrongNum/';
     wx.request({
       method: 'POST',
       header: {
@@ -28,7 +36,7 @@ Page({
         commonUserID: app.globalData.openId,
       },
       success: function (response) {
-        // that.loadingOff();
+        prompt.loadingOff();
         console.log(response);
         that.setData({
           wronglistnumber: response.data.wrongQuestionNum,
@@ -37,7 +45,7 @@ Page({
       },
       fail: function (res) {
         console.log(res);
-        // that.loadingOff();
+        prompt.loadingOff();
         wx.showToast({
           title: '获取错题数失败',
           icon: 'none',
@@ -53,7 +61,6 @@ Page({
       }
     })
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -65,14 +72,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // var wrongnumber = 0;
-    // if(wx.getStorageSync('wronglist')){
-    //   wrongnumber = JSON.parse(wx.getStorageSync('wronglist')).length;
-    // }
-    
-    // this.setData({
-    //   wrongnumber: wrongnumber,
-    // })
+    var that = this;
+    if(this.data.currLec != undefined && JSON.stringify(this.data.currLec) != '{}') {
+      console.log("enterIf", this.data.currLec);
+      if(this.data.currLec['exitState'] == 'unfinshed'){
+        console.log("enter");
+        Prompt.toast("未完成所有题目，已答题目将不被记录！")
+        setTimeout(function () {
+          prompt.loadingOn();
+          that.getData()
+        }, 2000)
+      }
+    }else{
+      console.log("else");
+      Prompt.loadingOn();
+      this.getData()
+    }
   },
 
   /**
