@@ -1,4 +1,5 @@
 <view class="page">
+  <view class='anit {{show?"show":""}}'>答题中途退出将不会保存答题进度！</view>
 <view class="mask" hidden="{{!isstart}}" bindtap="opens"></view>
   <!-- <image id="background" src="Image.jfif"></image> -->
   <!-- <view class="page-title">Lectures：</view>
@@ -16,7 +17,7 @@
       </view>
       <view class="sorting-list{{!isstart?' chioce-list-hide':' chioce-list-show'}}">
         <view wx:for="{{slist}}" catchtap="onclicks1" data-index="{{index}}" class="sorting-item"
-          hover-class="click-once" wx:key="userInfoListId">{{item.name}} </view>
+          hover-class="click-once" wx:key="userInfoListId" wx:if="{{!item.lock}}">{{item.name}} </view>
       </view>
     </view>
   </view>

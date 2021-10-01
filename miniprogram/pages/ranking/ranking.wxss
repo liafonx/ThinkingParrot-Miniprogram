@@ -152,3 +152,7 @@
   background-color: white;
   border-radius:0.5rem;
 }
+
+.prompt {
+  color: #686868;
+}

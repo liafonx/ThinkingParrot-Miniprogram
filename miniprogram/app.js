@@ -13,12 +13,16 @@ App({
   onLaunch: function () {
     let that = this; //获取openid不需要授权
     var Today = (new Date()).getDate().toString();
+    // wx.setStorageSync('answerprompt', 0)
+    // wx.setStorageSync('wrongprompt', 0)
     console.log(Today);
     console.log(wx.getStorageSync('LastDay'));
     if (Today != wx.getStorageSync('LastDay')) {
       wx.setStorageSync('LastDay', Today);
       wx.setStorageSync('questionDone', 0)
       wx.setStorageSync('wrongDone', 0)
+      wx.setStorageSync('answerprompt', 1)
+      wx.setStorageSync('wrongprompt', 1)
     }
     if (wx.getStorageSync('questionDone') != '') {
       this.globalData.questionDone = wx.getStorageSync('questionDone')

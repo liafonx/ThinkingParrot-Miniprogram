@@ -1,5 +1,7 @@
 <page>
+  <view class='anit {{show?"show":""}}'>答题中途退出将不会保存答题进度！</view>
   <view class="page">
+    
   <!-- <image id="background" src="Image.jfif"></image> -->
   <!-- <view class="page-title">Lectures：</view>
   <view class="flex-box">

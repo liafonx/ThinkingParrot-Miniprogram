@@ -72,6 +72,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    if(!this.data.show && wx.getStorageSync('wrongprompt') == 1){
+      let that = this;
+      this.setData({
+        show: 1
+      })
+      wx.setStorageSync('wrongprompt', 0)
+      setTimeout(function () {
+        that.setData({
+          show: 0
+        })
+      }, 2000)
+    }
     var that = this;
     if(this.data.currLec != undefined && JSON.stringify(this.data.currLec) != '{}') {
       console.log("enterIf", this.data.currLec);

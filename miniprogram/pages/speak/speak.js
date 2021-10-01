@@ -79,7 +79,7 @@ Page({
 
         var questionList = response.data.question;
         console.log(questionList);
-        if (!questionList || response.data.question.length == 0) {
+        if (response.data.question　== undefined || !questionList || response.data.question.length == 0) {
           wx.showToast({
             title: '获取题目失败',
             icon: 'none',
@@ -91,6 +91,7 @@ Page({
           setTimeout(function () {
             that.onUnload();
           }, 2000)
+          return
         }
         that.setData({
           questionList: questionList, // 拿到答题数据
