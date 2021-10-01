@@ -3,7 +3,7 @@
   <view class="mask" hidden="{{hiddensetting}}">
     <modal class="setting" title="每日任务" bindconfirm="Confirm" bindcancel="Cancel">
       <view class="set-box">
-        <view class="set-learn-text">答题</view>
+        <view class="set-learn-text">答题任务量</view>
         <view class="stepper">
           <!-- 减号 -->
           <text class="{{minusStatusLearn}}" bindtap="bindMinusLearn">-</text>
@@ -14,7 +14,7 @@
         </view>
       </view>
       <view class="set-box">
-        <view class="set-wrong-text">改错</view>
+        <view class="set-wrong-text">改错任务量</view>
         <view class="stepper">
           <!-- 减号 -->
           <text class="{{minusStatusWrong}}" bindtap="bindMinusWrong">-</text>
@@ -64,7 +64,7 @@
     <view id="task-bar">
       <view id="task-bar-left">
         <image class="icon" id="task-icon" src="images/task.png"></image>
-        <text id="task-text">我的任务</text>
+        <text id="task-text">今日任务</text>
       </view>
       <view id="task-bar-right">
         <image class="icon" id="task-setting" src="images/setting.png" bindtap="OpenSetting"></image>
@@ -73,7 +73,7 @@
     <view class="task-box" id="learning-box">
       <view class="task-box-left">
         <image class="icon task-icon" src="images/learning.png"></image>
-        <text class="task-box-text">答题</text>
+        <text class="task-box-text">答题任务</text>
       </view>
       <view class="task-box-right">
         <view class="finish-state" wx:if="{{taskfinished == false}}">
@@ -89,7 +89,7 @@
     <view class="task-box" id="wrong-box">
       <view class="task-box-left">
         <image class="icon task-icon" src="images/wrong.png"></image>
-        <text class="task-box-text">改错</text>
+        <text class="task-box-text">改错任务</text>
       </view>
       <view class="task-box-right">
         <view class="finish-state" wx:if="{{wrongfinished == false}}">

@@ -87,5 +87,9 @@ Page({
     wx.switchTab({
       url: url
     })
+  },
+
+  banScroll: function() {
+    console.log("禁止上下滑动");
   }
 })

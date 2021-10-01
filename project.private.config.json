@@ -45,7 +45,7 @@
         {
           "name": "choice",
           "pathName": "pages/choice/choice",
-          "query": "testId=Level3&currLec=Lecture  1",
+          "query": "testId=Level3&currLec=Lecture  2",
           "scene": null
         },
         {

@@ -53,9 +53,9 @@
 .question {
   flex-grow: 0;
   padding-left: 1rem;
-  min-height: 6rem;
+  min-height: 10%;
   margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2%;
   margin-left: 1rem;
   margin-right: 1rem;
   font-size: 20px;
@@ -72,7 +72,7 @@
   flex-grow: 0;
   width: 100%;
   height: auto;
-  margin-top: 3rem;
+  margin-top: 8%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -175,7 +175,8 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-bottom: 4.5rem;
+  margin-top: 5%;
+  margin-bottom: 15%;
 }
 
 .index-timer-box {

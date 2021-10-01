@@ -71,8 +71,8 @@ cover-image {
   background-color: #e6ce9a;
   margin-left: -0.2rem;
   margin-right: -0.2rem;
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
+  margin-top: 5%;
+  margin-bottom:0;
   /* margin-right: 7px; */
 }
 
@@ -108,7 +108,7 @@ cover-image {
 
 .answer-box {
   /* z-index: -1; */
-  margin-top: 3rem;
+  margin-top: 8%;
   width: 80%;
   height: 26rem;
   border-radius: 1rem;
@@ -176,7 +176,8 @@ cover-image {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-bottom: 4rem;
+  margin-top: 5%;
+  margin-bottom: 15%;
   /* margin-bottom: 1rem; */
 }
 
@@ -325,8 +326,8 @@ cover-image {
 }
 
 .middle {
-  width: 5rem;
-  height: 5rem;
+  width: 100%;
+  height: 15%;
   z-index: 0;
   /* width: 5rem;
   height: 5rem; */

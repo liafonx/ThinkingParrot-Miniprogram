@@ -1,5 +1,5 @@
 <view class="page">
-  <view class="mask" hidden="{{listhidden}}"></view>
+  <view class="mask" hidden="{{listhidden}}" catchtouchmove="banScroll"></view>
   <!--标题-->
   <view class='page-head'>
     <view class="page-title">
@@ -25,7 +25,7 @@
       <view bindtap="toIndex" class="home-btn ">返回主页</view>
     </view>
   </view>
-  <view class="mask" hidden="{{listhidden}}">
+  <view class="mask" hidden="{{listhidden}}" catchtouchmove="banScroll">
 
     <scroll-view class="scroll-box" scroll-x scroll-with-animation scroll-into-view="{{toView}}"
       bindtouchstart="touchStart" bindtouchend="touchEnd" hidden="{{listhidden}}">

@@ -23,6 +23,7 @@ Page({
   },
 
   onLoad: function (options) {
+    console.log(options);
     prompt.loadingOn()
     let testId = options.testId;
     let currLec = options.currLec;
@@ -405,9 +406,24 @@ Page({
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-          wx.navigateTo({
-            url: '../concept/concept?testId=' + that.data.testId + '&currLec=' + that.data.currLec,
+          that.setData({
+            index: 0,
+            shuffleIndex: [],
+            questionList: [],
+            rightListID: [],
+            wrongListID: [],
+            answer: '',
+            collected: false, //是否收藏
+            userID: '',
+            src: '',
+            redirect: '',
+            popup: true
           })
+          that.onLoad({'testId': that.data.testId, 'currLec': that.data.currLec})
+          that.onShow()
+          // wx.navigateTo({
+          //   url: '../concept/concept?testId=' + that.data.testId + '&currLec=' + that.data.currLec,
+          // })
         } else if (res.cancel) {
           console.log('用户点击取消')
           that.onUnload();
