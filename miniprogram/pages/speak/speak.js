@@ -21,7 +21,7 @@ Page({
     collected: false, //是否收藏
     userID: '',
     width: 100, //时间条长度
-    maxtime: 20, //答题时间
+    maxtime: 5, //答题时间
     color: '#46c557', //时间条颜色
     src: '',
     testId: '',
@@ -32,6 +32,7 @@ Page({
   onLoad: function (options) {
     let testId = options.testId;
     let currLec = options.currLec;
+    console.log(options.state);
     wx.setNavigationBarTitle({
       title: testId
     }) // 动态设置导航条标题
@@ -40,6 +41,7 @@ Page({
       questionList: app.globalData.oralList[testId], // 拿到答题数据
       testId: testId, // 课程ID
       currLec: currLec,
+      state: options.state,
       redirect: options.redirect
     })
     //创建内部 audio 上下文 InnerAudioContext 对象。
@@ -63,13 +65,20 @@ Page({
 
   getQuestion(level, lecture) {
     var that = this;
+    var url = 'https://aitutor.uic.edu.cn/questionRecord/getNewQuestion/';
+    if (this.data.state) {
+      url = 'https://aitutor.uic.edu.cn/questionRecord/getWrongQuestion/'
+      //已做题目+1
+      app.globalData.wrongDone++;
+      console.log(app.globalData.wrongDone);
+    }
     wx.request({
       method: 'POST',
       header: {
         "accept": "*/*",
         "content-type": "application/x-www-form-urlencoded"
       },
-      url: 'https://aitutor.uic.edu.cn/questionRecord/getNewQuestion/',
+      url: url,
       data: {
         commonUserID: app.globalData.openId,
         level: level,
@@ -332,8 +341,8 @@ Page({
     console.log(question.question.questionID);
     console.log(app.globalData.openId);
     wx.uploadFile({
-      // url: 'https://aitutor.uic.edu.cn/questionRecord/judgeAnswer',
-      url: 'http://34.92.251.246:8091/questionRecord/judgeAnswer/',
+      url: 'https://aitutor.uic.edu.cn/questionRecord/judgeAnswer',
+      // url: 'http://34.92.251.246:8091/questionRecord/judgeAnswer/',
       filePath: filePath,
       name: "file",
       header: {
@@ -509,9 +518,21 @@ Page({
     // wx.navigateTo({
     //   url: '../speak/speak'
     // })
-    // 判断是不是最后一题
+
+    //已做题目+1
+    if (this.data.state) {
+      //已做题目+1
+      app.globalData.wrongDone++;
+      console.log(app.globalData.wrongDone);
+    }else{
+      //已做题目+1
+      app.globalData.questionDone++;
+      console.log(app.globalData.questionDone);
+    }
+
     this.ifRight();
     var that = this;
+        // 判断是不是最后一题
     if (this.data.index < this.data.shuffleIndex.length - 1) {
 
       // 渲染下一题

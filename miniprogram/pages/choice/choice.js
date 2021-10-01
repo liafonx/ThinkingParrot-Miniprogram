@@ -17,7 +17,7 @@ Page({
     collected: false, //是否收藏
     isChoosed: false, //是否已答题
     width: 100, //时间条长度
-    maxtime: 10, //答题时间
+    maxtime: 20, //答题时间
     color: '#46c557', //时间条颜色
     collection: '',
     src: '', //语音路径
@@ -60,9 +60,6 @@ Page({
     var url = 'https://aitutor.uic.edu.cn/questionRecord/getNewQuestion/';
     if (this.data.state) {
       url = 'https://aitutor.uic.edu.cn/questionRecord/getWrongQuestion/'
-      //已做题目+1
-      app.globalData.wrongDone++;
-      console.log(app.globalData.wrongDone);
     }
     console.log(url);
     wx.request({
@@ -80,19 +77,14 @@ Page({
       success: function (response) {
         console.log(response);
         prompt.loadingOff();
-        if(response.data.question == undefined || !response.data.wrongQuestion.length){
+        if(response.data.question == undefined || !response.data.question.length){
           prompt.toast('获取题目失败');
           setTimeout(function () {
             that.onUnload();
           }, 2000)
         }
-        if (that.data.state) {
-          var questionList = response.data.wrongQuestion
-          var length = response.data.wrongQuestion.length
-        }else{
-          var questionList = response.data.question;
-          var length = response.data.question.length
-        }
+        var questionList = response.data.question;
+        var length = response.data.question.length
         console.log(questionList);
         if (!questionList || length == 0) {
           prompt.toast('获取题目失败');
@@ -261,8 +253,15 @@ Page({
       return;
     }
     //已做题目+1
-    app.globalData.questionDone++;
-    console.log(app.globalData.questionDone);
+    if (this.data.state) {
+      //已做题目+1
+      app.globalData.wrongDone++;
+      console.log(app.globalData.wrongDone);
+    }else{
+      //已做题目+1
+      app.globalData.questionDone++;
+      console.log(app.globalData.questionDone);
+    }
 
     // 判断答案是否正确
     this.ifRight();
