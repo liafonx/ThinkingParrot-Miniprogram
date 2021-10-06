@@ -145,6 +145,7 @@ Page({
                 photo: picture,
               },
               success: function (response) {
+                console.log(response);
                 if(response.data.state == 'fail'){
                   wx.showToast({ //弹窗提示
                     title: '登录失败，请重试',
@@ -171,6 +172,15 @@ Page({
               },
               fail: function (res) {
                 console.log(res);
+                wx.showToast({ //弹窗提示
+                  title: '登录失败，请重试',
+                  icon: 'none',
+                  duration: 2000,
+                  success: function () {
+                    
+                  }
+                })
+                return;
               }
             })
          },

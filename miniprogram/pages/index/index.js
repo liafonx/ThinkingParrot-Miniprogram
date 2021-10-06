@@ -311,7 +311,12 @@ Page({
       },
       success: function (response) {
         console.log(response);
-        if(response.data.state == 'fail'){
+        if(response.data.error == 'CommonUser matching query does not exist.') {
+          prompt.toast("您未登录，请先登录！")
+          wx.navigateTo({
+            url: '../login/login',
+          })
+        }else if(response.data.state == 'fail'){
           prompt.toast("积分获取失败！")
           return;
         }
