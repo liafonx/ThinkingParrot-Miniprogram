@@ -92,6 +92,14 @@ Page({
    */
   onLoad: function (options) {
     console.log(this.data.learnNum);
+    if(wx.getStorageSync('indexInfo') != ''){
+      var info = wx.getStorageSync('indexInfo')
+      this.setData({
+        checked: true,
+        rank: info.rank,
+        days: info.days
+      })
+    }
     this.getSelfRank();
   },
 
@@ -195,28 +203,41 @@ Page({
       success: function (response) {
         console.log(response);
         prompt.loadingOff();
-        if (response.data.checked) {
-          console.log("ttt");
-          prompt.toast('今天已经打过卡啦！')
-          that.setData({
-            checked: true,
-          })
-        } else {
-          that.setData({
-            score: response.data.score,
-            rank: response.data.level,
-            days: response.data.days,
-            bonus:  response.data.bonus,
-            checked: true,
-          })
-          if (that.data.bonus == 0) {
-            prompt.toast('打卡成功！积分+5')
+        if(response.data.status != 'fail'){
+          if (response.data.checked) {
+            console.log("ttt");
+            prompt.toast('今天已经打过卡啦！')
+            that.setData({
+              checked: true,
+            })
           } else {
-            
-            prompt.toast('获得连续签到'+that.data.days / 7 +'周奖励！\r\n积分+'+ parseInt(that.data.bonus), 5000)
+            that.setData({
+              score: response.data.score,
+              rank: response.data.level,
+              days: response.data.days,
+              bonus:  response.data.bonus,
+              checked: true,
+            })
+            var info = {'rank': response.data.level, 'days': response.data.days}
+            wx.setStorageSync('indexInfo', info)
+            if (that.data.bonus == 0) {
+              prompt.toast('打卡成功！积分+5')
+            } else {
+              prompt.toast('获得连续签到'+that.data.days / 7 +'周奖励！\r\n积分+'+ parseInt(that.data.bonus), 5000)
+            }
           }
+          that.onShow();
+        }else {
+          wx.showToast({
+            title: '打卡失败',
+            icon: 'none',
+            duration: 2000,
+            success: function () {
+              return;
+            }
+          })
         }
-        that.onShow();
+        
       },
       fail: function (res) {
         prompt.loadingOff()

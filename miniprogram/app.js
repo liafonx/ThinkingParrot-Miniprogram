@@ -20,6 +20,7 @@ App({
     if (Today != wx.getStorageSync('LastDay')) {
       wx.setStorageSync('LastDay', Today);
       wx.setStorageSync('questionDone', 0)
+      wx.setStorageSync('indexInfo', '')
       wx.setStorageSync('wrongDone', 0)
       wx.setStorageSync('answerprompt', 1)
       wx.setStorageSync('wrongprompt', 1)

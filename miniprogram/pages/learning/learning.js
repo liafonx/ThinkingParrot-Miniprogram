@@ -21,34 +21,6 @@ Page({
       {
         name: "Lecture  2"
       },
-      {
-        name: "Lecture  3"
-      },
-      {
-
-        name: "Lecture  4"
-      },
-      {
-        name: "Lecture  5"
-      },
-      {
-        name: "Lecture  6"
-      },
-      {
-        name: "Lecture  7"
-      },
-      {
-        name: "Lecture  8"
-      },
-      {
-        name: "Lecture  9"
-      },
-      {
-        name: "Lecture  10"
-      },
-      {
-        name: "Lecture  11"
-      },
     ],
     isstart: false,
     openimg: "/images/list/list.png",

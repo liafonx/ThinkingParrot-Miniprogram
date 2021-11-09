@@ -173,9 +173,14 @@ Page({
                   that.data.src = voice;   //替换掉playVoice那段 
                   that.yuyinPlay();       
           } else {
-              wx.showToast({
-                  title: 'something wrong!',
-              })
+            wx.showToast({
+              title: '语音播放失败',
+              icon: 'none',
+              duration: 2000,
+              success: function () {
+                return;
+              }
+            })
           }
       },
       fail: function (res) {
@@ -341,7 +346,7 @@ Page({
     console.log(question.question.questionID);
     console.log(app.globalData.openId);
     wx.uploadFile({
-      url: 'https://aitutor.uic.edu.cn/questionRecord/judgeAnswer',
+      url: 'https://aitutor.uic.edu.cn/questionRecord/judgeAnswer/',
       // url: 'http://34.92.251.246:8091/questionRecord/judgeAnswer/',
       filePath: filePath,
       name: "file",
