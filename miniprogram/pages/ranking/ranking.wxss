@@ -66,17 +66,21 @@
 .users-right {
   width: 28%;
   /* background-color: #DC143C; */
-  margin-left: 0.8rem;
+  margin-left: 2%;
   /* padding: 10rpx 0;  */
 }
 
 .users-name {
-  font-size: 35rpx;
-  font-weight: 400;
-  display: flex;
+  /* font-size: 35rpx;
+  font-weight: 400; */
+  /* display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: center; */
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .users-score {
@@ -108,8 +112,10 @@
 }
 
 .rank-name-box {
-  width: 26%;
-  margin-right: 10%;
+  text-align: right;
+  width: 15%;
+  margin-right: 8%;
+  margin-left: 2%;
   color: #686868;
   /* background-color: gold; */
 }
@@ -138,11 +144,11 @@
 
 .rank-num {
   /* background-color: aquamarine; */
-  padding-bottom: 9%;
+  padding-bottom: 7%;
 }
 
 .rank-text {
-  padding-bottom: 20%;
+  padding-bottom: 18%;
   font-size: 12px;
 }
 
@@ -150,7 +156,7 @@
   width: 85%;
   height: 5rem;
   background-color: white;
-  border-radius:0.5rem;
+  border-radius: 0.5rem;
 }
 
 .prompt {

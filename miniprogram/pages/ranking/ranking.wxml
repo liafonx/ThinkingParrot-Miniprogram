@@ -7,7 +7,8 @@
 
         <view class="users-right">
             <view class="users-name">
-                <view>{{item.commonUserName}}</view>
+                <text>{{item.commonUserName}}</text>
+                <!-- <view></view> -->
             </view>
             <view class="users-score">{{item.score}}</view>
         </view>
@@ -31,7 +32,7 @@
         </view>
         <view class="users-right">
             <view class="users-name">
-                <view>{{selfRanking.userName}}</view>
+                {{selfRanking.userName}}
             </view>
             <view class="users-score">{{selfRanking.score}}</view>
         </view>
