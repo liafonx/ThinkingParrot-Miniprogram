@@ -359,10 +359,11 @@ btn-checked {
   align-items: center;
   margin-top: 1.5rem;
   padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .set-learn-text {
-  width: 4rem;
+  width: 6rem;
   height: 1.7rem;
   display: flex;
   font-size: 15px;
@@ -375,7 +376,7 @@ btn-checked {
 }
 
 .set-wrong-text {
-  width: 4rem;
+  width: 6rem;
   height: 1.7rem;
   display: flex;
   font-size: 15px;
