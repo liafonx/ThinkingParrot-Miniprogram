@@ -9,6 +9,7 @@ App({
     questionDone: 0,
     wrongDone: 0,
     openId: '',
+    iflogin: '',
   },
   onLaunch: function () {
     let that = this; //获取openid不需要授权
@@ -36,12 +37,16 @@ App({
     console.log("wrongDone", this.globalData.wrongDone);
     if (!wx.getStorageSync('openid')) {
       //延迟执行，可能小程序页面未注册完，导致无法跳转
-      setTimeout(function () {
-        wx.redirectTo({
-          url: '/pages/login/login',
-        })
-      }, 500)
+      // setTimeout(function () {
+      //   wx.redirectTo({
+      //     url: '/pages/login/login',
+      //   })
+      // }, 500)
+      this.globalData.iflogin = false
+      console.log("iflogin", this.globalData.iflogin);
     } else {
+      this.globalData.iflogin = true
+      console.log("iflogin", this.globalData.iflogin);
       this.globalData.openId = wx.getStorageSync('openid'),
         console.log("wx.getStorageSync('openid')", this.globalData.openId);
     }

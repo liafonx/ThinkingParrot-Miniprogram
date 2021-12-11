@@ -1,5 +1,0 @@
-<!--miniprogram/pages/login/login.wxml-->
-<view class="page">
-  <text class="prompt">点击下方按钮，用微信快速登录</text>
-  <button class="btn" bindtap="getUserProfile"> 登录 </button>
-</view>

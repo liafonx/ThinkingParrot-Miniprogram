@@ -38,7 +38,8 @@
     <image class="icon" src="images/info.png" bindtap="ToIntro"></image>
   </view>
   </view>
-  <view id="btn-box">
+  <block wx:if="{{iflogin == true}}">
+    <view id="btn-box" >
     <view class="btn" bindtap="{{checked == false?'onBindTap':''}}">
       <text class="btn-text" bindtap="Check" wx:if="{{!checked}}">打卡</text>
       <view class="btn-checked" wx:else>
@@ -60,6 +61,15 @@
       </view>
     </view>
   </view>
+  </block>
+  <block hidden="{{ifLogin}}" wx:else>
+    <view id="btn-box">
+    <view class="btn login" bindtap="getUserProfile">
+      <text class="btn-text">登录</text>
+    </view>
+  </view>
+  </block>
+  
   <view id="bottom-panel">
     <view id="task-bar">
       <view id="task-bar-left">

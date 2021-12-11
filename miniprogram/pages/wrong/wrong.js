@@ -37,11 +37,22 @@ Page({
       },
       success: function (response) {
         prompt.loadingOff();
-        console.log(response);
+        if(response.data.state == 'fail'){
+          wx.showToast({
+            title: '获取错题数失败',
+            icon: 'none',
+            duration: 2000,
+            success: function () {
+              return;
+            }
+          })
+        }else {
+          console.log(response);
         that.setData({
           wronglistnumber: response.data.wrongQuestionNum,
           worongtotalnumber: response.data.wrongQuestionNum['total']
         })
+        }
       },
       fail: function (res) {
         console.log(res);

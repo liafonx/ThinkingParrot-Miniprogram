@@ -96,9 +96,9 @@ Page({
               
             }
           })
-          setTimeout(function () {
-            that.onUnload()
-          }, 2000)
+          // setTimeout(function () {
+          //   that.onUnload()
+          // }, 2000)
           return;
         }
         that.loadingOff()

@@ -16,9 +16,11 @@ page {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 3rem;
+  margin-top: 20%;
   align-items: center;
 }
+
+
 
 btn-checked {
   display: flex;
@@ -30,15 +32,21 @@ btn-checked {
 
 .btn {
   z-index: 1;
-  margin-top: 3rem;
-  width: 9rem;
-  height: 9rem;
+  /* margin-top: 3rem; */
+  width: 275rpx;
+  height: 275rpx;
   border-radius: 30rem;
   background-color: #CBB780;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.login{
+  z-index: 4;
+  background-color: #18b315;
+  margin-top: 25%;
 }
 
 .page {
