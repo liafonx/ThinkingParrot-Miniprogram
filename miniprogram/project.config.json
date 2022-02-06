@@ -50,6 +50,8 @@
     "baseURL": "",
     "servePath": ""
   },
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
   "condition": {
     "search": {
       "list": []
