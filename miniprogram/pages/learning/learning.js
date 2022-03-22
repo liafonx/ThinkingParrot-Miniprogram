@@ -27,6 +27,17 @@ Page({
     offimg: "/images/list/list1.png",
     lastPage: '',
     show: 0,
+    isTiptrue: true,
+    guideIndex:0,
+    guiderContent: [],
+    intro: {
+      "level1": ["Analyze the major trends driving the rise of deep learning, and give examples of where and how it is applied today.", "Level Introduction2", "Level Introduction3"],
+      "level2": ["Level2 Introduction1", "Level Introduction2", "Level Introduction3"],
+      "level3": ["Level3 Introduction1", "Level Introduction2", "Level Introduction3"],
+      "level4": ["Level4 Introduction1", "Level Introduction2", "Level Introduction3"],
+      "level5": ["Level5 Introduction1", "Level Introduction2", "Level Introduction3"],
+      "level6": ["Level6 Introduction1", "Level Introduction2", "Level Introduction3"],
+    }
   },
 
   onLoad: function (options) {
@@ -34,6 +45,22 @@ Page({
     this.data.lastPage = options
     console.log(options['exitState']);
     console.log(this.data.currLec);
+    let firstOpen = wx.getStorageSync("loadOpen")
+    console.log("是否首次打开本页面==",firstOpen)
+    if (firstOpen == undefined || firstOpen == '') { //根据缓存周期决定是否显示新手引导
+      this.setData({
+        guideIndex:1,
+      });
+      this.setData({
+        isTiptrue: true,
+        guiderContent: that.data.intro["level"+that.data.guideIndex],
+      })
+
+    } else {
+      this.setData({
+        isTiptrue: false,
+      })
+    }
   },
 
   onShow: function () {
@@ -244,5 +271,27 @@ Page({
     console.log(this.data.currLec);
     prompt.loadingOn()
     this.updateHistory(this.data.currLevel, this.data.currLec)
-  }
+  },
+
+  closeThis(e){
+    wx.setStorage({
+      key: 'loadOpen',
+      data: 'OpenTwo'
+    })
+    this.setData({
+      isTiptrue:false
+    })
+  },
+
+  guider(e){
+    var that = this
+    console.log("TAP!!");
+    this.setData({
+      guideIndex: that.data.guideIndex + 1,
+    })
+    this.setData({
+      guiderContent: that.data.intro["level"+that.data.guideIndex]
+    })
+    console.log(that.data.guideIndex);
+  },
 })
