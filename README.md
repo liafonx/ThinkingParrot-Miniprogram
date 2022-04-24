@@ -1,1 +1,1 @@
-# TSSProject
+# Thinking Parrot Miniprogram
