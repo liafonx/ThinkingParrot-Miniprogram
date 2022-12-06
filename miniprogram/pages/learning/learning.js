@@ -28,15 +28,15 @@ Page({
     lastPage: '',
     show: 0,
     isTiptrue: true,
-    guideIndex:0,
+    guideIndex: 0,
     guiderContent: [],
     intro: {
-      "level1": ["Analyze the major trends driving the rise of deep learning, and give examples of where and how it is applied today.", "Level Introduction2", "Level Introduction3"],
-      "level2": ["Level2 Introduction1", "Level Introduction2", "Level Introduction3"],
-      "level3": ["Level3 Introduction1", "Level Introduction2", "Level Introduction3"],
-      "level4": ["Level4 Introduction1", "Level Introduction2", "Level Introduction3"],
-      "level5": ["Level5 Introduction1", "Level Introduction2", "Level Introduction3"],
-      "level6": ["Level6 Introduction1", "Level Introduction2", "Level Introduction3"],
+      "level1": ["例子详解题（无需作答）", "熟悉例句所属的概念", "了解例句的内在含义", "中途退出将不会保留答题进度"],
+      "level2": ["选择题", "区分概念间的不同", "复习例句所属概念", "中途退出将不会保留答题进度"],
+      "level3": ["选择题", "复习例句用法以及含义", "中途退出将不会保留答题进度"],
+      "level4": ["语音题", "掌握例句发音", "再次巩固例句含义", "中途退出将不会保留答题进度"],
+      "level5": ["敬请期待！"],
+      "level6": ["敬请期待！"],
     }
   },
 
@@ -46,14 +46,14 @@ Page({
     console.log(options['exitState']);
     console.log(this.data.currLec);
     let firstOpen = wx.getStorageSync("loadOpen")
-    console.log("是否首次打开本页面==",firstOpen)
+    console.log("是否首次打开本页面==", firstOpen)
     if (firstOpen == undefined || firstOpen == '') { //根据缓存周期决定是否显示新手引导
       this.setData({
-        guideIndex:1,
+        guideIndex: 1,
       });
       this.setData({
         isTiptrue: true,
-        guiderContent: that.data.intro["level"+that.data.guideIndex],
+        guiderContent: that.data.intro["level" + that.data.guideIndex],
       })
 
     } else {
@@ -65,7 +65,7 @@ Page({
 
   onShow: function () {
     console.log(wx.getStorageSync('answerprompt'));
-    if(!this.data.show && wx.getStorageSync('answerprompt') == 1){
+    if (!this.data.show && wx.getStorageSync('answerprompt') == 1) {
       let that = this;
       this.setData({
         show: 1
@@ -75,7 +75,7 @@ Page({
         that.setData({
           show: 0
         })
-      }, 2000)
+      }, 7000)
     }
     var that = this
     if (wx.getStorageSync('currLevel')) {
@@ -95,13 +95,13 @@ Page({
         "accept": "*/*",
         "content-type": "application/x-www-form-urlencoded"
       },
-      url: 'https://aitutor.uic.edu.cn/questionRecord/GetLectures/',
+      url:  app.globalData.urlDomain + 'questionRecord/GetLectures/',
       success: function (response) {
         console.log(response);
         prompt.loadingOff();
         if (response.data.state != 'fail' && response.data.lectures.length > 0) {
           that.setData({
-            slist:response.data.lectures,
+            slist: response.data.lectures,
           })
           console.log(that.data.slist);
         } else {
@@ -137,7 +137,7 @@ Page({
 
   updateHistory: function (level, lecture) {
     var that = this;
-    var url = 'https://aitutor.uic.edu.cn/questionRecord/getHistoryNum/';
+    var url =  app.globalData.urlDomain + 'questionRecord/getHistoryNum/';
     wx.request({
       method: 'POST',
       header: {
@@ -240,6 +240,12 @@ Page({
         console.log(this.data.currLevel);
     }
   },
+  
+  toChatbot: function (e) {
+    wx.navigateTo({
+      url: '../chatbot/chatbot?'+ "&redirect=learning"
+    })
+  },
 
   changeState: function (e) {
     var that = this;
@@ -273,24 +279,24 @@ Page({
     this.updateHistory(this.data.currLevel, this.data.currLec)
   },
 
-  closeThis(e){
+  closeThis(e) {
     wx.setStorage({
       key: 'loadOpen',
       data: 'OpenTwo'
     })
     this.setData({
-      isTiptrue:false
+      isTiptrue: false
     })
   },
 
-  guider(e){
+  guider(e) {
     var that = this
     console.log("TAP!!");
     this.setData({
       guideIndex: that.data.guideIndex + 1,
     })
     this.setData({
-      guiderContent: that.data.intro["level"+that.data.guideIndex]
+      guiderContent: that.data.intro["level" + that.data.guideIndex]
     })
     console.log(that.data.guideIndex);
   },

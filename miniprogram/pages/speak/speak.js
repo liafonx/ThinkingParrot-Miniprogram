@@ -3,7 +3,6 @@ const recorderManager = wx.getRecorderManager()
 var app = getApp();
 const base64 = require('../../utils/base64.js')
 
-
 Page({
   data: {
     index: 0,
@@ -65,9 +64,9 @@ Page({
 
   getQuestion(level, lecture) {
     var that = this;
-    var url = 'https://aitutor.uic.edu.cn/questionRecord/getNewQuestion/';
+    var url =  app.globalData.urlDomain + 'questionRecord/getNewQuestion/';
     if (this.data.state) {
-      url = 'https://aitutor.uic.edu.cn/questionRecord/getWrongQuestion/'
+      url =  app.globalData.urlDomain + 'questionRecord/getWrongQuestion/'
       //已做题目+1
       app.globalData.wrongDone++;
       console.log(app.globalData.wrongDone);
@@ -161,7 +160,7 @@ Page({
     wx.downloadFile({
       method: 'POST',
       header: { "accept": "multipart/form-data","content-type": "application/x-www-form-urlencoded" },
-      url: 'https://aitutor.uic.edu.cn/questionRecord/textToSpeechEN_CN/?text=' + that.audioText(question),
+      url:  app.globalData.urlDomain + 'questionRecord/textToSpeechEN_CN/?text=' + that.audioText(question),
       // data: {
       //   text: 'Setting data field "questionList" to undefined is invalid.'
       // },
@@ -241,7 +240,7 @@ Page({
           "accept": "*/*",
           "content-type": "application/x-www-form-urlencoded"
         },
-        url: 'https://aitutor.uic.edu.cn/questionRecord/toCancelCollect/',
+        url:  app.globalData.urlDomain + 'questionRecord/toCancelCollect/',
         data: {
           commonUserID: app.globalData.openId,
           questionID: question.question.questionID,
@@ -284,7 +283,7 @@ Page({
           "accept": "*/*",
           "content-type": "application/x-www-form-urlencoded"
         },
-        url: 'https://aitutor.uic.edu.cn/questionRecord/toCollect/',
+        url:  app.globalData.urlDomain + 'questionRecord/toCollect/',
         data: {
           commonUserID: app.globalData.openId,
           questionID: question.question.questionID,
@@ -346,8 +345,8 @@ Page({
     console.log(question.question.questionID);
     console.log(app.globalData.openId);
     wx.uploadFile({
-      url: 'https://aitutor.uic.edu.cn/questionRecord/judgeAnswer/',
-      // url: 'http://34.92.251.246:8091/questionRecord/judgeAnswer/',
+      url:  app.globalData.urlDomain + 'questionRecord/judgeAnswer/',
+      // url: 'http://127.0.0.1:8000/questionRecord/judgeAnswer/',
       filePath: filePath,
       name: "file",
       header: {
@@ -371,8 +370,12 @@ Page({
             that.setData({
               done: false
             });
+            var title = "答题失败，请重试！"
+            if(JSON.parse(res.data).error == "empty answer"){
+              title = ' 没有听清哦，请再说一遍~'
+            }
             wx.showToast({ //弹窗提示
-              title: '答题失败，请重试！',
+              title: title,
               icon: 'none',
               duration: 2000,
               success: function () {
@@ -425,7 +428,7 @@ Page({
       numberOfChannels: 1,
       encodeBitRate: 192000,
       format: 'mp3',
-      frameSize: 50
+      frameSize: 100
     }
     recorderManager.start(options)
   },
@@ -556,10 +559,10 @@ Page({
       this.countdown();
       this.startPlay();
     } else {
-      var url = 'https://aitutor.uic.edu.cn/questionRecord/recordAnswer/'
+      var url =  app.globalData.urlDomain + 'questionRecord/recordAnswer/'
       var score = that.data.totalScore*0.2
       if(that.data.state) {
-        var url = "https://aitutor.uic.edu.cn/questionRecord/correctAnswer/"
+        var url =  app.globalData.urlDomain + 'questionRecord/correctAnswer/'
         var score = that.data.totalScore*0.1
       }
       wx.request({

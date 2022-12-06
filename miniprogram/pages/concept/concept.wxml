@@ -13,10 +13,10 @@
   </view>
     <view class='description'>{{questionList[shuffleIndex[index]].question.conceptDescription == ''?'The concept description has not been added yet!':questionList[shuffleIndex[index]].question.conceptDescription}}</view>
     </view>
-   
+    
     <!-- <text class='headpiece-num'>{{t}}</text> -->
     <view class="question-num-box" style="background-color:{{color}}">{{index+1}}</view>
-  
+    <view class="middle"></view>
   <view class="answer-box" data-question="{{questionList[shuffleIndex[index]].question.question}}">
     <view class="example">{{questionList[shuffleIndex[index]].example}}</view>
     <view class="box meaning-box">

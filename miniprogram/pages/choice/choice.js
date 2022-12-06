@@ -57,9 +57,9 @@ Page({
     var that = this
     prompt.loadingOn();
     var that = this;
-    var url = 'https://aitutor.uic.edu.cn/questionRecord/getNewQuestion/';
+    var url =  app.globalData.urlDomain + 'questionRecord/getNewQuestion/';
     if (this.data.state) {
-      url = 'https://aitutor.uic.edu.cn/questionRecord/getWrongQuestion/'
+      url = app.globalData.urlDomain + 'questionRecord/getWrongQuestion/'
     }
     console.log(url);
     wx.request({
@@ -139,11 +139,11 @@ Page({
     }else{
       var name = 2
     }
-    console.log('https://aitutor.uic.edu.cn/questionRecord/textToSpeechEN/?text=' + question + "&name=" + name);
+    //console.log(app.globalData.urlDomain + 'questionRecord/textToSpeechEN/?text=' + question + "&name=" + name);
     wx.downloadFile({
       method: 'POST',
       header: { "accept": "multipart/form-data","content-type": "application/x-www-form-urlencoded" },
-      url: 'https://aitutor.uic.edu.cn/questionRecord/textToSpeechEN/?text=' + question + "&name=" + name,
+      url: app.globalData.urlDomain + 'questionRecord/textToSpeechEN/?text=' + question + "&name=" + name,
       // data: {
       //   text: 'Setting data field "questionList" to undefined is invalid.'
       // },
@@ -286,10 +286,10 @@ Page({
     } else {
       console.log(that.data.wrongListID);
       console.log(that.data.rightListID);
-      var url = 'https://aitutor.uic.edu.cn/questionRecord/recordAnswer/'
+      var url = app.globalData.urlDomain + 'questionRecord/recordAnswer/'
       var score = that.data.totalScore*0.2
       if(that.data.state) {
-        var url = "https://aitutor.uic.edu.cn/questionRecord/correctAnswer/"
+        var url = app.globalData.urlDomain + 'questionRecord/correctAnswer/'
         var score = that.data.totalScore*0.1
       }
       wx.request({
@@ -390,7 +390,7 @@ Page({
           "accept": "*/*",
           "content-type": "application/x-www-form-urlencoded"
         },
-        url: 'https://aitutor.uic.edu.cn/questionRecord/toCancelCollect/',
+        url: app.globalData.urlDomain + 'questionRecord/toCancelCollect/',
         data: {
           commonUserID: app.globalData.openId,
           questionID: question.question.questionID,
@@ -435,7 +435,7 @@ Page({
           "accept": "*/*",
           "content-type": "application/x-www-form-urlencoded"
         },
-        url: 'https://aitutor.uic.edu.cn/questionRecord/toCollect/',
+        url: app.globalData.urlDomain + 'questionRecord/toCollect/',
         data: {
           commonUserID: app.globalData.openId,
           questionID: question.question.questionID,

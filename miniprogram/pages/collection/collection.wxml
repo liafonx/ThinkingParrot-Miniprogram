@@ -21,7 +21,7 @@
 
     </view>
     <view hidden="{{hiddensetting}}">
-    <modal class="setting" title="确认删除" bindconfirm="Confirm" bindcancel="Cancel">
+    <modal class="setting" title="是否确认删除？" bindconfirm="Confirm" bindcancel="Cancel">
     </modal>
   </view>
 </view>

@@ -1,5 +1,7 @@
+const Prompt = require("../../utils/prompt");
 
-
+var app = getApp();
+var prompt = Prompt
 Page({
   data: {
     rankingList: [],
@@ -24,53 +26,84 @@ Page({
     wx.setNavigationBarTitle({
       title: '排行榜' //修改title
     });
-      wx.request({
-        method: 'POST',
-        header: {
-          "accept": "*/*",
-          "content-type": "application/json"
+    var Today = (new Date()).getDate().toString();
+    if (Today != wx.getStorageSync('LastDayRank')) {
+      wx.setStorageSync('LastDayRank', Today);
+      that.getRank()
+    }
+    if (wx.getStorageSync('rank') != '') {
+      that.setData({
+        rankingList: wx.getStorageSync('rank')
+      })
+    }
+    if (wx.getStorageSync('userRank') != '') {
+      var res = wx.getStorageSync('userRank')
+      that.setData({
+        selfRanking: {
+          userName: res.commonUserName,
+          userImg: res.imageURL,
+          rank: res.level,
+          index: res.rank,
+          score: res.score
         },
-        url: 'https://aitutor.uic.edu.cn/questionRecord/getRankWithoutLevel/',
-        // data: {
-        //   commonUserID: openId,
-        // },
-        success: function (response) {
-          console.log(response);
-          if(response.data.state == 'fail'){
-            wx.showToast({ //弹窗提示
-              title: '获取排行榜失败',
-              icon: 'none',
-              duration: 2000,
-              success: function () {
-                
-              }
-            })
-            setTimeout(function () {
-              that.onUnload()
-            }, 2000)
-            return;
-          }
-          that.loadingOff()
-          console.log(response);
-          that.setData({
-            rankingList: response.data.result
-          })
-          that.getSelfRank();
-        },
-        fail: function (res) {
+      })
+     
+    }
+    that.loadingOff()
+  },
+
+  getRank:function () {
+    var that = this;
+    wx.request({
+      method: 'POST',
+      header: {
+        "accept": "*/*",
+        "content-type": "application/json"
+      },
+      url: app.globalData.urlDomain + 'questionRecord/getRank/',
+      // url: 'http://127.0.0.1:8000/questionRecord/getRank/',
+      // data: {
+      //   commonUserID: openId,
+      // },
+      success: function (response) {
+        console.log(response);
+        if(response.data.state == 'fail'){
           that.loadingOff()
           wx.showToast({ //弹窗提示
             title: '获取排行榜失败',
             icon: 'none',
             duration: 2000,
             success: function () {
-              return;
+              
             }
           })
-          console.log(res);
+          setTimeout(function () {
+            that.onUnload()
+          }, 2000)
+          return;
         }
-      })
+        console.log(response);
+        that.setData({
+          rankingList: response.data.result
+        })
+        wx.setStorageSync('rank', response.data.result)
+        that.getSelfRank();
+      },
+      fail: function (res) {
+        that.loadingOff()
+        wx.showToast({ //弹窗提示
+          title: '获取排行榜失败',
+          icon: 'none',
+          duration: 2000,
+          success: function () {
+            return;
+          }
+        })
+        console.log(res);
+      }
+    })
   },
+
   getSelfRank: function(){
     var that = this;
     var openId = wx.getStorageSync('openid');
@@ -81,7 +114,7 @@ Page({
         "accept": "*/*",
         "content-type": "application/x-www-form-urlencoded"
       },
-      url: 'https://aitutor.uic.edu.cn/questionRecord/getUserRank/',
+      url: app.globalData.urlDomain + 'questionRecord/getUserRank/',
       data: {
         commonUserID: openId,
       },
@@ -101,7 +134,7 @@ Page({
           // }, 2000)
           return;
         }
-        that.loadingOff()
+        
         console.log(response);
         if (response.data.rank < 100) {
           var index = response.data.rank
@@ -117,9 +150,11 @@ Page({
             score: response.data.score
           },
         })
+        wx.setStorageSync('userRank', response.data)
         // that.setData({
         //   rankingList: response.data.result
         // })
+        that.loadingOff()
       },
       fail: function (res) {
         that.loadingOff()

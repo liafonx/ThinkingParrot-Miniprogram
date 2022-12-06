@@ -92,19 +92,31 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      iflogin: app.globalData.iflogin,
-    })
-    console.log("iflogin()", this.data.iflogin);
-    if(wx.getStorageSync('indexInfo') != ''){
-      var info = wx.getStorageSync('indexInfo')
+    let that = this
+    app.checkDomain().then(res => {
+      console.log(app.globalData.urlDomain);
       this.setData({
-        checked: true,
-        rank: info.rank,
-        days: info.days
+        iflogin: app.globalData.iflogin,
       })
-    }
-    this.getSelfRank();
+      console.log("iflogin()", this.data.iflogin);
+      if (wx.getStorageSync('indexInfo') != '') {
+        var info = wx.getStorageSync('indexInfo')
+        this.setData({
+          checked: true,
+          rank: info.rank,
+          days: info.days
+        })
+      }
+      this.getSelfRank();
+    }).catch(err => {
+      console.log(app.globalData.urlDomain);
+    })
+
+    app.checkDomain().then(res => {
+      console.log(app.globalData.urlDomain);
+    }).catch(err => {
+      console.log(app.globalData.urlDomain);
+    })
   },
 
   /**
@@ -124,7 +136,7 @@ Page({
     var that = this;
     console.log(app.globalData.questionDone);
     console.log("wx.getStorageSync('learnNum')", wx.getStorageSync('learnNum'));
-    if(wx.getStorageSync('learnNum') != ''){
+    if (wx.getStorageSync('learnNum') != '') {
       console.log("enter");
       that.setData({
         learnNum: wx.getStorageSync('learnNum')
@@ -143,7 +155,7 @@ Page({
       })
     }
     console.log(app.globalData.questionDone);
-    
+
     if (this.data.wrongNum <= numWrongDone) {
       this.setData({
         wrongfinished: true,
@@ -196,21 +208,20 @@ Page({
   onBindTap: function () {
     prompt.loadingOn()
     var that = this;
-    var url = 'https://aitutor.uic.edu.cn/questionRecord/signAddScore/';
     wx.request({
       method: 'POST',
       header: {
         "accept": "*/*",
         "content-type": "application/x-www-form-urlencoded"
       },
-      url: url,
+      url: app.globalData.urlDomain + 'questionRecord/signAddScore/',
       data: {
         commonUserID: app.globalData.openId,
       },
       success: function (response) {
         console.log(response);
         prompt.loadingOff();
-        if(response.data.status != 'fail'){
+        if (response.data.status != 'fail') {
           if (response.data.checked) {
             console.log("ttt");
             prompt.toast('今天已经打过卡啦！')
@@ -222,19 +233,22 @@ Page({
               score: response.data.score,
               rank: response.data.level,
               days: response.data.days,
-              bonus:  response.data.bonus,
+              bonus: response.data.bonus,
               checked: true,
             })
-            var info = {'rank': response.data.level, 'days': response.data.days}
+            var info = {
+              'rank': response.data.level,
+              'days': response.data.days
+            }
             wx.setStorageSync('indexInfo', info)
             if (that.data.bonus == 0) {
               prompt.toast('打卡成功！积分+5')
             } else {
-              prompt.toast('获得连续签到'+that.data.days / 7 +'周奖励！\r\n积分+'+ parseInt(that.data.bonus), 5000)
+              prompt.toast('获得连续签到' + that.data.days / 7 + '周奖励！\r\n积分+' + parseInt(that.data.bonus), 5000)
             }
           }
           that.onShow();
-        }else {
+        } else {
           wx.showToast({
             title: '打卡失败',
             icon: 'none',
@@ -244,7 +258,7 @@ Page({
             }
           })
         }
-        
+
       },
       fail: function (res) {
         prompt.loadingOff()
@@ -269,7 +283,7 @@ Page({
   },
 
   Confirm: function () {
-    
+
     var learnNum = this.data.learnSetNum;
     var wrongNum = this.data.wrongSetNum;
     console.log("Confirm", learnNum);
@@ -279,7 +293,7 @@ Page({
       this.setData({
         taskfinished: false,
       })
-    }else{
+    } else {
       this.setData({
         taskfinished: true,
       })
@@ -317,13 +331,13 @@ Page({
     })
   },
 
-  OpenRank: function(){
+  OpenRank: function () {
     wx.navigateTo({
-      url: '../ranking/ranking' 
+      url: '../ranking/ranking'
     })
   },
 
-  getSelfRank: function(){
+  getSelfRank: function () {
     var that = this;
     var openId = wx.getStorageSync('openid');
     console.log(openId);
@@ -333,35 +347,34 @@ Page({
         "accept": "*/*",
         "content-type": "application/x-www-form-urlencoded"
       },
-      url: 'https://aitutor.uic.edu.cn/questionRecord/getUserRank/',
+      url: app.globalData.urlDomain + 'questionRecord/getUserRank/',
       data: {
         commonUserID: openId,
       },
       success: function (response) {
         console.log(response);
-        if(response.data.error == 'CommonUser matching query does not exist.') {
+        if (response.data.error == 'CommonUser matching query does not exist.') {
           prompt.toast("您未登录，请先登录！")
           // wx.navigateTo({
           //   url: '../login/login',
           // })
-        }else if(response.data.state == 'fail'){
+        } else if (response.data.state == 'fail') {
           prompt.toast("积分获取失败！")
           return;
         }
         that.setData({
-            toNext: response.data.toNext,
-            score: response.data.score,
-            percent: response.data.percent,
-            checked: response.data.checked,
-            rank: response.data.level,
-            days: response.data.days,
+          toNext: response.data.toNext,
+          score: response.data.score,
+          percent: response.data.percent,
+          checked: response.data.checked,
+          rank: response.data.level,
+          days: response.data.days,
         })
         // that.setData({
         //   rankingList: response.data.result
         // })
       },
-      fail: function (res) {
-      }
+      fail: function (res) {}
     })
   },
 
@@ -397,10 +410,10 @@ Page({
             return;
           }
         })
-        this.Login(picture,nickName);
-        
+        this.Login(picture, nickName);
+
       },
-      fail:function(err){
+      fail: function (err) {
         wx.showToast({
           title: '获取用户信息失败',
           icon: 'none',
@@ -409,34 +422,32 @@ Page({
             return;
           }
         })
-     }
+      }
     });
-    
+
   },
 
-  Login: function(picture, nickName){
+  Login: function (picture, nickName) {
     var that = this
     wx.login({
       success: function (res) { //请求自己后台获取用户openid
         var code = res.code;
-        console.log('code: ',code);
-        var userinfo = 'hhh';
-        var iv = ''
+        var userinfo;
+        var iv;
+        console.log('code: ', code);
         wx.getUserInfo({
-         success: function(res) {
+          success: function (res) {
             userinfo = res.encryptedData;
             iv = res.iv;
-            console.log('code: ',code, '\niv: ',iv, '\ninfo: ',userinfo);
+            console.log('code: ', code, '\niv: ', iv, '\ninfo: ', userinfo);
             console.log(picture);
             wx.request({
               method: 'POST',
               header: {
                 'content-type': 'application/x-www-form-urlencoded'
               },
-              url: 'https://aitutor.uic.edu.cn/questionRecord/userinfo',
+              url: app.globalData.urlDomain + 'questionRecord/userinfo',
               data: {
-                appid: 'wxd27ea3eb3d649f0d',
-                secret: 'da1e11486e57ebb44c7753180e3285a5',
                 code: code,
                 userinfo: userinfo,
                 iv: iv,
@@ -445,13 +456,13 @@ Page({
               },
               success: function (response) {
                 console.log(response);
-                if(response.data.state == 'fail'){
+                if (response.data.state == 'fail') {
                   wx.showToast({ //弹窗提示
                     title: '登录失败，请重试',
                     icon: 'none',
                     duration: 2000,
                     success: function () {
-                      
+
                     }
                   })
                   return;
@@ -479,28 +490,48 @@ Page({
                   icon: 'none',
                   duration: 2000,
                   success: function () {
-                    
+
                   }
                 })
                 return;
               }
             })
-         },
-         fail(e){
-           console.log(e);
-           wx.showToast({ //弹窗提示
-            title: '登录失败，请重试',
-            icon: 'none',
-            duration: 2000,
-            success: function () {
-              
-            }
-          })
-          return;
-         }
+          },
+          fail(e) {
+            console.log(e);
+            wx.showToast({ //弹窗提示
+              title: '登录失败，请重试',
+              icon: 'none',
+              duration: 2000,
+              success: function () {
+
+              }
+            })
+            return;
+          }
         })
         console.log(iv);
       }
     })
+  },
+
+  toLearn: function (e) {
+    var box = e.currentTarget['id']
+    console.log(e.currentTarget['id']);
+    if (box == 'learning-box') {
+      wx.showToast({ //弹窗提示
+        title: '快去前往答题页答题吧~',
+        icon: 'none',
+        duration: 1200,
+        success: function () {}
+      })
+    } else if (box == 'wrong-box') {
+      wx.showToast({ //弹窗提示
+        title: '快去前往改错页改错吧~',
+        icon: 'none',
+        duration: 1200,
+        success: function () {}
+      })
+    }
   }
 })

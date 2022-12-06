@@ -71,7 +71,7 @@ cover-image {
   background-color: #e6ce9a;
   margin-left: -0.2rem;
   margin-right: -0.2rem;
-  margin-top: 5%;
+  margin-top: 2rem;
   margin-bottom:0;
   /* margin-right: 7px; */
 }
@@ -108,9 +108,10 @@ cover-image {
 
 .answer-box {
   /* z-index: -1; */
-  margin-top: 8%;
+  margin-top: 0%;
   width: 80%;
-  height: 26rem;
+  min-height: 50%;
+  /* height: auto; */
   border-radius: 1rem;
   background-color: rgb(255, 255, 255);
   display: flex;

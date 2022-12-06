@@ -62,8 +62,8 @@
         <image class="icon" src="images/locked.png"></image>
         <text class="level-text">Level 5</text>
       </view>
-      <view class="level-btn locked">
-        <image class="icon" src="images/locked.png"></image>
+      <view class="level-btn unlocked" catchtap = 'toChatbot'>
+        <image class="icon" style="background-color: white;border-radius:50%;overflow: hidden;" src="images/bird2.png"></image>
         <text class="level-text">Level 6</text>
       </view>
     </view>

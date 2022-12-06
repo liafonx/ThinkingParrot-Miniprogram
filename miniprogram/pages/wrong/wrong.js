@@ -24,7 +24,7 @@ Page({
 
   getData: function () {
     var that = this;
-    var url = 'https://aitutor.uic.edu.cn/questionRecord/getWrongNum/';
+    var url = app.globalData.urlDomain + 'questionRecord/getWrongNum/';
     wx.request({
       method: 'POST',
       header: {
@@ -93,7 +93,7 @@ Page({
         that.setData({
           show: 0
         })
-      }, 2000)
+      }, 7000)
     }
     var that = this;
     if(this.data.currLec != undefined && JSON.stringify(this.data.currLec) != '{}') {

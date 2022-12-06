@@ -80,7 +80,7 @@
         <image class="icon" id="task-setting" src="images/setting.png" bindtap="OpenSetting"></image>
       </view>
     </view>
-    <view class="task-box" id="learning-box">
+    <view class="task-box" id="learning-box" bindtap="toLearn">
       <view class="task-box-left">
         <image class="icon task-icon" src="images/learning.png"></image>
         <text class="task-box-text">答题任务</text>
@@ -96,7 +96,7 @@
         </view>
       </view>
     </view>
-    <view class="task-box" id="wrong-box">
+    <view class="task-box" id="wrong-box" bindtap="toLearn">
       <view class="task-box-left">
         <image class="icon task-icon" src="images/wrong.png"></image>
         <text class="task-box-text">改错任务</text>

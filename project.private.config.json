@@ -45,7 +45,8 @@
         {
           "name": "choice",
           "pathName": "pages/choice/choice",
-          "query": "testId=Level3&currLec=Lecture  2",
+          "query": "testId=Level2&currLec=Lecture  2",
+          "launchMode": "default",
           "scene": null
         },
         {
@@ -123,7 +124,8 @@
         {
           "name": "concept",
           "pathName": "pages/concept/concept",
-          "query": "testId=Level1&currLec=Lecture  8",
+          "query": "testId=Level1&currLec=Lecture  1",
+          "launchMode": "default",
           "scene": null
         },
         {
@@ -131,6 +133,13 @@
           "pathName": "pages/intro/intro",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/chatbot/chatbot",
+          "query": "",
+          "scene": null,
+          "launchMode": "default"
         }
       ]
     }

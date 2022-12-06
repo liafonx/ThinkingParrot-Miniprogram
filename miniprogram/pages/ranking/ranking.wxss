@@ -144,7 +144,8 @@
 
 .rank-num {
   /* background-color: aquamarine; */
-  padding-bottom: 7%;
+  padding-bottom: 22%;
+  padding-left: 10%;
 }
 
 .rank-text {

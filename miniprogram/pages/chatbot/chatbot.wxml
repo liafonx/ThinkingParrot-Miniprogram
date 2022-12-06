@@ -1,0 +1,41 @@
+<!--pages/chatbot/chatbot.wxml-->
+<view class='page'>
+    <view class='chatGroup'>
+        <!-- 对话框 -->
+        <scroll-view scroll-y style="height:{{ viewHeight }}rpx; " bindscroll="scroll" scroll-with-animation='{{ isAnimation }}' scroll-into-view="{{ toView }}" scroll-top="{{ scrollTop }}" >
+            <view class='chatWrap'>
+                <!-- 提示信息等 -->
+                <view class='chatLabel auto'>
+                    <image class='avatar' src='{{ avatarAuto }}'></image>
+                    <view class='articleBox'><text>{{ serviceMsg }}</text></view>
+                </view>
+            
+                <!-- 循环: 问题&回答 -->
+                <view wx:for='{{ chatDataArray }}' wx:key='{{ index }}'>
+                    <!-- 回答 -->
+                    <view class='chatLabel'>
+                        <image class='avatar' src='{{ avatarUser }}'></image>
+                        <view class='articleBox'>{{ item.useMsg }}</view>
+                    </view>
+                    <!-- 问题 -->
+                    <view class='chatLabel auto' wx:if='{{ item.serviceMsg }}'>
+                        <image class='avatar' src='{{ avatarAuto }}'></image>
+                        <view class='articleBox'>{{ item.serviceMsg }}</view>
+                    </view>
+                </view>
+            </view>
+            <view id="toFooter"></view>
+        </scroll-view>
+        <!-- 回复框 -->
+        <view class='chatFooterGroup' id='footerBtnGroup'>
+          <form bindsubmit="formSubmit">
+              <view class='textInputBox'>
+                  <input class="textInput" value='{{ useMsg }}' name="useMsg" cursor-spacing="20" placeholder="..." placeholder-style="color:#999;" bindinput="bindInputValue" />
+              </view>
+              <view class='sendMsgBox'>
+                <button class='sendBtn {{ !canSend ? "gray" : "" }}' form-type="submit">Send</button>
+              </view>
+          </form>
+        </view>
+    </view>
+</view>

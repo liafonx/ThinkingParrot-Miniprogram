@@ -21,8 +21,8 @@
             </view>
         </view>
     </view>
-    <view class='prompt'>—————  TOP 50  —————</view>
-    <view class='prompt-s'>——— 每日凌晨5点刷新 ———</view>
+    <view class='prompt'>—————  TOP 100  —————</view>
+    <view class='prompt-s'>——— 每日凌晨0点刷新 ———</view>
 </view>
 
 <view class='myRanking'>

@@ -86,7 +86,7 @@ cover-image {
   flex-direction: row;
   justify-items: flex-start;
   align-items: center;
-  color: #5e5c63;
+  color: #979797;
   font-weight: 550;
   color: rgb(49, 49, 49);
   /* background-color: blue; */
@@ -98,6 +98,18 @@ cover-image {
   height: 6rem;
   border-radius: 30rem;
   background-color: #e6ce9a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 8px 1px  #9696966b;
+}
+
+.btn:hover {
+  z-index: 1;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 30rem;
+  background-color: #ebc472;
   display: flex;
   justify-content: center;
   align-items: center;

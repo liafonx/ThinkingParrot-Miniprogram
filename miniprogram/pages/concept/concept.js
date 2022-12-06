@@ -4,7 +4,6 @@ var app = getApp();
 const base64 = require('../../utils/base64.js')
 const Prompt = require("../../utils/prompt");
 var prompt = Prompt
-
 Page({
   data: {
     index: 0,
@@ -60,7 +59,7 @@ Page({
         "accept": "*/*",
         "content-type": "application/x-www-form-urlencoded"
       },
-      url: 'https://aitutor.uic.edu.cn/questionRecord/getNewQuestion/',
+      url: app.globalData.urlDomain + 'questionRecord/getNewQuestion/',
       data: {
         commonUserID: app.globalData.openId,
         level: level,
@@ -155,7 +154,7 @@ Page({
         "accept": "multipart/form-data",
         "content-type": "application/x-www-form-urlencoded"
       },
-      url: 'https://aitutor.uic.edu.cn/questionRecord/textToSpeechEN/?text=' + question, //+ "&name=3",
+      url: app.globalData.urlDomain + 'questionRecord/textToSpeechEN/?text=' + question, //+ "&name=3",
       // data: {
       //   text: 'Setting data field "questionList" to undefined is invalid.'
       // },
@@ -230,7 +229,7 @@ Page({
           "accept": "*/*",
           "content-type": "application/x-www-form-urlencoded"
         },
-        url: 'https://aitutor.uic.edu.cn/questionRecord/toCancelCollect/',
+        url: app.globalData.urlDomain + 'questionRecord/toCancelCollect/',
         data: {
           commonUserID: app.globalData.openId,
           questionID: question.question.questionID,
@@ -273,7 +272,7 @@ Page({
           "accept": "*/*",
           "content-type": "application/x-www-form-urlencoded"
         },
-        url: 'https://aitutor.uic.edu.cn/questionRecord/toCollect/',
+        url: app.globalData.urlDomain + 'questionRecord/toCollect/',
         data: {
           commonUserID: app.globalData.openId,
           questionID: question.question.questionID,
@@ -345,7 +344,7 @@ Page({
     wx.setStorageSync('wrongDone', app.globalData.wrongDone)
     console.log("wx.setStorageSync('wrongDone', app.globalData.questionDone)", app.globalData.questionDone);
     var that = this;
-    var url = 'https://aitutor.uic.edu.cn/questionRecord/recordAnswer/'
+    var url = app.globalData.urlDomain + 'questionRecord/recordAnswer/'
     var score = 100 * 0.2
     wx.request({
       method: 'POST',

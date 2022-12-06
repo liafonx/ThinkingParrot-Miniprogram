@@ -3,6 +3,7 @@ const Prompt = require("../../utils/prompt");
 // miniprogram/pages/collection/collection.js
 var prompt = Prompt
 var app = getApp()
+
 var collectList = {
   "LECT1": [
     {
@@ -85,7 +86,7 @@ Page({
         "accept": "*/*",
         "content-type": "application/x-www-form-urlencoded"
       },
-      url: 'https://aitutor.uic.edu.cn/questionRecord/getNotesCollection/',
+      url: app.globalData.urlDomain + 'questionRecord/getNotesCollection/',
       data: {
         commonUserID: openId,
       },
@@ -189,7 +190,7 @@ Page({
     wx.setStorageSync('collectlevel', this.data.currLevel)
     wx.setStorageSync('collectLect', this.data.choosed)
     var that = this;
-      var url = 'https://aitutor.uic.edu.cn/questionRecord/toCancelCollect/';
+      var url = app.globalData.urlDomain + 'questionRecord/toCancelCollect/';
       wx.request({
         method: 'POST',
         header: {

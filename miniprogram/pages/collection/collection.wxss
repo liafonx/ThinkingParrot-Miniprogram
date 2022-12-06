@@ -142,7 +142,7 @@
   align-items: center;
   color: white;
   font-weight: 600;
-  background-color: #4DCF32;
+  background-color: #70adc9;
   margin-right: -0.2rem;
   margin-top: -0.5rem;
 }
@@ -158,7 +158,7 @@
   flex-direction: row;
   justify-content: left;
   align-items: center;
-  background-color: #51bd3c;
+  background-color: #70adc9;
   border-radius: 0.5rem;
   margin-left: 0;
   margin-right: 0.7rem;

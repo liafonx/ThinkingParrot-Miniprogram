@@ -2,7 +2,6 @@
 var app = getApp();
 var redirect = null;
 const DEFAULT_PAGE = 0;
-
 Page({
   startPageX: 0,
   currentView: DEFAULT_PAGE,

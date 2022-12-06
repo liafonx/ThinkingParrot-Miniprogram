@@ -2,12 +2,12 @@
 <view class="page">
   <view class="index-timer-box">
     <view class='headpiece-process-left'>
-      <view class='headpiece-process-inner' style="width:{{width}}%; background-color:{{color}}"></view>
+      <view class='headpiece-process-inner' style="width:{{width}}\%; background-color:{{color}}"></view>
     </view>
     <!-- <text class='headpiece-num'>{{t}}</text> -->
     <view class="question-num-box" style="background-color:{{color}}">{{index+1}}</view>
     <view class='headpiece-process-right'>
-      <view class='headpiece-process-inner' style="width:{{width}}%; background-color:{{color}}"></view>
+      <view class='headpiece-process-inner' style="width:{{width}}\%; background-color:{{color}}"></view>
     </view>
   </view>
   

@@ -158,7 +158,7 @@ page {
 .worng-quantity {
   font-size: 60px;
   color: white;
-  margin-bottom: 5px;
+  margin-bottom: 0;
 }
 
 #starred-box {
