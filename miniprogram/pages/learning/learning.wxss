@@ -67,6 +67,10 @@
   align-items: center;
 }
 
+.chatbot {
+  background: white
+}
+
 .btn-disabled {
   background: linear-gradient(#969696, #7A7A7A);
   

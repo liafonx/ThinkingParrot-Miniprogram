@@ -1,19 +1,12 @@
 {
-  "setting": {},
+  "setting": {
+    "compileHotReLoad": true,
+    "urlCheck": false
+  },
   "condition": {
-    "plugin": {
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "gamePlugin": {
-      "list": []
-    },
     "miniprogram": {
       "list": [
         {
-          "id": -1,
           "name": "db guide",
           "pathName": "pages/databaseGuide/databaseGuide",
           "query": ""
@@ -138,10 +131,11 @@
           "name": "",
           "pathName": "pages/chatbot/chatbot",
           "query": "",
-          "scene": null,
-          "launchMode": "default"
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
-  }
+  },
+  "projectname": "ThinkingParrot-Miniprogram"
 }

@@ -11,7 +11,7 @@ App({
     iflogin: '',
     urlDomain: 'https://aitutor.uic.edu.cn/tp/',
     // urlDomain: 'http://127.0.0.1:8000/',
-    //  urlDomain: 'http://34.92.146.187:8097/',
+    //  urlDomain: 'http://34.92.251.246:8097/',
     /*
     Good afternoon
     Do you want to have some tea

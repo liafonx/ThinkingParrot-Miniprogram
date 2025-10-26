@@ -36,7 +36,7 @@ Page({
       "level3": ["选择题", "复习例句用法以及含义", "中途退出将不会保留答题进度"],
       "level4": ["语音题", "掌握例句发音", "再次巩固例句含义", "中途退出将不会保留答题进度"],
       "level5": ["敬请期待！"],
-      "level6": ["敬请期待！"],
+      "level6": ["聊天机器人（Chatbot3.0）", "创建地道的英语聊天环境","帮助您更好的练习口语"],
     }
   },
 
@@ -292,12 +292,17 @@ Page({
   guider(e) {
     var that = this
     console.log("TAP!!");
-    this.setData({
-      guideIndex: that.data.guideIndex + 1,
-    })
-    this.setData({
-      guiderContent: that.data.intro["level" + that.data.guideIndex]
-    })
-    console.log(that.data.guideIndex);
+    if(that.data.guideIndex == 6){
+      that.closeThis()
+    } else {
+      this.setData({
+        guideIndex: that.data.guideIndex + 1,
+      })
+      this.setData({
+        guiderContent: that.data.intro["level" + that.data.guideIndex]
+      })
+      console.log(that.data.guideIndex);
+    }
+    
   },
 })

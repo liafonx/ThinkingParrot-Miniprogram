@@ -519,18 +519,12 @@ Page({
     var box = e.currentTarget['id']
     console.log(e.currentTarget['id']);
     if (box == 'learning-box') {
-      wx.showToast({ //弹窗提示
-        title: '快去前往答题页答题吧~',
-        icon: 'none',
-        duration: 1200,
-        success: function () {}
+      wx.switchTab({
+        url: '../learning/learning'
       })
     } else if (box == 'wrong-box') {
-      wx.showToast({ //弹窗提示
-        title: '快去前往改错页改错吧~',
-        icon: 'none',
-        duration: 1200,
-        success: function () {}
+      wx.switchTab({
+        url: '../wrong/wrong'
       })
     }
   }

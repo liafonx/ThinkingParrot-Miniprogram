@@ -1,12 +1,6 @@
 <view class="page">
   <view class='anit {{show?"show":""}}'>答题中途退出将不会保存答题进度！</view>
 <view class="mask" hidden="{{!isstart}}" bindtap="opens"></view>
-  <!-- <image id="background" src="Image.jfif"></image> -->
-  <!-- <view class="page-title">Lectures：</view>
-  <view class="flex-box">
-    <view class="flex-item"><view class="item bc_green" bindtap="toTestPage" data-testId="001">Lecture 1</view></view>
-    <view class="flex-item"><view class="item bc_red" bindtap="toTestPage" data-testId="002">Lecture 2</view></view>
-  </view> -->
   <!--选择框-->
   <view class="product-list">
     <!--条件选择-->
@@ -62,46 +56,27 @@
         <image class="icon" src="images/locked.png"></image>
         <text class="level-text">Level 5</text>
       </view>
-      <view class="level-btn unlocked" catchtap = 'toChatbot'>
+      <view class="level-btn unlocked chatbot" catchtap = 'toChatbot'>
         <image class="icon" style="background-color: white;border-radius:50%;overflow: hidden;" src="images/bird2.png"></image>
-        <text class="level-text">Level 6</text>
+        <text class="level-text">Chatbot</text>
       </view>
     </view>
   </view>
 
-  <view class='page-cont' bindtap="{{guideIndex == 6 ? '':'guider'}}" hidden="{{!isTiptrue}}">
+  <view class='page-cont' bindtap="guider" hidden="{{!isTiptrue}}">
     <view class='top'>
-      <view class='p_one guide-title'>Level {{guideIndex}}</view>
-      <view class="guide-prompt">Tap anywhere to continue</view>
+      
+      <view class='p_one guide-title' hidden="{{guideIndex != 6 ? '':'true'}}">Level {{guideIndex}}</view>
+      <view class='p_one guide-title' hidden="{{guideIndex == 6 ? '':'true'}}">Chatbot</view>
+      <view class="guide-prompt">点击任意区域继续</view>
     </view>
     <view class='cont'>
       <view class='cont-p' wx:for="{{guiderContent}}" wx:key="index">
         <view class='text'></view>
         <view>{{guiderContent[index]}}</view>
-        <!-- <image src='{{cdnPath}}img/firstOpen/more@2x.png'></image> -->
       </view>
-      <!-- <view class='cont-p'>
-        <view class='text'><text> </text></view><view>点击“添加我的小程序”</view>
-      </view>
-      <view class='cont-p'>
-        <view class='text'><text> </text></view><view>回到微信首页下拉聊天列表，</view>
-      </view> -->
-      <!-- <view class='cont-p-lib'>
-        <view class='text' style='opacity:0;'><text>3</text></view><view>从“我的小程序”里打开“APP”</view>
-      </view> -->
-      <!-- <view class='cont-p-three'>
-        <image src='{{cdnPath}}img/firstOpen/jiantou.png'></image>
-        <view class='right' style='background:url({{cdnPath}}img/firstOpen/bg.png) no-repeat center; background-size: 100% 100%;'>
-            <view class='left-p'>
-              <view class='title'>我的小程序</view>
-              <image src='{{cdnPath}}img/firstOpen/logo@2x.png'></image>友途车服VIP</view>
-            <view class='left-p'>
-              <view class='title' style='opacity:0;'>我的小程序</view>
-              <view style='color:#4C4C4E;width:27px;height:27px;border-radius:50%;background:#4C4C4E;'></view>小程序</view>
-        </view>
-      </view> -->
     </view>
-    <view class='bottom' bindtap='closeThis' hidden="{{guideIndex == 6 ? '':'true'}}">记住了  我去试试</view>
+    <!-- <view class='bottom' bindtap='closeThis' hidden="{{guideIndex == 6 ? '':'true'}}">记住了  我去试试</view> -->
   <view id="bottom-panel">
     <view class="levels-box">
       <view id="level1" class="level-btn guide-box {{guideIndex == 1 ?'box-show':''}}" hidden="" data-level="1">

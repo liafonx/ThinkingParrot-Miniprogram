@@ -27,14 +27,17 @@ Page({
       title: '排行榜' //修改title
     });
     var Today = (new Date()).getDate().toString();
-    if (Today != wx.getStorageSync('LastDayRank')) {
+    if (Today != wx.getStorageSync('LastDayRank') && wx.getStorageSync('rank') != '') {
       wx.setStorageSync('LastDayRank', Today);
-      that.getRank()
+      wx.setStorageSync('rank', "");
+      wx.setStorageSync('userRank', "")
     }
     if (wx.getStorageSync('rank') != '') {
       that.setData({
         rankingList: wx.getStorageSync('rank')
       })
+    } else {
+      that.getRank()
     }
     if (wx.getStorageSync('userRank') != '') {
       var res = wx.getStorageSync('userRank')
@@ -48,6 +51,8 @@ Page({
         },
       })
      
+    } else {
+      that.getSelfRank()
     }
     that.loadingOff()
   },
@@ -87,7 +92,8 @@ Page({
           rankingList: response.data.result
         })
         wx.setStorageSync('rank', response.data.result)
-        that.getSelfRank();
+        // that.getSelfRank();
+        that.loadingOff()
       },
       fail: function (res) {
         that.loadingOff()

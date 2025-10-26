@@ -41,16 +41,6 @@ Page({
 			let chatData = { serviceMsg: waitting, useMsg }, oldChatDataArray = chatDataArray.concat(chatData);
 			that.setData({ useMsg: '', canSend: false, chatDataArray: oldChatDataArray });
 			that.tapMove(); // 执行第一次滑动 定位到底部
-			// 接入图灵机器人
-			// 更多 图灵机器人 Api接口说明，详见文档 -> https://www.kancloud.cn/turing/www-tuling123-com/718227
-			let params = {
-				"reqType": 0,
-				"perception": { "inputText": { "text": useMsg } },
-				"userInfo": {
-					"apiKey": "",  // 此处填入图灵机器人申请的ApiKey，如不填写会提示你：apiKey格式不合法！
-					"userId": "duoguyu.com"  // 此处为用户的唯一标识符，openId或userId
-				}
-      };
       console.log("User:" + useMsg)
 			wx.request({
         method: 'POST',

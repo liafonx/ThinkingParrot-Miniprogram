@@ -39,9 +39,9 @@
     "useCompilerPlugins": false,
     "ignoreUploadUnusedFiles": true
   },
-  "appid": "wxd27ea3eb3d649f0d",
+  "appid": "wx002df9a4cae01727",
   "projectname": "TSSProject-Miniprogram",
-  "libVersion": "2.14.1",
+  "libVersion": "2.25.3",
   "compileType": "miniprogram",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
@@ -67,5 +67,14 @@
         }
       ]
     }
+  },
+  "srcMiniprogramRoot": "miniprogram/",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
   }
 }

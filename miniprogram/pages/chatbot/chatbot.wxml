@@ -2,7 +2,7 @@
 <view class='page'>
     <view class='chatGroup'>
         <!-- 对话框 -->
-        <scroll-view scroll-y style="height:{{ viewHeight }}rpx; " bindscroll="scroll" scroll-with-animation='{{ isAnimation }}' scroll-into-view="{{ toView }}" scroll-top="{{ scrollTop }}" >
+        <scroll-view scroll-y style="height:{{ viewHeight }}rpx;" bindscroll="scroll" scroll-with-animation='{{ isAnimation }} ' scroll-into-view="{{ toView }}" scroll-top="{{ scrollTop }}" >
             <view class='chatWrap'>
                 <!-- 提示信息等 -->
                 <view class='chatLabel auto'>
@@ -11,7 +11,7 @@
                 </view>
             
                 <!-- 循环: 问题&回答 -->
-                <view wx:for='{{ chatDataArray }}' wx:key='{{ index }}'>
+                <view wx:for='{{ chatDataArray }}' wx:key='index'>
                     <!-- 回答 -->
                     <view class='chatLabel'>
                         <image class='avatar' src='{{ avatarUser }}'></image>
@@ -27,7 +27,7 @@
             <view id="toFooter"></view>
         </scroll-view>
         <!-- 回复框 -->
-        <view class='chatFooterGroup' id='footerBtnGroup'>
+        <view class='chatFooterGroup' id='footerBtnGroup' :adjust-position="false" >
           <form bindsubmit="formSubmit">
               <view class='textInputBox'>
                   <input class="textInput" value='{{ useMsg }}' name="useMsg" cursor-spacing="20" placeholder="..." placeholder-style="color:#999;" bindinput="bindInputValue" />
