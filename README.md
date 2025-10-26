@@ -1,4 +1,4 @@
-# Thinking Parrot Miniprogram | 有脑鹦鹉小程序
+# <img src="LOGO.png" alt="Thinking Parrot Logo" height="40"/> Thinking Parrot (有脑鹦鹉) Miniprogram
 
 ![Screenshots](Sreenshots.png)
 
