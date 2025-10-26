@@ -45,6 +45,50 @@ This repository is part of the **Thinking Parrot** ecosystem:
 - **Points & Levels**: Earn points through daily activities and level up
 - **Personal Statistics**: Track completed questions, accuracy rates, and streaks
 
+## Architecture
+
+### Technology Stack
+- **Framework**: WeChat Mini Program
+- **Language**: JavaScript (ES6+)
+- **UI Components**: WXML (WeChat Markup Language) + WXSS (WeChat Style Sheets)
+- **Extended Libraries**: 
+  - `kbone`: Multi-platform support
+  - `weui`: WeChat UI component library
+
+### Project Structure
+
+```
+miniprogram/
+├── app.js                    # Application entry point & global configuration
+├── app.json                  # Page routing & global settings
+├── app.wxss                  # Global styles
+│
+├── data/                     # Static data files
+│   ├── json.js              # Question bank data
+│   ├── oral.js              # Oral practice questions
+│   └── questions.js         # Question definitions
+│
+├── pages/                    # Application pages
+│   ├── index/               # Home page with dashboard
+│   ├── learning/            # Learning module selection
+│   ├── concept/             # Concept learning (Lectures 1-3)
+│   ├── choice/              # Multiple choice questions
+│   ├── speak/               # Speech practice (Lecture 4)
+│   ├── chatbot/             # AI chatbot interface (Lecture 6)
+│   ├── wrong/               # Wrong question review
+│   ├── collection/          # Collected questions
+│   ├── ranking/             # User ranking leaderboard
+│   ├── result/              # Quiz results display
+│   └── intro/               # Introduction page
+│
+├── utils/                    # Utility functions
+│   ├── base64.js            # Base64 encoding for audio
+│   ├── prompt.js            # Toast & loading utilities
+│   └── util.js              # Common utility functions
+│
+└── images/                   # Static image assets
+```
+
 ## Key Pages
 
 ### Home (`pages/index`)
@@ -87,50 +131,6 @@ This repository is part of the **Thinking Parrot** ecosystem:
 - Review all incorrectly answered questions
 - Re-attempt with fresh perspective
 - Track improvement over time
-
-## Architecture
-
-### Technology Stack
-- **Framework**: WeChat Mini Program (原生开发)
-- **Language**: JavaScript (ES6+)
-- **UI Components**: WXML (WeChat Markup Language) + WXSS (WeChat Style Sheets)
-- **Extended Libraries**: 
-  - `kbone`: Multi-platform support
-  - `weui`: WeChat UI component library
-
-### Project Structure
-
-```
-miniprogram/
-├── app.js                    # Application entry point & global configuration
-├── app.json                  # Page routing & global settings
-├── app.wxss                  # Global styles
-│
-├── data/                     # Static data files
-│   ├── json.js              # Question bank data
-│   ├── oral.js              # Oral practice questions
-│   └── questions.js         # Question definitions
-│
-├── pages/                    # Application pages
-│   ├── index/               # Home page with dashboard
-│   ├── learning/            # Learning module selection
-│   ├── concept/             # Concept learning (Lectures 1-3)
-│   ├── choice/              # Multiple choice questions
-│   ├── speak/               # Speech practice (Lecture 4)
-│   ├── chatbot/             # AI chatbot interface (Lecture 6)
-│   ├── wrong/               # Wrong question review
-│   ├── collection/          # Collected questions
-│   ├── ranking/             # User ranking leaderboard
-│   ├── result/              # Quiz results display
-│   └── intro/               # Introduction page
-│
-├── utils/                    # Utility functions
-│   ├── base64.js            # Base64 encoding for audio
-│   ├── prompt.js            # Toast & loading utilities
-│   └── util.js              # Common utility functions
-│
-└── images/                   # Static image assets
-```
 
 ## Getting Started
 
