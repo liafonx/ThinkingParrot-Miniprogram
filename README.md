@@ -1,4 +1,4 @@
-# <img src="LOGO.png" alt="Thinking Parrot Logo" height="40"/> Thinking Parrot (有脑鹦鹉) Miniprogram
+# <img src="LOGO.png" alt="ThinkingParrot Logo" width="50" height="50" align="center"/> Thinking Parrot (有脑鹦鹉) Miniprogram
 
 ![Screenshots](Sreenshots.png)
 
